@@ -41,9 +41,35 @@ public:
 	void SetLock(CLock* lock) { m_lock = lock; }
 	void AddRef();
 	void ReleaseRef();
+	
+	virtual void SetObjName(std::string name) { m_name = name; }
+	virtual std::string& GetObjName() { return m_name; }
+	virtual int GetRefCount() { return m_refCount; }
+	
+	
 private:
-	int				m_refCount;
+	int		m_refCount;
 	CLock*	m_lock;
+	std::string m_name;
+};
+
+#include <exception>
+
+class ImException : public std::exception
+{
+	std::string _why;
+public:
+	ImException(const char* why, ...) {
+	    va_list args;
+	    va_start(args, why);
+	    char szBuffer[4096];
+	    vsnprintf(szBuffer, sizeof(szBuffer), why, args);
+	    va_end(args);
+	    _why = szBuffer;
+	}
+	virtual const char* what() const throw() {
+		return _why.c_str();
+	}
 };
 
 
@@ -65,6 +91,8 @@ extern CSLog g_imtrace;
 #define logt(fmt, args...) g_imtrace.Trace("<%s>|<%d>|<%s>," fmt, __FILENAME__, __LINE__, __FUNCTION__, ##args)
 #endif
 //#define log(fmt, ...)  g_imlog.Info("<%s>\t<%d>\t<%s>,"+fmt, __FILENAME__, __LINE__, __FUNCTION__, ##__VA_ARGS__)
+
+#define imex(fmt, args...)  ImException("<%s>|<%d>|<%s>," fmt, __FILENAME__, __LINE__, __FUNCTION__, ##args)
 
 uint64_t get_tick_count();
 void util_sleep(uint32_t millisecond);

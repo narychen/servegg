@@ -1,5 +1,6 @@
 #include "util.h"
 #include <sstream>
+#include <iostream>
 using namespace std;
 
 CSLog g_iminfo = CSLog("INFO");
@@ -12,6 +13,7 @@ CRefObject::CRefObject()
 {
 	m_lock = NULL;
 	m_refCount = 1;
+	m_name = "RefObject";
 }
 
 CRefObject::~CRefObject()
@@ -37,6 +39,7 @@ void CRefObject::ReleaseRef()
 {
 	if (m_lock)
 	{
+	    logd("in mlock");
 		m_lock->lock();
 		m_refCount--;
 		if (m_refCount == 0)
@@ -49,7 +52,7 @@ void CRefObject::ReleaseRef()
 	else
 	{
 		m_refCount--;
-		if (m_refCount == 0)
+		if (m_refCount == 0) 
 			delete this;
 	}
 }
@@ -310,7 +313,7 @@ const char*  memfind(const char *src_str,size_t src_len, const char *sub_str, si
     }
     if(flag)
     {
-        for (int i = 0; i < src_len - sub_len; i++)
+        for (size_t i = 0; i < src_len - sub_len; i++)
         {
             p = src_str + i;
             if(0 == memcmp(p, sub_str, sub_len))
@@ -319,7 +322,7 @@ const char*  memfind(const char *src_str,size_t src_len, const char *sub_str, si
     }
     else
     {
-        for ( int i = (src_len - sub_len) ; i >= 0;i--  )
+        for ( int i = (src_len - sub_len) ; i >= 0; i--  )
         {
             p = src_str + i;
             if ( 0 == memcmp(  p,sub_str,sub_len ) )

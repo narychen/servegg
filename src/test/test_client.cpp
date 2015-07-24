@@ -140,24 +140,18 @@ class CCmdThread : public CThread
 public:
 	void OnThreadRun()
 	{
+	    string line;
+	    cout << PROMPT << flush;
 		while (true)
 		{
-// 			fprintf(stderr, "%s", PROMPT);	// print to error will not buffer the printed message
-            string line;
-            cout << PROMPT;
             getline(cin, line);
-
-// 			if (fgets(m_buf, MAX_LINE_LEN - 1, stdin) == NULL)
-// 			{
-// 				fprintf(stderr, "fgets failed: %d\n", errno);
-// 				continue;
-// 			}
-
-// 			m_buf[strlen(m_buf) - 1] = '\0';	// remove newline character
-
+            if (line.size() == 0) {
+                cout << PROMPT << flush; //add here to make the shell quicker
+                continue;
+            }
 			split_cmd(line.c_str());
-
 			exec_cmd();
+			cout << PROMPT << flush;
 		}
 	}
 private:
@@ -178,7 +172,6 @@ int main(int argc, char* argv[])
 
 	if (ret == NETLIB_ERROR)
 		return ret;
-	
     
 	netlib_eventloop();
 

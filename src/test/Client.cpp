@@ -14,8 +14,9 @@
 #include "json/json.h"
 #include "ClientConn.h"
 
+using namespace std;
 
-static CClientConn*  g_pConn = NULL;
+static shared_ptr<CClientConn> g_pConn;
 
 static bool g_bLogined = false;
 
@@ -83,8 +84,9 @@ void CClient::connect()
         return;
     }
     
-    g_pConn = new CClientConn();
-    m_nHandle = g_pConn->connect(strPriorIp.c_str(), nPort, m_strName, m_strPass);
+    g_pConn = shared_ptr<CClientConn>(new CClientConn());
+    log("conn connect %s:%s", m_strName.c_str(), m_strPass.c_str());
+    m_nHandle = g_pConn->connect(strPriorIp.c_str(), nPort);
     if(m_nHandle != INVALID_SOCKET)
     {
         netlib_register_timer(CClient::TimerCallback, NULL, 1000);

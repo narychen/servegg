@@ -23,20 +23,30 @@ static CImConn* FindImConn(ConnMap_t* imconn_map, net_handle_t handle)
 	return pConn;
 }
 
-void imconn_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
+static sp_CImConn FindImConn(ConnMap_sp_t* imconn_map_sp, net_handle_t handle)
+{
+	sp_CImConn spConn;
+	auto iter = imconn_map_sp->find(handle);
+	if (iter != imconn_map_sp->end()) {
+		spConn = iter->second;
+		return spConn;
+	} else {
+		return nullptr;
+	}
+}
+
+void imconn_callback_sp(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
 {
 	NOTUSED_ARG(handle);
 	NOTUSED_ARG(pParam);
+	
+	ConnMap_sp_t* imconn_map_sp = (ConnMap_sp_t*)callback_data;
 
-	if (!callback_data)
-		return;
-
-	ConnMap_t* conn_map = (ConnMap_t*)callback_data;
-	CImConn* pConn = FindImConn(conn_map, handle);
+	sp_CImConn pConn = FindImConn(imconn_map_sp, handle);
 	if (!pConn)
 		return;
 
-	//log("msg=%d, handle=%d ", msg, handle);
+	log("msg=%d, handle=%d ", msg, handle);
 
 	switch (msg)
 	{
@@ -56,8 +66,46 @@ void imconn_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pP
 		log("!!!imconn_callback error msg: %d ", msg);
 		break;
 	}
+}
 
+
+void imconn_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
+{
+	NOTUSED_ARG(handle);
+	NOTUSED_ARG(pParam);
+
+	if (!callback_data)
+		return;
+
+	ConnMap_t* conn_map = (ConnMap_t*)callback_data;
+	CImConn* pConn = FindImConn(conn_map, handle);
+	if (!pConn)
+		return;
+
+	log("msg=%d, handle=%d ", msg, handle);
+
+	switch (msg)
+	{
+	case NETLIB_MSG_CONFIRM:
+		pConn->OnConfirm();
+		break;
+	case NETLIB_MSG_READ:
+		pConn->OnRead();
+		break;
+	case NETLIB_MSG_WRITE:
+		pConn->OnWrite();
+		break;
+	case NETLIB_MSG_CLOSE:
+		pConn->OnClose();
+		break;
+	default:
+		log("!!!imconn_callback error msg: %d ", msg);
+		break;
+	}
+	// logd("re------------------------");
+	logd("release  1-------.count %d", pConn->GetRefCount());
 	pConn->ReleaseRef();
+	// logd("release  2-------.count %d", pConn->GetRefCount());
 }
 
 //////////////////////////

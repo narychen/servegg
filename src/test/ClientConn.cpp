@@ -12,21 +12,26 @@
 #include "playsound.h"
 #include "Common.h"
 
+ConnMap_sp_t CClientConn::m_conn_map = ConnMap_sp_t();
 
 CClientConn::CClientConn():
 m_bOpen(false)
 {
     m_pSeqAlloctor = CSeqAlloctor::getInstance();
+    SetObjName("ClientConn");
 }
 
 CClientConn::~CClientConn()
 {
-
+     logd("destruct clientconn"); 
 }
 
-net_handle_t CClientConn::connect(const string& strIp, uint16_t nPort, const string& strName, const string& strPass)
+net_handle_t CClientConn::connect(const string& strIp, uint16_t nPort)
 {
-	m_handle = netlib_connect(strIp.c_str(), nPort, imconn_callback, NULL);
+	m_handle = netlib_connect(strIp.c_str(), nPort, imconn_callback_sp, (void*)&m_conn_map);
+	if (m_handle != NETLIB_INVALID_HANDLE) {
+		m_conn_map.insert(make_pair(m_handle, shared_from_this()));
+	}
     return  m_handle;
 }
 
@@ -34,10 +39,11 @@ net_handle_t CClientConn::connect(const string& strIp, uint16_t nPort, const str
 
 void CClientConn::OnConfirm()
 {
-    if(m_pCallback)
-    {
-        m_pCallback->onConnect();
-    }
+    log("%s client on confirm ", GetObjName().c_str());
+    // if(m_pCallback)
+    // {
+    //     m_pCallback->onConnect();
+    // }
 }
 
 void CClientConn::OnClose()
@@ -204,8 +210,8 @@ void CClientConn::Close()
 {
 	if (m_handle != NETLIB_INVALID_HANDLE) {
 		netlib_close(m_handle);
+		m_conn_map.erase(m_handle);
 	}
-	ReleaseRef();
 }
 
 void CClientConn::HandlePdu(CImPdu* pPdu)

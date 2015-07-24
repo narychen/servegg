@@ -31,7 +31,7 @@ public:
 
 	bool IsOpen() { return m_bOpen; }
 
-    net_handle_t connect(const string& strIp, uint16_t nPort, const string& strName, const string& strPass);
+    net_handle_t connect(const string& strIp, uint16_t nPort);
     
     virtual void Close();
 public:
@@ -63,6 +63,7 @@ private:
 	bool 		m_bOpen;
     IPacketCallback* m_pCallback;
     CSeqAlloctor*   m_pSeqAlloctor;
+    static ConnMap_sp_t m_conn_map;
     
 };
 

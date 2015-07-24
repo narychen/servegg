@@ -8,6 +8,9 @@
 #ifndef IMCONN_H_
 #define IMCONN_H_
 
+#include <unordered_map>
+#include <memory>
+
 #include "netlib.h"
 #include "util.h"
 #include "ImPduBase.h"
@@ -19,7 +22,7 @@
 #define MOBILE_CLIENT_TIMEOUT       60000 * 5
 #define READ_BUF_SIZE	2048
 
-class CImConn : public CRefObject
+class CImConn : public CRefObject, public enable_shared_from_this<CImConn>
 {
 public:
 	CImConn();
@@ -37,8 +40,12 @@ public:
 	virtual void OnTimer(uint64_t){}
     virtual void OnWriteCompelete(){}
 	virtual void HandlePdu(CImPdu*){}
+	
+	virtual void SetConnName(std::string name) { m_conn_name = name; }
+	virtual string& GetConnName() { return m_conn_name; }
 
 protected:
+	std::string     m_conn_name;
 	net_handle_t	m_handle;
 	bool			m_busy;
 
@@ -56,6 +63,9 @@ protected:
 
 typedef hash_map<net_handle_t, CImConn*> ConnMap_t;
 typedef hash_map<uint32_t, CImConn*> UserMap_t;
+using sp_CImConn = shared_ptr<CImConn>;
+using ConnMap_sp_t = unordered_map<net_handle_t, sp_CImConn>;
+void imconn_callback_sp(void* callback_data, uint8_t msg, uint32_t handle, void* pParam);
 
 void imconn_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam);
 void ReadPolicyFile();
