@@ -47,7 +47,7 @@ void CClient::onError(uint32_t nSeqNo, uint32_t nCmd,const string& strMsg)
     loge("get error:%d, msg:%s", nCmd, strMsg.c_str());
 }
 
-void CClient::connect()
+void CClient::connect(function<void(CClientConn*)> callback)
 {
     CHttpClient httpClient;
     string strUrl = m_strLoginDomain + "/msg_server";
@@ -86,7 +86,7 @@ void CClient::connect()
     
     g_pConn = shared_ptr<CClientConn>(new CClientConn());
     log("conn connect %s:%s", m_strName.c_str(), m_strPass.c_str());
-    m_nHandle = g_pConn->connect(strPriorIp.c_str(), nPort);
+    m_nHandle = g_pConn->connect(strPriorIp.c_str(), nPort, callback);
     if(m_nHandle != INVALID_SOCKET)
     {
         netlib_register_timer(CClient::TimerCallback, NULL, 1000);

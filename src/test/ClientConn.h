@@ -12,6 +12,9 @@
 #ifndef CLIENTCONN_H_
 #define CLIENTCONN_H_
 
+#include <functional>
+#include <iostream>
+
 #include "imconn.h"
 #include "IM.BaseDefine.pb.h"
 #include "IM.Login.pb.h"
@@ -47,6 +50,10 @@ public:
 	virtual void OnConfirm();
 	virtual void OnClose();
 	virtual void OnTimer(uint64_t curr_tick);
+	
+	static std::function<void(CClientConn*)> OnConnect;
+	
+	uint32_t reg(const string name, const string passwd);
 
 	virtual void HandlePdu(CImPdu* pPdu);
 private:

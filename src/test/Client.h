@@ -12,13 +12,16 @@
 #ifndef __CLIENT_H__
 #define __CLIENT_H__
 #include <iostream>
+#include <functional>
 #include "ostype.h"
 #include "IM.BaseDefine.pb.h"
 #include "IPacketCallback.h"
+#include "ClientConn.h"
 using namespace std;
 
 typedef hash_map<uint32_t, IM::BaseDefine::UserInfo*> CMapId2User_t;
 typedef hash_map<string, IM::BaseDefine::UserInfo*> CMapNick2User_t;
+
 class CClient:public IPacketCallback
 {
 public:
@@ -31,7 +34,7 @@ public:
     CMapNick2User_t& getNick2UserMap() { return m_mapNick2UserInfo; }
     
 public:
-    void connect();
+    void connect(std::function<void(CClientConn*)> callback);
     void close();
     uint32_t login(const string& strName, const string& strPass);
     uint32_t getChangedUser();

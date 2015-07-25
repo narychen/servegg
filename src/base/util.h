@@ -97,6 +97,8 @@ extern CSLog g_imtrace;
 uint64_t get_tick_count();
 void util_sleep(uint32_t millisecond);
 
+void str_split(std::string s, std::vector<std::string>& ret);
+void str_split(std::string s, std::vector<std::string>& ret, char sep);
 
 class CStrExplode
 {
