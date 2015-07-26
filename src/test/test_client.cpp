@@ -148,7 +148,7 @@ void get_msg_server_addr(string login_url, string& ip, uint16_t& port)
     CURLcode nRet = httpClient.Get(login_url, strResp);
     if(nRet != CURLE_OK)
     {
-        loge("login falied. access url:%s error\n", strUrl.c_str());
+        loge("login falied. access url:%s error\n", login_url.c_str());
         return;
     }
     Json::Reader reader;
