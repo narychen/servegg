@@ -12,6 +12,7 @@ elseif(UNIX)
 endif()
 
 SET(LIBRARY_OUTPUT_PATH ${_})
+SET(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${_}")
 #SET(EXECUTABLE_OUTPUT_PATH  ${_}/bin)
 
 ADD_DEFINITIONS( -g -W -Wno-deprecated -Wno-unused-parameter -Wno-unused-function -Wno-unused-variable -fdiagnostics-color=always -Wall -D_REENTRANT -D_FILE_OFFSET_BITS=64 -DAC_HAS_INFO

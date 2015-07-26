@@ -5,21 +5,86 @@
       <config projectName="mytest" targetName="mytest" />
     </generated>
   </component>
-  <component name="CMakeSettings" AUTO_RELOAD="false" GENERATION_PASS_SYSTEM_ENVIRONMENT="true">
+  <component name="CMakeSettings" AUTO_RELOAD="true" GENERATION_PASS_SYSTEM_ENVIRONMENT="true" ADDITIONAL_BUILD_OPTIONS="-j 2">
     <ADDITIONAL_GENERATION_ENVIRONMENT>
       <envs />
     </ADDITIONAL_GENERATION_ENVIRONMENT>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="136c816a-ad4f-4b99-a375-0581d6a02fbd" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/CMakeCache.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/CMakeCache.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/Makefile" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/build/cmake_install.cmake" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/cmake_install.cmake" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Client.cpp" afterPath="$PROJECT_DIR$/Client.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_client.cpp" afterPath="$PROJECT_DIR$/test_client.cpp" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../login_server/.idea/login_server.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../login_server/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../msg_server/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../login_server/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../msg_server/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../msg_server/.idea/msg_server.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../login_server/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../msg_server/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../login_server/.idea/workspace.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../msg_server/.idea/workspace.xml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../base/CMakeCache.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../base/Makefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../base/cmake_install.cmake" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../db_proxy_server/Makefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../db_proxy_server/build/CMakeCache.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../db_proxy_server/build/Makefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../db_proxy_server/build/cmake_install.cmake" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../file_server/build/CMakeCache.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../file_server/build/Makefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../file_server/build/cmake_install.cmake" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../http_msg_server/build/CMakeCache.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../http_msg_server/build/Makefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../http_msg_server/build/cmake_install.cmake" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../login_server/CMakeCache.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../login_server/Makefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../login_server/cmake_install.cmake" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../msfs/build/CMakeCache.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../msfs/build/Makefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../msfs/build/cmake_install.cmake" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../msg_server/Makefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../msg_server/build/CMakeCache.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../msg_server/build/Makefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../msg_server/build/cmake_install.cmake" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../push_server/build/CMakeCache.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../push_server/build/Makefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../push_server/build/cmake_install.cmake" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../route_server/Makefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../route_server/build/CMakeCache.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../route_server/build/Makefile" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../route_server/build/cmake_install.cmake" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../db_proxy_server/db_proxy_server" afterPath="$PROJECT_DIR$/../db_proxy_server/db_proxy_server" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../file_server/file_server" afterPath="$PROJECT_DIR$/../file_server/file_server" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../http_msg_server/http_msg_server" afterPath="$PROJECT_DIR$/../http_msg_server/http_msg_server" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../login_server/login_server" afterPath="$PROJECT_DIR$/../login_server/login_server" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../msfs/msfs" afterPath="$PROJECT_DIR$/../msfs/msfs" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../msg_server/msg_server" afterPath="$PROJECT_DIR$/../msg_server/msg_server" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mytest" afterPath="$PROJECT_DIR$/mytest" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../push_server/push_server" afterPath="$PROJECT_DIR$/../push_server/push_server" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../route_server/route_server" afterPath="$PROJECT_DIR$/../route_server/route_server" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../base/CMakeLists.txt" afterPath="$PROJECT_DIR$/../base/CMakeLists.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../login_server/CMakeLists.txt" afterPath="$PROJECT_DIR$/../login_server/CMakeLists.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../msg_server/CMakeLists.txt" afterPath="$PROJECT_DIR$/../msg_server/CMakeLists.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../pb/cpp/IM.BaseDefine.pb.cc" afterPath="$PROJECT_DIR$/../../pb/cpp/IM.BaseDefine.pb.cc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../pb/cpp/IM.BaseDefine.pb.h" afterPath="$PROJECT_DIR$/../../pb/cpp/IM.BaseDefine.pb.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../pb/cpp/IM.Buddy.pb.cc" afterPath="$PROJECT_DIR$/../../pb/cpp/IM.Buddy.pb.cc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../pb/cpp/IM.Buddy.pb.h" afterPath="$PROJECT_DIR$/../../pb/cpp/IM.Buddy.pb.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../pb/cpp/IM.File.pb.cc" afterPath="$PROJECT_DIR$/../../pb/cpp/IM.File.pb.cc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../pb/cpp/IM.File.pb.h" afterPath="$PROJECT_DIR$/../../pb/cpp/IM.File.pb.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../pb/cpp/IM.Group.pb.cc" afterPath="$PROJECT_DIR$/../../pb/cpp/IM.Group.pb.cc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../pb/cpp/IM.Group.pb.h" afterPath="$PROJECT_DIR$/../../pb/cpp/IM.Group.pb.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../pb/cpp/IM.Login.pb.cc" afterPath="$PROJECT_DIR$/../../pb/cpp/IM.Login.pb.cc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../pb/cpp/IM.Login.pb.h" afterPath="$PROJECT_DIR$/../../pb/cpp/IM.Login.pb.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../pb/cpp/IM.Message.pb.cc" afterPath="$PROJECT_DIR$/../../pb/cpp/IM.Message.pb.cc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../pb/cpp/IM.Message.pb.h" afterPath="$PROJECT_DIR$/../../pb/cpp/IM.Message.pb.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../pb/cpp/IM.Other.pb.cc" afterPath="$PROJECT_DIR$/../../pb/cpp/IM.Other.pb.cc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../pb/cpp/IM.Other.pb.h" afterPath="$PROJECT_DIR$/../../pb/cpp/IM.Other.pb.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../pb/cpp/IM.Server.pb.cc" afterPath="$PROJECT_DIR$/../../pb/cpp/IM.Server.pb.cc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../pb/cpp/IM.Server.pb.h" afterPath="$PROJECT_DIR$/../../pb/cpp/IM.Server.pb.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../pb/cpp/IM.SwitchService.pb.cc" afterPath="$PROJECT_DIR$/../../pb/cpp/IM.SwitchService.pb.cc" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../pb/cpp/IM.SwitchService.pb.h" afterPath="$PROJECT_DIR$/../../pb/cpp/IM.SwitchService.pb.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../base/imconn.cpp" afterPath="$PROJECT_DIR$/../base/imconn.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="test.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -40,11 +105,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Client.cpp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Client.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Client.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.397878">
-              <caret line="68" column="19" selection-start-line="68" selection-start-column="19" selection-end-line="68" selection-end-column="19" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="34" column="21" selection-start-line="34" selection-start-column="21" selection-end-line="34" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Common.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Common.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -54,8 +129,10 @@
         <entry file="file://$PROJECT_DIR$/../base/HttpClient.h">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
-              <folding />
+              <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
+              <folding>
+                <element signature="e#365#382#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -64,7 +141,7 @@
         <entry file="file://$PROJECT_DIR$/../base/public_define.h">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -74,7 +151,7 @@
         <entry file="file://$PROJECT_DIR$/test_client.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="180" column="44" selection-start-line="180" selection-start-column="44" selection-end-line="180" selection-end-column="44" />
+              <caret line="44" column="30" selection-start-line="44" selection-start-column="30" selection-end-line="44" selection-end-column="30" />
               <folding>
                 <element signature="e#305#322#0" expanded="true" />
               </folding>
@@ -82,11 +159,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="5" column="28" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
+            <state vertical-scroll-proportion="0.3708791">
+              <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="65" />
               <folding />
             </state>
           </provider>
@@ -102,6 +179,7 @@
       <list>
         <option value="$PROJECT_DIR$/test_client.cpp" />
         <option value="$PROJECT_DIR$/Client.cpp" />
+        <option value="$PROJECT_DIR$/CMakeLists.txt" />
       </list>
     </option>
   </component>
@@ -113,10 +191,10 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="64" />
-    <option name="y" value="-4" />
-    <option name="width" value="1277" />
-    <option name="height" value="796" />
+    <option name="x" value="194" />
+    <option name="y" value="110" />
+    <option name="width" value="1261" />
+    <option name="height" value="766" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -170,7 +248,10 @@
     <property name="js.buildTools.gulp.node_interpreter" value="" />
     <property name="js.buildTools.gulp.gulp_package_dir" value="" />
     <property name="FullScreen" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../auto_setup" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../login_server" />
+    <property name="restartRequiresConfirmation" value="true" />
+    <property name="settings.editor.selected.configurable" value="CMakeSettings" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
   </component>
   <component name="RunManager" selected="Application.mytest">
     <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE">
@@ -213,7 +294,7 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="mytest" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="mytest" TARGET_NAME="mytest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="mytest" RUN_TARGET_NAME="mytest">
+    <configuration default="false" name="mytest" type="CMakeRunConfiguration" factoryName="Application" WORKING_DIR="file://$PROJECT_DIR$" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="mytest" TARGET_NAME="mytest" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="mytest" RUN_TARGET_NAME="mytest">
       <envs />
       <method />
     </configuration>
@@ -245,18 +326,17 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="64" y="-4" width="1277" height="796" extended-state="6" />
-    <editor active="false" />
+    <frame x="194" y="110" width="1261" height="766" extended-state="1" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16110659" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17147568" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32919255" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32919255" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3583062" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25310558" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32919255" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36801243" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17331164" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36801243" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18136851" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32919255" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -265,6 +345,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -289,6 +370,110 @@
     <entry file="file://$PROJECT_DIR$/Client.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
+          <caret line="34" column="21" selection-start-line="34" selection-start-column="21" selection-end-line="34" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Common.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../base/HttpClient.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
+          <folding>
+            <element signature="e#365#382#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../base/public_define.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_client.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#305#322#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="28" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="34" column="21" selection-start-line="34" selection-start-column="21" selection-end-line="34" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Common.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../base/HttpClient.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
+          <folding>
+            <element signature="e#365#382#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../base/public_define.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test_client.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="23" column="17" selection-start-line="23" selection-start-column="17" selection-end-line="23" selection-end-column="17" />
+          <folding>
+            <element signature="e#305#322#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
           <caret line="78" column="49" selection-start-line="78" selection-start-column="49" selection-end-line="78" selection-end-column="49" />
           <folding />
         </state>
@@ -302,18 +487,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+    <entry file="file://$PROJECT_DIR$/Client.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="28" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../base/public_define.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="34" column="21" selection-start-line="34" selection-start-column="21" selection-end-line="34" selection-end-column="21" />
           <folding />
         </state>
       </provider>
@@ -321,7 +498,25 @@
     <entry file="file://$PROJECT_DIR$/../base/HttpClient.h">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+          <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
+          <folding>
+            <element signature="e#365#382#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Common.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../base/public_define.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
           <folding />
         </state>
       </provider>
@@ -329,17 +524,17 @@
     <entry file="file://$PROJECT_DIR$/test_client.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="180" column="44" selection-start-line="180" selection-start-column="44" selection-end-line="180" selection-end-column="44" />
+          <caret line="44" column="30" selection-start-line="44" selection-start-column="30" selection-end-line="44" selection-end-column="30" />
           <folding>
             <element signature="e#305#322#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client.cpp">
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.397878">
-          <caret line="68" column="19" selection-start-line="68" selection-start-column="19" selection-end-line="68" selection-end-column="19" />
+        <state vertical-scroll-proportion="0.3708791">
+          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="65" />
           <folding />
         </state>
       </provider>

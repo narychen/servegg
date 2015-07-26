@@ -103,7 +103,7 @@ void imconn_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pP
 		break;
 	}
 	// logd("re------------------------");
-	logd("release  1-------.count %d", pConn->GetRefCount());
+//	logd("release  1-------.count %d", pConn->GetRefCount());
 	pConn->ReleaseRef();
 	// logd("release  2-------.count %d", pConn->GetRefCount());
 }
