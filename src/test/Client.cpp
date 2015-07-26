@@ -86,7 +86,7 @@ void CClient::connect(function<void(CClientConn*)> callback)
     
     g_pConn = shared_ptr<CClientConn>(new CClientConn());
     log("conn connect %s:%s", m_strName.c_str(), m_strPass.c_str());
-    m_nHandle = g_pConn->connect(strPriorIp.c_str(), nPort, callback);
+    m_nHandle = g_pConn->connect(strPriorIp.c_str(), nPort);
     if(m_nHandle != INVALID_SOCKET)
     {
         netlib_register_timer(CClient::TimerCallback, NULL, 1000);

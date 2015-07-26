@@ -178,7 +178,7 @@ void get_msg_server_addr(string login_url, string& ip, uint16_t& port)
 
 void connect_msg_server(string ip, uint16_t port)
 {
-    log("Connect to %s:%s", ip.c_str(), port.c_str());
+    log("Connect to %s:%s", ip.c_str(), port);
     net_handle_t fd = g_conn->connect(ip.c_str(), port);
     if(fd != INVALID_SOCKET) {
         netlib_register_timer(CClient::TimerCallback, NULL, 1000);
