@@ -21,6 +21,8 @@
 #include "Common.h"
 #include "Client.h"
 
+
+#include "netconn.h"
 #include "HttpClient.h"
 #include "json/json.h"
 
@@ -52,10 +54,9 @@ static void print_help()
 static void do_login(const string& strName, const string& strPass)
 {
     try{
-        g_pClient = new CClient(strName, strPass, g_login_domain);
-        g_pClient->connect([](CClientConn* conn) {
+        CNetConnManager* netConnManager = new CNetConnManager();
+        netConnManager->Connect(strName, strPass);
 
-        });
     }catch(...){
         printf("get error while alloc memory\n");
         PROMPTION;
@@ -179,7 +180,8 @@ void get_msg_server_addr(string login_url, string& ip, uint16_t& port)
 void connect_msg_server(string ip, uint16_t port)
 {
     log("Connect to %s:%s", ip.c_str(), port);
-    net_handle_t fd = g_conn->connect(ip.c_str(), port);
+    auto netConnManager = new CNetConnManager<CNetConn<CImPdu>>();
+    net_handle_t fd = netConnManager->Connect(ip, port);
     if(fd != INVALID_SOCKET) {
         netlib_register_timer(CClient::TimerCallback, NULL, 1000);
     } else {

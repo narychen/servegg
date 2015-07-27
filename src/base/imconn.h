@@ -27,11 +27,7 @@ class CImConn : public CRefObject, public enable_shared_from_this<CImConn>
 public:
 	CImConn();
 	virtual ~CImConn();
-	
-	using SharedPtr = shared_ptr<CImConn>;
-	using ConnMap = unordered_map<net_handle_t, SharedPtr>;
-	
-	
+
 	int Send(void* data, int len);
 	virtual void OnRead();
 	virtual void OnWrite();
@@ -48,10 +44,6 @@ public:
 	
 	virtual void SetConnName(std::string name) { m_conn_name = name; }
 	virtual string& GetConnName() { return m_conn_name; }
-	
-	static void Callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam);
-	static SharedPtr FindImConn(ConnMap* connMap, net_handle_t handle);
-	virtual CImConn* Construct() { return new CImConn(); }
 
 protected:
 	std::string     m_conn_name;

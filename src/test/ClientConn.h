@@ -15,7 +15,7 @@
 #include <functional>
 #include <iostream>
 
-#include "imconn.h"
+#include "netconn.h"
 #include "IM.BaseDefine.pb.h"
 #include "IM.Login.pb.h"
 #include "IM.Other.pb.h"
@@ -26,10 +26,10 @@
 #include "IPacketCallback.h"
 #include "SeqAlloctor.h"
 
-class CClientConn : public CImConn
+class CClientConn : public CNetConn<CImPdu>
 {
 public:
-	CClientConn();
+	CClientConn(net_handle_t fd);
 	virtual ~CClientConn();
 
 	bool IsOpen() { return m_bOpen; }

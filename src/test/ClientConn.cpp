@@ -14,12 +14,8 @@
 
 using namespace std;
 
-CImConn::ConnMap CClientConn::m_conn_map = ConnMap();
 
-std::function<void(CClientConn*)> CClientConn::OnConnect = std::function<void(CClientConn*)>();
-
-CClientConn::CClientConn():
-m_bOpen(false)
+CClientConn::CClientConn(net_handle_t fd) : m_bOpen(false), CNetConn(fd)
 {
     m_pSeqAlloctor = CSeqAlloctor::getInstance();
     SetObjName("ClientConn");

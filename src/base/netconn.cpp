@@ -1,3 +1,4 @@
+#if 0
 #include "netconn.h"
 
 using namespace std;
@@ -17,17 +18,17 @@ net_handle_t CNetConnManager<T_CONN>::Connect(string strIp, uint16_t nPort)
 template <class T_CONN>
 net_handle_t CNetConnManager<T_CONN>::Listen(string strIp, uint16_t nPort)
 {
-    ret = netlib_listen(strIp.c_str(), nPort, Callback, NULL);
-    if (fd != NETLIB_ERROR) {
+    int ret = netlib_listen(strIp.c_str(), nPort, Callback, NULL);
+    if (ret != NETLIB_ERROR) {
         // m_conn_map.insert(make_pair(fd, std::shared_ptr<T_CONN>(new T_CONN(fd))));
-        return fd;
+        return ret;
     } else {
         return 0;
     }
 }
 
 template <class T_CONN>
-shared_ptr<T_CONN> CNetConnManager::FindConn(ConnMap* connMap, net_handle_t handle)
+shared_ptr<T_CONN> CNetConnManager<T_CONN>::FindConn(ConnMap* connMap, net_handle_t handle)
 {
 	shared_ptr<T_CONN> spConn;
 	auto iter = connMap->find(handle);
@@ -41,13 +42,13 @@ shared_ptr<T_CONN> CNetConnManager::FindConn(ConnMap* connMap, net_handle_t hand
 
 
 template <class T_CONN>
-void CNetConnManager::Callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
+void CNetConnManager<T_CONN>::Callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
 {
 // 	NOTUSED_ARG(handle);
 	NOTUSED_ARG(pParam);
 	
 	if (msg == NETLIB_MSG_CONNECT) {
-		auto conn = shared_ptr<T_CONN>(new T_CONN(fd));
+		auto conn = shared_ptr<T_CONN>(new T_CONN(handle));
 		conn->OnConnect();
 		return;
 	}
@@ -81,7 +82,8 @@ void CNetConnManager::Callback(void* callback_data, uint8_t msg, uint32_t handle
 
 
 //////////////////////////
-CNetConn::CNetConn(net_handle_t fd) : m_handle(fd)
+template<class T_PDU>
+CNetConn<T_PDU>::CNetConn(net_handle_t fd) : m_handle(fd)
 {
 	//log("CImConn::CImConn ");
 
@@ -92,12 +94,14 @@ CNetConn::CNetConn(net_handle_t fd) : m_handle(fd)
 	m_last_send_tick = m_last_recv_tick = get_tick_count();
 }
 
-CNetConn::~CNetConn()
+template<class T_PDU>
+CNetConn<T_PDU>::~CNetConn()
 {
 	//log("CImConn::~CImConn, handle=%d ", m_handle);
 }
 
-int CNetConn::Send(void* data, int len)
+template<class T_PDU>
+int CNetConn<T_PDU>::Send(void* data, uint32_t len)
 {
 	m_last_send_tick = get_tick_count();
 //	++g_send_pkt_cnt;
@@ -109,7 +113,7 @@ int CNetConn::Send(void* data, int len)
 	}
 
 	int offset = 0;
-	int remain = len;
+	uint32_t remain = len;
 	while (remain > 0) {
 		int send_size = remain;
 		if (send_size > NETLIB_MAX_SOCKET_BUF_SIZE) {
@@ -140,7 +144,8 @@ int CNetConn::Send(void* data, int len)
 	return len;
 }
 
-void CNetConn::OnRead()
+template<class T_PDU>
+void CNetConn<T_PDU>::OnRead()
 {
 	for (;;)
 	{
@@ -163,7 +168,7 @@ void CNetConn::OnRead()
 }
 
 template<class T_PDU>
-void CNetConn::HandleRead()
+void CNetConn<T_PDU>::HandleRead()
 {
     T_PDU* pPdu = NULL;
 	try
@@ -189,7 +194,8 @@ void CNetConn::HandleRead()
 	}
 }
 
-void CNetConn::OnWrite()
+template<class T_PDU>
+void CNetConn<T_PDU>::OnWrite()
 {
 	if (!m_busy)
 		return;
@@ -215,3 +221,5 @@ void CNetConn::OnWrite()
 
 	log("onWrite, remain=%d ", m_out_buf.GetWriteOffset());
 }
+
+#endif
