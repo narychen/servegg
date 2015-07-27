@@ -22,20 +22,12 @@
 #include "Client.h"
 
 
-#include "netconn.h"
+#include "netconn.hpp"
 #include "HttpClient.h"
 #include "json/json.h"
 
 #include "util.h"
 using namespace std;
-
-#define MAX_LINE_LEN	1024
-static string g_login_domain = "http://127.0.0.1:8080";
-static string g_cmd_string[10];
-static int g_cmd_num;
-static CClient* g_pClient = NULL;
-
-static shared_ptr<CClientConn> g_conn = shared_ptr<CClientConn>(new CClientConn());
 
 static void print_help()
 {
@@ -137,8 +129,6 @@ public:
 			cmds.clear();
 		}
 	}
-private:
-	char	m_buf[MAX_LINE_LEN];
 };
 
 
@@ -177,13 +167,16 @@ void get_msg_server_addr(string login_url, string& ip, uint16_t& port)
     }
 }
 
-void connect_msg_server(string ip, uint16_t port)
+void connect_msg_server(CNetConnManager<CClientConn>* netConnManager)
 {
+    string ip;
+    uint16_t port;
+    get_msg_server_addr("http://127.0.0.1:8080/msg_server", msgIp, msgPort);
     log("Connect to %s:%s", ip.c_str(), port);
-    auto netConnManager = new CNetConnManager<CNetConn<CImPdu>>();
+
     net_handle_t fd = netConnManager->Connect(ip, port);
     if(fd != INVALID_SOCKET) {
-        netlib_register_timer(CClient::TimerCallback, NULL, 1000);
+        netConnManager->SetTimer(1000);
     } else {
         printf("invalid socket handle\n");
     }
@@ -198,17 +191,8 @@ int main(int argc, char* argv[])
 
 	signal(SIGPIPE, SIG_IGN);
 
-	int ret = netlib_init();
-	
-	string msgIp;
-	uint16_t msgPort;
-	get_msg_server_addr("http://127.0.0.1:8080/msg_server", msgIp, msgPort);
-	connect_msg_server(msgIp, msgPort);
-
-	if (ret == NETLIB_ERROR)
-		return ret;
-    
-	netlib_eventloop();
-
+    auto netConnManager = new CNetConnManager<CClientConn>();
+	connect_msg_server(netConnManager);
+    netConnManager->Start();
 	return 0;
 }

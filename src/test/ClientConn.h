@@ -34,8 +34,6 @@ public:
 
 	bool IsOpen() { return m_bOpen; }
 
-    net_handle_t connect(const string& strIp, uint16_t nPort);
-    
     virtual void Close();
 public:
     uint32_t login(const string& strName, const string& strPass);

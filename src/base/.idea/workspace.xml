@@ -12,13 +12,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dedc9f29-a873-4018-b741-ee2c8c163341" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libbase.a" afterPath="$PROJECT_DIR$/libbase.a" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/netconn.h" afterPath="$PROJECT_DIR$/netconn.hpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../test/ClientConn.cpp" afterPath="$PROJECT_DIR$/../test/ClientConn.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../test/ClientConn.h" afterPath="$PROJECT_DIR$/../test/ClientConn.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imconn.cpp" afterPath="$PROJECT_DIR$/imconn.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/imconn.h" afterPath="$PROJECT_DIR$/imconn.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/netconn.cpp" afterPath="$PROJECT_DIR$/netconn.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/netconn.h" afterPath="$PROJECT_DIR$/netconn.h" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../test/test_client.cpp" afterPath="$PROJECT_DIR$/../test/test_client.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../test/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../test/.idea/workspace.xml" />
@@ -62,16 +58,26 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="netconn.h" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/netconn.h">
+      <file leaf-file-name="netconn.hpp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/netconn.hpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.1283422">
-              <caret line="35" column="9" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
+            <state vertical-scroll-proportion="0.72192514">
+              <caret line="48" column="38" selection-start-line="48" selection-start-column="38" selection-end-line="48" selection-end-column="38" />
               <folding>
                 <element signature="e#48#72#0" expanded="true" />
                 <element signature="e#381#395#0" expanded="true" />
-                <element signature="e#2214#2227#0" expanded="true" />
+                <element signature="e#2583#2596#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="netlib.cpp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/netlib.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="139" column="4" selection-start-line="139" selection-start-column="4" selection-end-line="139" selection-end-column="4" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -80,10 +86,8 @@
         <entry file="file://$PROJECT_DIR$/netconn.cpp">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="222" column="1" selection-start-line="198" selection-start-column="0" selection-end-line="222" selection-end-column="1" />
-              <folding>
-                <element signature="e#6#4489#0" expanded="true" />
-              </folding>
+              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -113,6 +117,7 @@
         <option value="$PROJECT_DIR$/imconn.h" />
         <option value="$PROJECT_DIR$/netconn.cpp" />
         <option value="$PROJECT_DIR$/netconn.h" />
+        <option value="$PROJECT_DIR$/netconn.hpp" />
       </list>
     </option>
   </component>
@@ -124,8 +129,8 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-77" />
-    <option name="y" value="99" />
+    <option name="x" value="157" />
+    <option name="y" value="77" />
     <option name="width" value="1267" />
     <option name="height" value="738" />
   </component>
@@ -175,7 +180,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../test" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../msg_server" />
     <property name="recentsLimit" value="5" />
     <property name="settings.editor.selected.configurable" value="CMakeSettings" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
@@ -184,6 +189,9 @@
   <component name="RunManager" selected="Application.base">
     <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="Base" TARGET_NAME="base" CONFIG_NAME="Debug">
       <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
       <method />
     </configuration>
     <configuration default="false" name="Build All" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" CONFIG_NAME="Debug" EXPLICIT_BUILD_TARGET_NAME="all">
@@ -213,7 +221,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-77" y="99" width="1267" height="738" extended-state="0" />
+    <frame x="157" y="77" width="1267" height="738" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2006552" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -310,14 +318,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/netlib.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5062035">
-          <caret line="32" column="4" selection-start-line="32" selection-start-column="4" selection-end-line="32" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -344,16 +344,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/netconn.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="222" column="1" selection-start-line="198" selection-start-column="0" selection-end-line="222" selection-end-column="1" />
-          <folding>
-            <element signature="e#6#4489#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/jsoncpp/json_value.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3315508">
@@ -362,14 +352,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/netconn.h">
+    <entry file="file://$PROJECT_DIR$/netconn.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.1283422">
-          <caret line="35" column="9" selection-start-line="35" selection-start-column="9" selection-end-line="35" selection-end-column="9" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/netlib.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="139" column="4" selection-start-line="139" selection-start-column="4" selection-end-line="139" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/netconn.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.72192514">
+          <caret line="48" column="38" selection-start-line="48" selection-start-column="38" selection-end-line="48" selection-end-column="38" />
           <folding>
             <element signature="e#48#72#0" expanded="true" />
             <element signature="e#381#395#0" expanded="true" />
-            <element signature="e#2214#2227#0" expanded="true" />
+            <element signature="e#2583#2596#0" expanded="true" />
           </folding>
         </state>
       </provider>

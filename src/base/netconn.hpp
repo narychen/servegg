@@ -23,7 +23,7 @@ public:
     using ConnMap = unordered_map<net_handle_t, std::shared_ptr<T_CONN>>;
 
 public:
-    CNetConnManager() {}
+    CNetConnManager() { netlib_init(); }
     virtual ~CNetConnManager() {}
     
     net_handle_t Connect(string strIp, uint16_t nPort) {
@@ -45,6 +45,12 @@ public:
 			return 0;
 		}
 	}
+
+    void Start() { netlib_eventloop(); }
+
+    void SetTimer(uint64_t interval) {
+        netlib_register_timer(Callback, (void*)&m_conn_map, interval);
+    }
     
     shared_ptr<T_CONN> FindConn(ConnMap* connMap, net_handle_t handle) {
 		shared_ptr<T_CONN> spConn;
@@ -61,13 +67,20 @@ public:
 // 	NOTUSED_ARG(handle);
 		NOTUSED_ARG(pParam);
 
+        if (msg == NETLIB_MSG_TIMER) {
+            for (auto& e : (*(ConnMap*)callback_data)) {
+                auto conn = e.second;
+                conn->OnTimer(get_tick_count());
+            }
+        }
+
 		if (msg == NETLIB_MSG_CONNECT) {
 			auto conn = shared_ptr<T_CONN>(new T_CONN(handle));
 			conn->OnConnect();
 			return;
 		}
 
-		shared_ptr<T_CONN> spConn = FindConn((ConnMap*)callback_data, handle);
+		auto spConn = FindConn((ConnMap*)callback_data, handle);
 		if (!spConn)
 			return;
 

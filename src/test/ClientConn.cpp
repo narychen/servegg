@@ -26,23 +26,9 @@ CClientConn::~CClientConn()
      logd("destruct clientconn"); 
 }
 
-net_handle_t CClientConn::connect(const string& strIp, uint16_t nPort)
-{
-	m_handle = netlib_connect(strIp.c_str(), nPort, imconn_callback_sp, (void*)&m_conn_map);
-	if (m_handle != NETLIB_INVALID_HANDLE) {
-		m_conn_map.insert(make_pair(m_handle, shared_from_this()));
-		return m_handle;
-	} else {
-        return 0;
-	}
-}
-
-
-
 void CClientConn::OnConfirm()
 {
     log("%s client on confirm ", GetObjName().c_str());
-    CClientConn::OnConnect(this);
     // if(m_pCallback)
     // {
     //     m_pCallback->onConnect();
