@@ -14,7 +14,7 @@
 
 using namespace std;
 
-ConnMap_sp_t CClientConn::m_conn_map = ConnMap_sp_t();
+CImConn::ConnMap CClientConn::m_conn_map = ConnMap();
 
 std::function<void(CClientConn*)> CClientConn::OnConnect = std::function<void(CClientConn*)>();
 

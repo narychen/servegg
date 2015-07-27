@@ -1,12 +1,6 @@
-/*
- * imconn.h
- *
- *  Created on: 2013-6-5
- *      Author: ziteng
- */
+#ifndef __NET_CONN_H__
+#define __NET_CONN_H__
 
-#ifndef IMCONN_H_
-#define IMCONN_H_
 
 #include <unordered_map>
 #include <memory>
@@ -22,36 +16,51 @@
 #define MOBILE_CLIENT_TIMEOUT       60000 * 5
 #define READ_BUF_SIZE	2048
 
-class CImConn : public CRefObject, public enable_shared_from_this<CImConn>
+template <class T_CONN>
+class CNetConnManager
 {
 public:
-	CImConn();
-	virtual ~CImConn();
-	
-	using SharedPtr = shared_ptr<CImConn>;
-	using ConnMap = unordered_map<net_handle_t, SharedPtr>;
-	
+    using ConnMap = unordered_map<net_handle_t, std::shared_ptr<T_CONN>>;
+
+public:
+    CNetConnManager() {}
+    virtual ~CNetConnManager() {}
+    
+    net_handle_t Connect(string strIp, uint16_t nPort);
+    net_handle_t Listen(string strIp, uint16_t nPort);
+    
+    shared_ptr<T_CONN> FindConn(ConnMap* connMap, net_handle_t handle);
+    void Callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam);
+    
+    
+private:
+    ConnMap m_conn_map;
+    
+}
+
+template<class T_PDU>
+class CNetConn : public CRefObject, public enable_shared_from_this<CNetConn>
+{
+public:
+	CNetConn();
+	virtual ~CNetConn();
 	
 	int Send(void* data, int len);
 	virtual void OnRead();
 	virtual void OnWrite();
 	
 	bool IsBusy() { return m_busy; }
-	int SendPdu(CImPdu* pPdu) { return Send(pPdu->GetBuffer(), pPdu->GetLength()); }
+	int SendPdu(T_PDU* pPdu) { return Send(pPdu->GetBuffer(), pPdu->GetLength()); }
 
-	virtual void OnConnect(net_handle_t handle) { m_handle = handle; }
+	virtual void OnConnect(){}
 	virtual void OnConfirm(){}
 	virtual void OnClose(){}
 	virtual void OnTimer(uint64_t){}
     virtual void OnWriteCompelete(){}
-	virtual void HandlePdu(CImPdu*){}
+	virtual void HandlePdu(T_PDU*){}
 	
 	virtual void SetConnName(std::string name) { m_conn_name = name; }
 	virtual string& GetConnName() { return m_conn_name; }
-	
-	static void Callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam);
-	static SharedPtr FindImConn(ConnMap* connMap, net_handle_t handle);
-	virtual CImConn* Construct() { return new CImConn(); }
 
 protected:
 	std::string     m_conn_name;
@@ -70,11 +79,5 @@ protected:
     uint64_t        m_last_all_user_tick;
 };
 
-typedef hash_map<net_handle_t, CImConn*> ConnMap_t;
-typedef hash_map<uint32_t, CImConn*> UserMap_t;
 
-
-void imconn_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam);
-void ReadPolicyFile();
-
-#endif /* IMCONN_H_ */
+#endif

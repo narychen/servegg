@@ -23,51 +23,6 @@ static CImConn* FindImConn(ConnMap_t* imconn_map, net_handle_t handle)
 	return pConn;
 }
 
-static sp_CImConn FindImConn(ConnMap_sp_t* imconn_map_sp, net_handle_t handle)
-{
-	sp_CImConn spConn;
-	auto iter = imconn_map_sp->find(handle);
-	if (iter != imconn_map_sp->end()) {
-		spConn = iter->second;
-		return spConn;
-	} else {
-		return nullptr;
-	}
-}
-
-void imconn_callback_sp(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
-{
-	NOTUSED_ARG(handle);
-	NOTUSED_ARG(pParam);
-	
-	ConnMap_sp_t* imconn_map_sp = (ConnMap_sp_t*)callback_data;
-
-	sp_CImConn pConn = FindImConn(imconn_map_sp, handle);
-	if (!pConn)
-		return;
-
-	log("msg=%d, handle=%d ", msg, handle);
-
-	switch (msg)
-	{
-	case NETLIB_MSG_CONFIRM:
-		pConn->OnConfirm();
-		break;
-	case NETLIB_MSG_READ:
-		pConn->OnRead();
-		break;
-	case NETLIB_MSG_WRITE:
-		pConn->OnWrite();
-		break;
-	case NETLIB_MSG_CLOSE:
-		pConn->OnClose();
-		break;
-	default:
-		log("!!!imconn_callback error msg: %d ", msg);
-		break;
-	}
-}
-
 
 void imconn_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
 {
@@ -240,4 +195,67 @@ void CImConn::OnWrite()
 
 
 
+SharedPtr CImConn::FindImConn(ConnMap* connMap, net_handle_t handle)
+{
+	SharedPtr spConn;
+	auto iter = connMap->find(handle);
+	if (iter != connMap->end()) {
+		spConn = iter->second;
+		return spConn;
+	} else {
+		return nullptr;
+	}
+}
+
+void CImConn::Callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
+{
+	NOTUSED_ARG(handle);
+	NOTUSED_ARG(pParam);
+	
+	if (msg == NETLIB_MSG_CONNECT) {
+		CImConn* conn = Construct();
+		conn->OnConnect(handle);
+		return;
+	}
+	
+	SharedPtr* sp = (SharedPtr*)callback_data;
+
+	sp_CImConn pConn = FindImConn(sp, handle);
+	if (!pConn)
+		return;
+
+	log("msg=%d, handle=%d ", msg, handle);
+
+	switch (msg)
+	{
+	case NETLIB_MSG_CONFIRM:
+		pConn->OnConfirm();
+		break;
+	case NETLIB_MSG_READ:
+		pConn->OnRead();
+		break;
+	case NETLIB_MSG_WRITE:
+		pConn->OnWrite();
+		break;
+	case NETLIB_MSG_CLOSE:
+		pConn->OnClose();
+		break;
+	default:
+		log("!!!imconn_callback error msg: %d ", msg);
+		break;
+	}
+}
+
+
+net_handle_t CImConn::Connect(string ip, uint16_t port)
+{
+	m_handle = netlib_connect(ip.c_str(), port, CImConn::Callback, (void*)&m_conn_map);
+	if (m_handle != NETLIB_INVALID_HANDLE) {
+		m_conn_map.insert(make_pair(m_handle, shared_from_this()));
+		return m_handle;
+	} else {
+        return 0;
+	}
+	
+}
 
