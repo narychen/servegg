@@ -21,41 +21,41 @@ class CNetConnManager
 {
 public:
     using ConnMap = unordered_map<net_handle_t, std::shared_ptr<T_CONN>>;
-
+    
+private:
+    ConnMap m_conn_map;
+    
 public:
     CNetConnManager() { netlib_init(); }
     virtual ~CNetConnManager() {}
     
-    net_handle_t Connect(string strIp, uint16_t nPort) {
-		net_handle_t fd = netlib_connect(strIp.c_str(), nPort, Callback, (void*)&m_conn_map);
+    virtual std::shared_ptr<T_CONN> Connect(string strIp, uint16_t nPort) {
+		net_handle_t fd = netlib_connect(strIp.c_str(), nPort, Callback, (void*)this);
 		if (fd != NETLIB_INVALID_HANDLE) {
-			m_conn_map.insert(make_pair(fd, std::shared_ptr<T_CONN>(new T_CONN(fd))));
-			return fd;
+		    auto sp = std::shared_ptr<T_CONN>(new T_CONN(fd));
+			m_conn_map.insert(make_pair(fd, sp));
+			return sp;
 		} else {
-			return 0;
+			throw netex("connect to %s:%d failed", strIp.c_str(), nPort);
 		}
 	}
 
-    net_handle_t Listen(string strIp, uint16_t nPort) {
-		int ret = netlib_listen(strIp.c_str(), nPort, Callback, NULL);
-		if (ret != NETLIB_ERROR) {
-			// m_conn_map.insert(make_pair(fd, std::shared_ptr<T_CONN>(new T_CONN(fd))));
-			return ret;
-		} else {
-			return 0;
-		}
+    virtual void Listen(string strIp, uint16_t nPort) {
+        auto ret = netlib_listen(strIp.c_str(), nPort, Callback, NULL);
+		if (ret == NETLIB_ERROR)
+			throw netex("listen on %s:%d failed", strIp.c_str(), nPort);
 	}
 
-    void Start() { netlib_eventloop(); }
+    virtual void Start() { netlib_eventloop(); }
 
     void SetTimer(uint64_t interval) {
-        netlib_register_timer(Callback, (void*)&m_conn_map, interval);
+        netlib_register_timer(Callback, (void*)this, interval);
     }
     
-    shared_ptr<T_CONN> FindConn(ConnMap* connMap, net_handle_t handle) {
+    virtual shared_ptr<T_CONN> FindConn(net_handle_t handle) {
 		shared_ptr<T_CONN> spConn;
-		auto iter = connMap->find(handle);
-		if (iter != connMap->end()) {
+		auto iter = m_conn_map->find(handle);
+		if (iter != m_conn_map->end()) {
 			spConn = iter->second;
 			return spConn;
 		} else {
@@ -63,12 +63,13 @@ public:
 		}
 	}
 
-    void Callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam) {
+    static void Callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam) {
 // 	NOTUSED_ARG(handle);
 		NOTUSED_ARG(pParam);
+		auto self = (CNetConnManager<T_CONN>*)callback_data;
 
         if (msg == NETLIB_MSG_TIMER) {
-            for (auto& e : (*(ConnMap*)callback_data)) {
+            for (auto& e : self->m_conn_map){
                 auto conn = e.second;
                 conn->OnTimer(get_tick_count());
             }
@@ -80,7 +81,7 @@ public:
 			return;
 		}
 
-		auto spConn = FindConn((ConnMap*)callback_data, handle);
+		auto spConn = FindConn(self->m_conn_map, handle);
 		if (!spConn)
 			return;
 
@@ -106,8 +107,7 @@ public:
 		}
 	}
 
-private:
-    ConnMap m_conn_map;
+
     
 };
 

@@ -12,10 +12,9 @@
 #ifndef CLIENTCONN_H_
 #define CLIENTCONN_H_
 
-#include <functional>
 #include <iostream>
 
-#include "netconn.h"
+#include "netconn.hpp"
 #include "IM.BaseDefine.pb.h"
 #include "IM.Login.pb.h"
 #include "IM.Other.pb.h"
@@ -23,8 +22,6 @@
 #include "IM.Buddy.pb.h"
 #include "IM.Message.pb.h"
 #include "IM.Group.pb.h"
-#include "IPacketCallback.h"
-#include "SeqAlloctor.h"
 
 class CClientConn : public CNetConn<CImPdu>
 {
@@ -66,9 +63,6 @@ private:
     
 private:
 	bool 		m_bOpen;
-    IPacketCallback* m_pCallback;
-    CSeqAlloctor*   m_pSeqAlloctor;
-    static ConnMap_sp_t m_conn_map;
     
 };
 

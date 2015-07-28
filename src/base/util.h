@@ -55,11 +55,11 @@ private:
 
 #include <exception>
 
-class ImException : public std::exception
+class NetException : public std::exception
 {
 	std::string _why;
 public:
-	ImException(const char* why, ...) {
+	NetException(const char* why, ...) {
 	    va_list args;
 	    va_start(args, why);
 	    char szBuffer[4096];
@@ -71,6 +71,46 @@ public:
 		return _why.c_str();
 	}
 };
+
+
+void str_split(string s, vector<string>& ret)
+{
+	string element;
+
+	for (auto& it : s){
+		if (it == ' ' || it == '\t') {
+			if (!element.empty()) {
+				ret.push_back(element);
+				element.clear();
+			}
+		} else {
+			element += it;
+		}
+	}
+	// put the last one
+	if (!element.empty())
+		ret.push_back(element);
+}
+
+void str_split(string s, vector<string>& ret, char sep)
+{
+	string element;
+
+	for (auto& it : s) {
+		if (it == sep) {
+			if (!element.empty()) {
+				ret.push_back(element);
+				element.clear();
+			}
+		} else {
+			element += it;
+		}
+	}
+	// put the last one
+	if (!element.empty())
+		ret.push_back(element);
+}
+
 
 
 extern CSLog g_iminfo;
@@ -92,13 +132,11 @@ extern CSLog g_imtrace;
 #endif
 //#define log(fmt, ...)  g_imlog.Info("<%s>\t<%d>\t<%s>,"+fmt, __FILENAME__, __LINE__, __FUNCTION__, ##__VA_ARGS__)
 
-#define imex(fmt, args...)  ImException("<%s>|<%d>|<%s>," fmt, __FILENAME__, __LINE__, __FUNCTION__, ##args)
+#define netex(fmt, args...)  NetException("<%s>|<%d>|<%s>," fmt, __FILENAME__, __LINE__, __FUNCTION__, ##args)
 
 uint64_t get_tick_count();
 void util_sleep(uint32_t millisecond);
 
-void str_split(std::string s, std::vector<std::string>& ret);
-void str_split(std::string s, std::vector<std::string>& ret, char sep);
 
 class CStrExplode
 {

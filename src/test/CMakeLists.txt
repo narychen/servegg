@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
-PROJECT(mytest)
+PROJECT(client)
 SET(_ ${PROJECT_SOURCE_DIR})
 AUX_SOURCE_DIRECTORY(${_} SRC_LIST)
 #MESSAGE(STATUS "1....${SRC_LIST}")
@@ -25,6 +25,6 @@ LINK_DIRECTORIES(${_} ${_}/../base ${PB_LIB_DIR} ${_}/../base/slog/lib)
 
 #ADD_XXXX必须在TARGET_LINK_LIBRARIES前面，否则会报错
 #ADD_LIBRARY(${PROJECTNAME} SHARED/STATIC ${SRC_LIST})
-ADD_EXECUTABLE(mytest ${SRC_LIST})
+ADD_EXECUTABLE(client ${SRC_LIST})
 
-TARGET_LINK_LIBRARIES(mytest base protobuf-lite slog pthread curl) 
+TARGET_LINK_LIBRARIES(client base protobuf-lite slog pthread curl) 
