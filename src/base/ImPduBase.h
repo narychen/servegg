@@ -8,6 +8,8 @@
 #ifndef IMPDUBASE_H_
 #define IMPDUBASE_H_
 
+#include <stdlib.h>
+#include <unordered_map>
 #include "UtilPdu.h"
 #include "pb/google/protobuf/message_lite.h"
 
@@ -88,5 +90,31 @@ protected:
     PduHeader_t		m_pdu_header;
 };
 
+class CSeqAlloctor
+{
+public:
+    static CSeqAlloctor* Instance() {
+        static CSeqAlloctor m_instance;
+        return &m_instance;
+    }
+    uint32_t  getSeq(uint32_t type) {
+        auto it = m_map.find(type);
+        uint32_t seqNo = 0;
+        if (it != m_map.end()) {
+            it->second++;
+            seqNo = it->second;
+        } else {
+            srand(time(NULL));
+            seqNo = rand() + 1;
+            m_map[type] = seqNo;
+        }
+        return seqNo;
+    }
+
+private:
+    CSeqAlloctor(){}
+    virtual ~CSeqAlloctor(){}
+    std::unordered_map<uint32_t, uint32_t> m_map;
+};
 
 #endif /* IMPDUBASE_H_ */

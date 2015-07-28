@@ -1,3 +1,8 @@
+
+#include "netconn.hpp"
+
+static CNetConnManager<CNetConn<CImPdu>> netConnManager;
+
 #if 0
 #include "netconn.h"
 

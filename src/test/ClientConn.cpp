@@ -9,15 +9,14 @@
  *
  ================================================================*/
 #include "ClientConn.h"
-#include "playsound.h"
-#include "Common.h"
+#include
 
 using namespace std;
 
 
 CClientConn::CClientConn(net_handle_t fd) : m_bOpen(false), CNetConn(fd)
 {
-    m_pSeqAlloctor = CSeqAlloctor::getInstance();
+    m_pSeqAlloctor = CSeqAlloctor::Instance();
     SetObjName("ClientConn");
 }
 

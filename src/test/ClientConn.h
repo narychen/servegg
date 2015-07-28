@@ -14,6 +14,7 @@
 
 #include <iostream>
 
+#include "ImPduBase.h"
 #include "netconn.hpp"
 #include "IM.BaseDefine.pb.h"
 #include "IM.Login.pb.h"
@@ -63,6 +64,7 @@ private:
     
 private:
 	bool 		m_bOpen;
+    CSeqAlloctor* m_pSeqAlloctor;
     
 };
 

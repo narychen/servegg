@@ -54,8 +54,8 @@ public:
     
     virtual shared_ptr<T_CONN> FindConn(net_handle_t handle) {
 		shared_ptr<T_CONN> spConn;
-		auto iter = m_conn_map->find(handle);
-		if (iter != m_conn_map->end()) {
+		auto iter = m_conn_map.find(handle);
+		if (iter != m_conn_map.end()) {
 			spConn = iter->second;
 			return spConn;
 		} else {
@@ -81,7 +81,7 @@ public:
 			return;
 		}
 
-		auto spConn = FindConn(self->m_conn_map, handle);
+		auto spConn = self->FindConn(handle);
 		if (!spConn)
 			return;
 
@@ -115,7 +115,7 @@ template<class T_PDU>
 class CNetConn : public CRefObject, public enable_shared_from_this<CNetConn<T_PDU>>
 {
 public:
-	CNetConn(net_handle_t fd) : m_handle(fd) {
+	CNetConn(net_handle_t fd) : m_handle(fd){
 		//log("CImConn::CImConn ");
 
 		m_busy = false;
