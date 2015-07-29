@@ -20,7 +20,6 @@
 
 #include "ClientConn.h"
 
-#include "netconn.hpp"
 #include "HttpClient.h"
 #include "json/json.h"
 
@@ -28,7 +27,7 @@
 using namespace std;
 
 
-class CClientShell : public CThread, public CNetConnManager<CClientConn>
+class CClientShell : public CThread
 {
 private:
     std::shared_ptr<CClientConn> m_conn;
@@ -100,13 +99,14 @@ public:
         uint16_t port;
         GetMsgServerAddr("http://127.0.0.1:8080/msg_server", ip, port);
         log("Connect to %s:%s", ip.c_str(), port);
-        m_conn = Connect(ip, port);
-        SetTimer(1000);
+        init_client_conn(ip, port);
     }
     
-    void Start() override {
+    void Run() {
+        signal(SIGPIPE, SIG_IGN);
+        netlib_init();
         ConnectMsgServer();
-        CNetConnManager<CClientConn>::Start();
+        netlib_eventloop();
     }
 };
 
@@ -117,7 +117,7 @@ int main(int argc, char* argv[])
 	signal(SIGPIPE, SIG_IGN);
 	
 	CClientShell cs;
-	cs.Start();
+	cs.Run();
 
 	return 0;
 }

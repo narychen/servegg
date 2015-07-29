@@ -17,7 +17,7 @@
 
 #define SERVER_HEARTBEAT_INTERVAL	5000
 #define SERVER_TIMEOUT				30000
-#define CLIENT_HEARTBEAT_INTERVAL	30000
+#define CLIENT_HEARTBEAT_INTERVAL	28000
 #define CLIENT_TIMEOUT				120000
 #define MOBILE_CLIENT_TIMEOUT       60000 * 5
 #define READ_BUF_SIZE	2048
@@ -65,6 +65,9 @@ protected:
 typedef hash_map<net_handle_t, CImConn*> ConnMap_t;
 typedef hash_map<uint32_t, CImConn*> UserMap_t;
 
+using sp_CImConn = shared_ptr<CImConn>;
+using ConnMap_sp_t = unordered_map<net_handle_t, sp_CImConn>;
+void imconn_callback_sp(void* callback_data, uint8_t msg, uint32_t handle, void* pParam);
 
 void imconn_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam);
 void ReadPolicyFile();

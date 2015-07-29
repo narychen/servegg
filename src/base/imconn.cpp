@@ -9,6 +9,53 @@
 
 //static uint64_t g_send_pkt_cnt = 0;		// 发送数据包总数
 //static uint64_t g_recv_pkt_cnt = 0;		// 接收数据包总数
+#include "Lock.h"
+static CLock s_send_lock;
+
+static sp_CImConn FindImConnSp(ConnMap_sp_t* imconn_map_sp, net_handle_t handle)
+{
+	sp_CImConn spConn;
+	auto iter = imconn_map_sp->find(handle);
+	if (iter != imconn_map_sp->end()) {
+		spConn = iter->second;
+		return spConn;
+	} else {
+		return nullptr;
+	}
+}
+
+void imconn_callback_sp(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
+{
+	NOTUSED_ARG(handle);
+	NOTUSED_ARG(pParam);
+	
+	auto imconn_map_sp = (ConnMap_sp_t*)callback_data;
+	auto pConn = FindImConnSp(imconn_map_sp, handle);
+	if (!pConn)
+		return;
+
+	log("msg=%d, handle=%d ", msg, handle);
+
+	switch (msg)
+	{
+	case NETLIB_MSG_CONFIRM:
+		pConn->OnConfirm();
+		break;
+	case NETLIB_MSG_READ:
+		pConn->OnRead();
+		break;
+	case NETLIB_MSG_WRITE:
+		pConn->OnWrite();
+		break;
+	case NETLIB_MSG_CLOSE:
+		pConn->OnClose();
+		break;
+	default:
+		log("!!!imconn_callback error msg: %d ", msg);
+		break;
+	}
+}
+
 
 static CImConn* FindImConn(ConnMap_t* imconn_map, net_handle_t handle)
 {
@@ -82,6 +129,7 @@ CImConn::~CImConn()
 
 int CImConn::Send(void* data, int len)
 {
+	CAutoLock autoLock(&s_send_lock);
 	m_last_send_tick = get_tick_count();
 //	++g_send_pkt_cnt;
 
@@ -168,6 +216,7 @@ void CImConn::OnRead()
 
 void CImConn::OnWrite()
 {
+	CAutoLock autoLock(&s_send_lock);
 	if (!m_busy)
 		return;
 

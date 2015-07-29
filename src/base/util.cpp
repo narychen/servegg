@@ -57,6 +57,54 @@ void CRefObject::ReleaseRef()
 	}
 }
 
+NetException::NetException(const char* why, ...) 
+{
+    va_list args;
+    va_start(args, why);
+    char szBuffer[4096];
+    vsnprintf(szBuffer, sizeof(szBuffer), why, args);
+    va_end(args);
+    _why = szBuffer;
+}
+
+void str_split(string s, vector<string>& ret)
+{
+	string element;
+
+	for (auto& it : s){
+		if (it == ' ' || it == '\t') {
+			if (!element.empty()) {
+				ret.push_back(element);
+				element.clear();
+			}
+		} else {
+			element += it;
+		}
+	}
+	// put the last one
+	if (!element.empty())
+		ret.push_back(element);
+}
+
+void str_split(string s, vector<string>& ret, char sep)
+{
+	string element;
+
+	for (auto& it : s) {
+		if (it == sep) {
+			if (!element.empty()) {
+				ret.push_back(element);
+				element.clear();
+			}
+		} else {
+			element += it;
+		}
+	}
+	// put the last one
+	if (!element.empty())
+		ret.push_back(element);
+}
+
 uint64_t get_tick_count()
 {
 #ifdef _WIN32

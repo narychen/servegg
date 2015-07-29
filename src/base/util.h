@@ -59,58 +59,13 @@ class NetException : public std::exception
 {
 	std::string _why;
 public:
-	NetException(const char* why, ...) {
-	    va_list args;
-	    va_start(args, why);
-	    char szBuffer[4096];
-	    vsnprintf(szBuffer, sizeof(szBuffer), why, args);
-	    va_end(args);
-	    _why = szBuffer;
-	}
-	virtual const char* what() const throw() {
-		return _why.c_str();
-	}
+	NetException(const char* why, ...);
+	virtual const char* what() const throw() { return _why.c_str();	}
 };
 
 
-void str_split(string s, vector<string>& ret)
-{
-	string element;
-
-	for (auto& it : s){
-		if (it == ' ' || it == '\t') {
-			if (!element.empty()) {
-				ret.push_back(element);
-				element.clear();
-			}
-		} else {
-			element += it;
-		}
-	}
-	// put the last one
-	if (!element.empty())
-		ret.push_back(element);
-}
-
-void str_split(string s, vector<string>& ret, char sep)
-{
-	string element;
-
-	for (auto& it : s) {
-		if (it == sep) {
-			if (!element.empty()) {
-				ret.push_back(element);
-				element.clear();
-			}
-		} else {
-			element += it;
-		}
-	}
-	// put the last one
-	if (!element.empty())
-		ret.push_back(element);
-}
-
+void str_split(string s, vector<string>& ret);
+void str_split(string s, vector<string>& ret, char sep);
 
 
 extern CSLog g_iminfo;

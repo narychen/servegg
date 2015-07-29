@@ -108,6 +108,30 @@ client/fast:
 	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/build
 .PHONY : client/fast
 
+ClientConn.o: ClientConn.cpp.o
+.PHONY : ClientConn.o
+
+# target to build an object file
+ClientConn.cpp.o:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/ClientConn.cpp.o
+.PHONY : ClientConn.cpp.o
+
+ClientConn.i: ClientConn.cpp.i
+.PHONY : ClientConn.i
+
+# target to preprocess a source file
+ClientConn.cpp.i:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/ClientConn.cpp.i
+.PHONY : ClientConn.cpp.i
+
+ClientConn.s: ClientConn.cpp.s
+.PHONY : ClientConn.s
+
+# target to generate assembly for a file
+ClientConn.cpp.s:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/ClientConn.cpp.s
+.PHONY : ClientConn.cpp.s
+
 ClientShell.o: ClientShell.cpp.o
 .PHONY : ClientShell.o
 
@@ -141,6 +165,9 @@ help:
 	@echo "... client"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... ClientConn.o"
+	@echo "... ClientConn.i"
+	@echo "... ClientConn.s"
 	@echo "... ClientShell.o"
 	@echo "... ClientShell.i"
 	@echo "... ClientShell.s"

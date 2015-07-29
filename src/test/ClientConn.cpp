@@ -9,15 +9,31 @@
  *
  ================================================================*/
 #include "ClientConn.h"
-#include
+#include "ServInfo.h"
 
 using namespace std;
+static ConnMap_sp_t g_client_conn_map;
+
+void init_client_conn(const string& ip, uint16_t port)
+{
+    auto servInfo = new serv_info_t[1];
+    servInfo[0].server_ip = ip;
+    servInfo[0].server_port = port;
+    serv_init<CClientConn>(servInfo, 1);
+    netlib_register_timer([&servInfo](void* callback_data, uint8_t msg, uint32_t handle, void* pParam) {
+        uint64_t cur_time = get_tick_count();
+        for (auto& e : g_client_conn_map) {
+            e.second->OnTimer(cur_time);
+        }
+        serv_check_reconnect<CClientConn>(servInfo, 1);
+    }, nullptr, 1000);
+    
+}
 
 
-CClientConn::CClientConn(net_handle_t fd) : m_bOpen(false), CNetConn(fd)
+CClientConn::CClientConn(net_handle_t fd) : m_bOpen(false)
 {
     m_pSeqAlloctor = CSeqAlloctor::Instance();
-    SetObjName("ClientConn");
 }
 
 CClientConn::~CClientConn()
@@ -25,9 +41,19 @@ CClientConn::~CClientConn()
      logd("destruct clientconn"); 
 }
 
+net_handle_t CClientConn::Connect(const string& strIp, uint16_t nPort)
+{
+	m_handle = netlib_connect(strIp.c_str(), nPort, imconn_callback_sp, (void*)&g_client_conn_map);
+	
+	if (m_handle != NETLIB_INVALID_HANDLE) {
+		g_client_conn_map.insert(make_pair(m_handle, shared_from_this()));
+	}
+    return  m_handle;
+}
+
 void CClientConn::OnConfirm()
 {
-    log("%s client on confirm ", GetObjName().c_str());
+    log("%s client on confirm ", typeid(*this).name());
     // if(m_pCallback)
     // {
     //     m_pCallback->onConnect();

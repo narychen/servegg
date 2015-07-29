@@ -348,6 +348,30 @@ Lock.cpp.s:
 	$(MAKE) -f CMakeFiles/base.dir/build.make CMakeFiles/base.dir/Lock.cpp.s
 .PHONY : Lock.cpp.s
 
+SeqAlloctor.o: SeqAlloctor.cpp.o
+.PHONY : SeqAlloctor.o
+
+# target to build an object file
+SeqAlloctor.cpp.o:
+	$(MAKE) -f CMakeFiles/base.dir/build.make CMakeFiles/base.dir/SeqAlloctor.cpp.o
+.PHONY : SeqAlloctor.cpp.o
+
+SeqAlloctor.i: SeqAlloctor.cpp.i
+.PHONY : SeqAlloctor.i
+
+# target to preprocess a source file
+SeqAlloctor.cpp.i:
+	$(MAKE) -f CMakeFiles/base.dir/build.make CMakeFiles/base.dir/SeqAlloctor.cpp.i
+.PHONY : SeqAlloctor.cpp.i
+
+SeqAlloctor.s: SeqAlloctor.cpp.s
+.PHONY : SeqAlloctor.s
+
+# target to generate assembly for a file
+SeqAlloctor.cpp.s:
+	$(MAKE) -f CMakeFiles/base.dir/build.make CMakeFiles/base.dir/SeqAlloctor.cpp.s
+.PHONY : SeqAlloctor.cpp.s
+
 ServInfo.o: ServInfo.cpp.o
 .PHONY : ServInfo.o
 
@@ -611,30 +635,6 @@ log4z.s: log4z.cpp.s
 log4z.cpp.s:
 	$(MAKE) -f CMakeFiles/base.dir/build.make CMakeFiles/base.dir/log4z.cpp.s
 .PHONY : log4z.cpp.s
-
-netconn.o: netconn.cpp.o
-.PHONY : netconn.o
-
-# target to build an object file
-netconn.cpp.o:
-	$(MAKE) -f CMakeFiles/base.dir/build.make CMakeFiles/base.dir/netconn.cpp.o
-.PHONY : netconn.cpp.o
-
-netconn.i: netconn.cpp.i
-.PHONY : netconn.i
-
-# target to preprocess a source file
-netconn.cpp.i:
-	$(MAKE) -f CMakeFiles/base.dir/build.make CMakeFiles/base.dir/netconn.cpp.i
-.PHONY : netconn.cpp.i
-
-netconn.s: netconn.cpp.s
-.PHONY : netconn.s
-
-# target to generate assembly for a file
-netconn.cpp.s:
-	$(MAKE) -f CMakeFiles/base.dir/build.make CMakeFiles/base.dir/netconn.cpp.s
-.PHONY : netconn.cpp.s
 
 netlib.o: netlib.cpp.o
 .PHONY : netlib.o
@@ -939,6 +939,9 @@ help:
 	@echo "... Lock.o"
 	@echo "... Lock.i"
 	@echo "... Lock.s"
+	@echo "... SeqAlloctor.o"
+	@echo "... SeqAlloctor.i"
+	@echo "... SeqAlloctor.s"
 	@echo "... ServInfo.o"
 	@echo "... ServInfo.i"
 	@echo "... ServInfo.s"
@@ -972,9 +975,6 @@ help:
 	@echo "... log4z.o"
 	@echo "... log4z.i"
 	@echo "... log4z.s"
-	@echo "... netconn.o"
-	@echo "... netconn.i"
-	@echo "... netconn.s"
 	@echo "... netlib.o"
 	@echo "... netlib.i"
 	@echo "... netlib.s"

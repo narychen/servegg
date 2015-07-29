@@ -13,9 +13,9 @@
 #define CLIENTCONN_H_
 
 #include <iostream>
-
+#include "imconn.h"
 #include "ImPduBase.h"
-#include "netconn.hpp"
+
 #include "IM.BaseDefine.pb.h"
 #include "IM.Login.pb.h"
 #include "IM.Other.pb.h"
@@ -24,7 +24,10 @@
 #include "IM.Message.pb.h"
 #include "IM.Group.pb.h"
 
-class CClientConn : public CNetConn<CImPdu>
+
+void init_client_conn(const string& ip, uint16_t);
+
+class CClientConn : public CImConn
 {
 public:
 	CClientConn(net_handle_t fd);
@@ -46,6 +49,8 @@ public:
 	virtual void OnConfirm();
 	virtual void OnClose();
 	virtual void OnTimer(uint64_t curr_tick);
+	
+	net_handle_t Connect(const string& strIp, uint16_t nPort);
 	
 	static std::function<void(CClientConn*)> OnConnect;
 	
