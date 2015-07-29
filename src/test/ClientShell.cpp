@@ -67,31 +67,21 @@ public:
         CHttpClient httpClient;
         string strResp;
         CURLcode nRet = httpClient.Get(login_url, strResp);
-        if(nRet != CURLE_OK) {
-            loge("login falied. access url:%s error\n", login_url.c_str());
-            return;
-        }
+        if(nRet != CURLE_OK)
+            throw netex("Get msgserver addr falied. access url:%s error\n", login_url.c_str());
         Json::Reader reader;
         Json::Value value;
-        if(!reader.parse(strResp, value)) {
-            loge("login falied. parse response error:%s\n", strResp.c_str());
-            return;
+        if (!reader.parse(strResp, value))
+            throw netex("Get msgserver addr falied. parse response error:%s\n", strResp.c_str());
+
+        uint32_t retCode = value["code"].asUInt();
+        if(retCode != 0) {
+            string strMsg = value["msg"].asString();
+            loge("Get msgserver addr falied. errorMsg:%s\n", strMsg.c_str());
+            throw netex("Get msgserver addr falied. errorMsg:%s\n", strMsg.c_str());
         }
-    
-        try {
-            uint32_t nRet = value["code"].asUInt();
-            if(nRet != 0) {
-                string strMsg = value["msg"].asString();
-                loge("login falied. errorMsg:%s\n", strMsg.c_str());
-                return;
-            }
-            ip = value["priorIP"].asString();
-            port = value["port"].asUInt();
-            
-        } catch (std::exception ex) {
-            loge("login falied. get json error:%s\n", ex.what());
-            return;
-        }
+        ip = value["priorIP"].asString();
+        port = value["port"].asUInt();
     }	
 	
     void ConnectMsgServer() {

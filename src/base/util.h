@@ -29,6 +29,8 @@
 #include <sys/time.h>
 #endif
 
+#include "ImLog.h"
+
 #define NOTUSED_ARG(v) ((void)v)		// used this to remove warning C4100, unreferenced parameter
 
 /// yunfan modify end 
@@ -62,36 +64,14 @@ public:
 	NetException(const char* why, ...);
 	virtual const char* what() const throw() { return _why.c_str();	}
 };
-
+#define __FILENAME__ (strrchr(__FILE__, '/') ? (strrchr(__FILE__, '/') + 1):__FILE__)
+#define netex(fmt, args...)  NetException("<%s>|<%d>|<%s>," fmt, __FILENAME__, __LINE__, __FUNCTION__, ##args)
 
 void str_split(string s, vector<string>& ret);
 void str_split(string s, vector<string>& ret, char sep);
 
-
-extern CSLog g_iminfo;
-extern CSLog g_imdebug;
-extern CSLog g_imerror;
-extern CSLog g_imwarn;
-extern CSLog g_imtrace;
-
-// Add By ZhangYuanhao 2015-01-14 For log show the file name not the full path + filename
-#define __FILENAME__ (strrchr(__FILE__, '/') ? (strrchr(__FILE__, '/') + 1):__FILE__)
-#if defined(_WIN32) || defined(_WIN64)
-#define log(fmt, ...)  g_iminfo.Info("<%s>\t<%d>\t<%s>,"fmt, __FILENAME__, __LINE__, __FUNCTION__, ##__VA_ARGS__)
-#else
-#define log(fmt, args...)  g_iminfo.Info("<%s>|<%d>|<%s>," fmt, __FILENAME__, __LINE__, __FUNCTION__, ##args)
-#define logd(fmt, args...) g_imdebug.Debug("<%s>|<%d>|<%s>," fmt, __FILENAME__, __LINE__, __FUNCTION__, ##args)
-#define logw(fmt, args...) g_imwarn.Warn("<%s>|<%d>|<%s>," fmt, __FILENAME__, __LINE__, __FUNCTION__, ##args)
-#define loge(fmt, args...) g_imerror.Error("<%s>|<%d>|<%s>," fmt, __FILENAME__, __LINE__, __FUNCTION__, ##args)
-#define logt(fmt, args...) g_imtrace.Trace("<%s>|<%d>|<%s>," fmt, __FILENAME__, __LINE__, __FUNCTION__, ##args)
-#endif
-//#define log(fmt, ...)  g_imlog.Info("<%s>\t<%d>\t<%s>,"+fmt, __FILENAME__, __LINE__, __FUNCTION__, ##__VA_ARGS__)
-
-#define netex(fmt, args...)  NetException("<%s>|<%d>|<%s>," fmt, __FILENAME__, __LINE__, __FUNCTION__, ##args)
-
 uint64_t get_tick_count();
 void util_sleep(uint32_t millisecond);
-
 
 class CStrExplode
 {

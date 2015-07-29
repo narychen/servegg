@@ -22,7 +22,7 @@ ADD_DEFINITIONS( -g -W -Wno-deprecated -Wno-unused-parameter -Wno-unused-functio
 INCLUDE_DIRECTORIES(${_} ${_}/jsoncpp ${_}/pb ${_}/pb/protocol)
 LINK_DIRECTORIES(${_} ${PB_LIB_DIR} ${_}/slog/lib)
 
-ADD_LIBRARY(base STATIC ${SRC_LIST1} ${SRC_LIST2} ${SRC_LIST3})
+ADD_LIBRARY(base STATIC ${SRC_LIST1} ${SRC_LIST2} ${SRC_LIST3} ImLog.h)
 
 #ADD_XXXX必须在TARGET_LINK_LIBRARIES前面，否则会报错
 #ADD_LIBRARY(${PROJECTNAME} SHARED ${SRC_LIST})

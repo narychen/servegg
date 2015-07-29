@@ -13,6 +13,7 @@
 #define CLIENTCONN_H_
 
 #include <iostream>
+#include "SeqAlloctor.h"
 #include "imconn.h"
 #include "ImPduBase.h"
 
@@ -27,10 +28,30 @@
 
 void init_client_conn(const string& ip, uint16_t);
 
+
+class IPacketCallback
+{
+public:
+    IPacketCallback() {};
+    virtual ~IPacketCallback() {};
+    virtual void onConnect() {}
+    virtual void onClose() {}
+    virtual void onError(uint32_t nSeqNo, uint32_t nCmd, const string& strMsg) {}
+    virtual void onLogin(uint32_t nSeqNo, uint32_t nResultCode, string& strMsg, IM::BaseDefine::UserInfo* pUser = NULL) {}
+    virtual void onGetChangedUser(uint32_t nSeqNo,const list<IM::BaseDefine::UserInfo>& lsUser) {}
+    virtual void onGetUserInfo(uint32_t nSeqNo,const list<IM::BaseDefine::UserInfo>& lsUser) {}
+    virtual void onSendMsg(uint32_t nSeqNo, uint32_t nUserId, uint32_t nRecvId, IM::BaseDefine::SessionType nType, uint32_t nMsgId) {}
+    virtual void onGetUnreadMsgCnt(uint32_t nSeqNo, uint32_t nUserId, uint32_t nTotalCnt, const list<IM::BaseDefine::UnreadInfo>& lsUnreadCnt) {}
+    virtual void onGetRecentSession(uint32_t nSeqNo, uint32_t nUserId, const list<IM::BaseDefine::ContactSessionInfo>& lsSession) {}
+    virtual void onGetMsgList(uint32_t nSeqNo, uint32_t nUserId, uint32_t nPeerId, IM::BaseDefine::SessionType nSessionType, uint32_t nMsgId, uint32_t nMsgCnt, const list<IM::BaseDefine::MsgInfo>& lsMsg) {}
+    virtual void onRecvMsg(uint32_t nSeqNo, uint32_t nFromId, uint32_t nToId, uint32_t nMsgId, uint32_t nCreateTime, IM::BaseDefine::MsgType nMsgType, const string& strMsgData) {}
+};
+
+
 class CClientConn : public CImConn
 {
 public:
-	CClientConn(net_handle_t fd);
+	CClientConn();
 	virtual ~CClientConn();
 
 	bool IsOpen() { return m_bOpen; }
@@ -49,8 +70,8 @@ public:
 	virtual void OnConfirm();
 	virtual void OnClose();
 	virtual void OnTimer(uint64_t curr_tick);
-	
-	net_handle_t Connect(const string& strIp, uint16_t nPort);
+
+    net_handle_t Connect(const char* ip, uint16_t port, uint32_t idx);
 	
 	static std::function<void(CClientConn*)> OnConnect;
 	
@@ -69,7 +90,9 @@ private:
     
 private:
 	bool 		m_bOpen;
+    uint32_t m_serv_idx;
     CSeqAlloctor* m_pSeqAlloctor;
+    IPacketCallback* m_pCallback;
     
 };
 

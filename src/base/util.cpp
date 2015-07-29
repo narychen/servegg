@@ -3,12 +3,6 @@
 #include <iostream>
 using namespace std;
 
-CSLog g_iminfo = CSLog("INFO");
-CSLog g_imdebug = CSLog("DEBUG");
-CSLog g_imwarn = CSLog("WARN");
-CSLog g_imerror = CSLog("ERROR");
-CSLog g_imtrace = CSLog("TRACE");
-
 CRefObject::CRefObject()
 {
 	m_lock = NULL;

@@ -12,28 +12,34 @@
 #include "ServInfo.h"
 
 using namespace std;
-static ConnMap_sp_t g_client_conn_map;
+static ConnMap_sp_t s_client_conn_map;
+static serv_info_t* s_serv_info_list;
+
+void client_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
+{
+    uint64_t cur_time = get_tick_count();
+    for (auto& e : s_client_conn_map) {
+        e.second->OnTimer(cur_time);
+    }
+    serv_check_reconnect<CClientConn>(s_serv_info_list, 1);
+}
 
 void init_client_conn(const string& ip, uint16_t port)
 {
-    auto servInfo = new serv_info_t[1];
-    servInfo[0].server_ip = ip;
-    servInfo[0].server_port = port;
-    serv_init<CClientConn>(servInfo, 1);
-    netlib_register_timer([&servInfo](void* callback_data, uint8_t msg, uint32_t handle, void* pParam) {
-        uint64_t cur_time = get_tick_count();
-        for (auto& e : g_client_conn_map) {
-            e.second->OnTimer(cur_time);
-        }
-        serv_check_reconnect<CClientConn>(servInfo, 1);
-    }, nullptr, 1000);
-    
+    auto servInfoList = new serv_info_t[1];
+    servInfoList[0].server_ip = ip;
+    servInfoList[0].server_port = port;
+    s_serv_info_list = servInfoList;
+    serv_init<CClientConn>(servInfoList, 1);
+    netlib_register_timer(client_conn_timer_callback, NULL, 1000);
 }
 
 
-CClientConn::CClientConn(net_handle_t fd) : m_bOpen(false)
+CClientConn::CClientConn() : m_bOpen(false)
 {
-    m_pSeqAlloctor = CSeqAlloctor::Instance();
+    m_pSeqAlloctor = CSeqAlloctor::getInstance();
+    m_pCallback = new IPacketCallback;
+    m_serv_idx = 0;
 }
 
 CClientConn::~CClientConn()
@@ -41,12 +47,12 @@ CClientConn::~CClientConn()
      logd("destruct clientconn"); 
 }
 
-net_handle_t CClientConn::Connect(const string& strIp, uint16_t nPort)
+net_handle_t CClientConn::Connect(const char* ip, uint16_t port, uint32_t idx)
 {
-	m_handle = netlib_connect(strIp.c_str(), nPort, imconn_callback_sp, (void*)&g_client_conn_map);
+	m_handle = netlib_connect(ip, port, imconn_callback_sp, (void*)&s_client_conn_map);
 	
 	if (m_handle != NETLIB_INVALID_HANDLE) {
-		g_client_conn_map.insert(make_pair(m_handle, shared_from_this()));
+        s_client_conn_map.insert(make_pair(m_handle, shared_from_this()));
 	}
     return  m_handle;
 }
@@ -229,7 +235,7 @@ void CClientConn::Close()
 {
 	if (m_handle != NETLIB_INVALID_HANDLE) {
 		netlib_close(m_handle);
-		m_conn_map.erase(m_handle);
+        s_client_conn_map.erase(m_handle);
 	}
 }
 
