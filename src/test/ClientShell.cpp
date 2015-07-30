@@ -51,16 +51,23 @@ public:
 	void ExecCmd(vector<string>& cmds) {
     	if (cmds.size() == 3) {
     	    if (cmds[0] == "login") {
-    	        cout << "login " << cmds[1] << " " << cmds[2] << endl;
-    	       // do_login(cmds[1], cmds[2]);
+    	        Login(cmds[1], cmds[2]);
     	    } else if (cmds[0] == "reg") {
-    	        cout << "register " << cmds[1] << " " << cmds[2] << endl;
-    	       // do_register(cmds[1], cmds[2]);
+    	        Register(cmds[1], cmds[2]);
     	    }
     	} else {
     	    cout << "command error" << endl;
     	}
 	    
+	}
+	
+	void Login(string username, string passwd) {
+	    cout << "login " << username << " " << passwd << endl;
+	}
+	
+	void Register(string username, string passwd) {
+	    cout << "register " << username << " " << passwd << endl;
+	    ConnectMsgServer();
 	}
 	
     void GetMsgServerAddr(string login_url, string& ip, uint16_t& port) {
@@ -88,14 +95,15 @@ public:
         string ip;
         uint16_t port;
         GetMsgServerAddr("http://127.0.0.1:8080/msg_server", ip, port);
-        log("Connect to %s:%s", ip.c_str(), port);
+        log("Connect to %s:%d", ip.c_str(), port);
         init_client_conn(ip, port);
     }
     
     void Run() {
         signal(SIGPIPE, SIG_IGN);
+        StartThread();
         netlib_init();
-        ConnectMsgServer();
+        cout << "Start event loop..." << endl;
         netlib_eventloop();
     }
 };

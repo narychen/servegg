@@ -339,7 +339,7 @@ void CEventDispatch::AddEvent(SOCKET fd, uint8_t socket_event)
 	ev.data.fd = fd;
 	if (epoll_ctl(m_epfd, EPOLL_CTL_ADD, fd, &ev) != 0)
 	{
-		log("epoll_ctl() failed, errno=%d", errno);
+		loge("epoll_ctl() failed, errno=%d", errno);
 	}
 }
 
@@ -347,7 +347,7 @@ void CEventDispatch::RemoveEvent(SOCKET fd, uint8_t socket_event)
 {
 	if (epoll_ctl(m_epfd, EPOLL_CTL_DEL, fd, NULL) != 0)
 	{
-		log("epoll_ctl failed, errno=%d", errno);
+		loge("epoll_ctl failed, errno=%d", errno);
 	}
 }
 
@@ -374,7 +374,7 @@ void CEventDispatch::StartDispatch(uint32_t wait_timeout)
             #ifdef EPOLLRDHUP
             if (events[i].events & EPOLLRDHUP)
             {
-                log("On Peer Close, socket=%d", ev_fd);
+                logt("On Peer Close, socket=%d", ev_fd);
                 pSocket->OnClose();
             }
             #endif
@@ -382,19 +382,19 @@ void CEventDispatch::StartDispatch(uint32_t wait_timeout)
 
 			if (events[i].events & EPOLLIN)
 			{
-				log("OnRead, socket=%d\n", ev_fd);
+				// logt("OnRead, socket=%d\n", ev_fd);
 				pSocket->OnRead();
 			}
 
 			if (events[i].events & EPOLLOUT)
 			{
-				log("OnWrite, socket=%d\n", ev_fd);
+				// logt("OnWrite, socket=%d\n", ev_fd);
 				pSocket->OnWrite();
 			}
 
 			if (events[i].events & (EPOLLPRI | EPOLLERR | EPOLLHUP))
 			{
-				log("OnClose, socket=%d\n", ev_fd);
+				logt("OnClose, socket=%d\n", ev_fd);
 				pSocket->OnClose();
 			}
 

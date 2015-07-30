@@ -13,7 +13,7 @@
 
 using namespace std;
 static ConnMap_sp_t s_client_conn_map;
-static serv_info_t* s_serv_info_list;
+static CServInfo<CClientConn>* s_serv_info_list;
 
 void client_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
 {
@@ -21,16 +21,16 @@ void client_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handl
     for (auto& e : s_client_conn_map) {
         e.second->OnTimer(cur_time);
     }
-    serv_check_reconnect<CClientConn>(s_serv_info_list, 1);
+    CServInfo<CClientConn>::CheckReconnect(s_serv_info_list, 1);
 }
 
 void init_client_conn(const string& ip, uint16_t port)
 {
-    auto servInfoList = new serv_info_t[1];
+    auto servInfoList = new CServInfo<CClientConn>[1];
     servInfoList[0].server_ip = ip;
     servInfoList[0].server_port = port;
     s_serv_info_list = servInfoList;
-    serv_init<CClientConn>(servInfoList, 1);
+    CServInfo<CClientConn>::Init(servInfoList, 1);
     netlib_register_timer(client_conn_timer_callback, NULL, 1000);
 }
 
