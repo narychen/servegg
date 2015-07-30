@@ -36,7 +36,7 @@ void init_client_conn(const string& ip, uint16_t port)
 
 void client_conn_register(string username, string passwd)
 {
-    s_serv_info_list[0]->Register(username, passwd);
+    s_serv_info_list[0].serv_conn->Register(username, passwd);
 }
 
 CClientConn::CClientConn() : m_bOpen(false)
@@ -70,6 +70,11 @@ void CClientConn::Register(string username, string passwd)
     msg.set_client_type(IM::BaseDefine::CLIENT_TYPE_WINDOWS);
     msg.set_client_version("1.0");
     pdu.SetPBMsg(&msg);
+    pdu.SetServiceId(IM::BaseDefine::SID_LOGIN);
+    pdu.SetCommandId(IM::BaseDefine::CID_REGISTER_REQ_MSGSERVER);
+    uint32_t nSeqNo = m_pSeqAlloctor->getSeq(ALLOCTOR_PACKET);
+    pdu.SetSeqNum(nSeqNo);
+    SendPdu(&pdu);
 }
 
 void CClientConn::OnConfirm()

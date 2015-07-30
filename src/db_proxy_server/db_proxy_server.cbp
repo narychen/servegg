@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+   <FileVersion major="1" minor="6" />
+   <Project>
+      <Option title="db_proxy_server" />
+      <Option makefile_is_custom="1" />
+      <Option compiler="gcc" />
+      <Option virtualFolders="CMake Files\;" />
+      <Build>
+      <Target title="all">
+         <Option working_dir="/home/benben/code/servegg/src/db_proxy_server" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/db_proxy_server/Makefile&quot;  VERBOSE=1 all" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/db_proxy_server/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/db_proxy_server/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/db_proxy_server/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="db_proxy_server">
+         <Option output="/home/benben/code/servegg/src/db_proxy_server/db_proxy_server" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/benben/code/servegg/src/db_proxy_server" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-D_REENTRANT" />
+            <Add option="-D_FILE_OFFSET_BITS=64" />
+            <Add option="-DAC_HAS_INFO" />
+            <Add option="-DAC_HAS_WARNING" />
+            <Add option="-DAC_HAS_ERROR" />
+            <Add option="-DAC_HAS_CRITICAL" />
+            <Add option="-DTIXML_USE_STL" />
+            <Add option="-DAC_HAS_DEBUG" />
+            <Add option="-DLINUX_DAEMON" />
+            <Add option="-DENCRYPT" />
+            <Add directory="/home/benben/code/servegg/src/db_proxy_server" />
+            <Add directory="/home/benben/code/servegg/src/db_proxy_server/../base" />
+            <Add directory="/home/benben/code/servegg/src/db_proxy_server/../base/jsoncpp" />
+            <Add directory="/home/benben/code/servegg/src/db_proxy_server/../base/pb" />
+            <Add directory="/home/benben/code/servegg/src/db_proxy_server/../base/pb/protocol" />
+            <Add directory="/home/benben/code/servegg/src/db_proxy_server/businiess" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/mysql" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.6/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.6/include-fixed" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/db_proxy_server/Makefile&quot;  VERBOSE=1 db_proxy_server" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/db_proxy_server/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/db_proxy_server/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/db_proxy_server/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="db_proxy_server/fast">
+         <Option output="/home/benben/code/servegg/src/db_proxy_server/db_proxy_server" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/benben/code/servegg/src/db_proxy_server" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-D_REENTRANT" />
+            <Add option="-D_FILE_OFFSET_BITS=64" />
+            <Add option="-DAC_HAS_INFO" />
+            <Add option="-DAC_HAS_WARNING" />
+            <Add option="-DAC_HAS_ERROR" />
+            <Add option="-DAC_HAS_CRITICAL" />
+            <Add option="-DTIXML_USE_STL" />
+            <Add option="-DAC_HAS_DEBUG" />
+            <Add option="-DLINUX_DAEMON" />
+            <Add option="-DENCRYPT" />
+            <Add directory="/home/benben/code/servegg/src/db_proxy_server" />
+            <Add directory="/home/benben/code/servegg/src/db_proxy_server/../base" />
+            <Add directory="/home/benben/code/servegg/src/db_proxy_server/../base/jsoncpp" />
+            <Add directory="/home/benben/code/servegg/src/db_proxy_server/../base/pb" />
+            <Add directory="/home/benben/code/servegg/src/db_proxy_server/../base/pb/protocol" />
+            <Add directory="/home/benben/code/servegg/src/db_proxy_server/businiess" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/mysql" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.6/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.6/include-fixed" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/db_proxy_server/Makefile&quot;  VERBOSE=1 db_proxy_server/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/db_proxy_server/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/db_proxy_server/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/db_proxy_server/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="rebuild_cache">
+         <Option working_dir="/home/benben/code/servegg/src/db_proxy_server" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/db_proxy_server/Makefile&quot;  VERBOSE=1 rebuild_cache" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/db_proxy_server/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/db_proxy_server/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/db_proxy_server/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      </Build>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/AutoPool.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/CachePool.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/DBPool.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/HandlerMap.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/ProxyConn.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/ProxyTask.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/SyncCenter.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/AudioModel.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/DepartAction.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/DepartModel.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/ExterLogin.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/FileAction.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/FileModel.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/GroupAction.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/GroupMessageModel.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/GroupModel.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/InterLogin.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/Login.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/MessageContent.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/MessageCounter.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/MessageModel.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/RecentSession.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/RelationModel.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/SessionModel.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/UserAction.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/UserModel.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/db_proxy_server.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/AutoPool.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/CachePool.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/DBPool.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/HandlerMap.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/ProxyConn.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/ProxyTask.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/SyncCenter.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/AudioModel.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/DepartAction.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/DepartModel.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/ExterLogin.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/FileAction.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/FileModel.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/GroupAction.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/GroupMessageModel.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/GroupModel.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/InterLogin.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/Login.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/MessageContent.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/MessageCounter.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/MessageModel.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/RecentSession.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/RelationModel.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/SessionModel.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/UserAction.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/business/UserModel.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/db_proxy_server/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+   </Project>
+</CodeBlocks_project_file>
