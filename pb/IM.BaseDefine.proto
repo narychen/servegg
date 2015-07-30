@@ -15,6 +15,13 @@ enum ServiceID{
     SID_INTERNAL        = 0x0008;		     
 }
 
+//command id for register
+enum RegisterCmdID{
+    CID_REGISTER_REQ_MSGSERVER         = 0x0111;
+    CID_REGISTER_RES_MSGSERVER         = 0x0112;
+
+}
+
 // command id for login
 enum LoginCmdID{
     CID_LOGIN_REQ_MSGSERVER         = 0x0101; 	//

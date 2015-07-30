@@ -34,6 +34,10 @@ void init_client_conn(const string& ip, uint16_t port)
     netlib_register_timer(client_conn_timer_callback, NULL, 1000);
 }
 
+void client_conn_register(string username, string passwd)
+{
+    s_serv_info_list[0]->Register(username, passwd);
+}
 
 CClientConn::CClientConn() : m_bOpen(false)
 {
@@ -55,6 +59,17 @@ net_handle_t CClientConn::Connect(const char* ip, uint16_t port, uint32_t idx)
         s_client_conn_map.insert(make_pair(m_handle, shared_from_this()));
 	}
     return  m_handle;
+}
+
+void CClientConn::Register(string username, string passwd)
+{
+    CImPdu pdu;
+    IM::Login::IMRegisterReq msg;
+    msg.set_user_name(username);
+    msg.set_password(passwd);
+    msg.set_client_type(IM::BaseDefine::CLIENT_TYPE_WINDOWS);
+    msg.set_client_version("1.0");
+    pdu.SetPBMsg(&msg);
 }
 
 void CClientConn::OnConfirm()

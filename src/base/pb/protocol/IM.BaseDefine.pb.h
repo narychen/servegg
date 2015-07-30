@@ -63,6 +63,15 @@ const ServiceID ServiceID_MIN = SID_LOGIN;
 const ServiceID ServiceID_MAX = SID_INTERNAL;
 const int ServiceID_ARRAYSIZE = ServiceID_MAX + 1;
 
+enum RegisterCmdID {
+  CID_REGISTER_REQ_MSGSERVER = 273,
+  CID_REGISTER_RES_MSGSERVER = 274
+};
+bool RegisterCmdID_IsValid(int value);
+const RegisterCmdID RegisterCmdID_MIN = CID_REGISTER_REQ_MSGSERVER;
+const RegisterCmdID RegisterCmdID_MAX = CID_REGISTER_RES_MSGSERVER;
+const int RegisterCmdID_ARRAYSIZE = RegisterCmdID_MAX + 1;
+
 enum LoginCmdID {
   CID_LOGIN_REQ_MSGSERVER = 257,
   CID_LOGIN_RES_MSGSERVER = 258,

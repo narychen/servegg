@@ -106,6 +106,16 @@ bool ServiceID_IsValid(int value) {
   }
 }
 
+bool RegisterCmdID_IsValid(int value) {
+  switch(value) {
+    case 273:
+    case 274:
+      return true;
+    default:
+      return false;
+  }
+}
+
 bool LoginCmdID_IsValid(int value) {
   switch(value) {
     case 257:

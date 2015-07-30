@@ -72,6 +72,7 @@ public:
 	virtual void OnTimer(uint64_t curr_tick);
 
     net_handle_t Connect(const char* ip, uint16_t port, uint32_t idx);
+    void Register(string username, string passwd);
 	
 	static std::function<void(CClientConn*)> OnConnect;
 	

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+   <FileVersion major="1" minor="6" />
+   <Project>
+      <Option title="msgserver" />
+      <Option makefile_is_custom="1" />
+      <Option compiler="gcc" />
+      <Option virtualFolders="CMake Files\;" />
+      <Build>
+      <Target title="all">
+         <Option working_dir="/home/benben/code/servegg/src/msg_server" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/msg_server/Makefile&quot;  VERBOSE=1 all" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/msg_server/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/msg_server/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/msg_server/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="msg_server">
+         <Option output="/home/benben/code/servegg/src/msg_server/msg_server" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/benben/code/servegg/src/msg_server" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-D_REENTRANT" />
+            <Add option="-D_FILE_OFFSET_BITS=64" />
+            <Add option="-DAC_HAS_INFO" />
+            <Add option="-DAC_HAS_WARNING" />
+            <Add option="-DAC_HAS_ERROR" />
+            <Add option="-DAC_HAS_CRITICAL" />
+            <Add option="-DTIXML_USE_STL" />
+            <Add option="-DAC_HAS_DEBUG" />
+            <Add option="-DLINUX_DAEMON" />
+            <Add directory="/home/benben/code/servegg/src/msg_server" />
+            <Add directory="/home/benben/code/servegg/src/msg_server/../base" />
+            <Add directory="/home/benben/code/servegg/src/msg_server/../base/pb" />
+            <Add directory="/home/benben/code/servegg/src/msg_server/../base/pb/protocol" />
+            <Add directory="/home/benben/code/servegg/src/msg_server/../base/security" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.6/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.6/include-fixed" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/msg_server/Makefile&quot;  VERBOSE=1 msg_server" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/msg_server/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/msg_server/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/msg_server/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="msg_server/fast">
+         <Option output="/home/benben/code/servegg/src/msg_server/msg_server" prefix_auto="0" extension_auto="0" />
+         <Option working_dir="/home/benben/code/servegg/src/msg_server" />
+         <Option object_output="./" />
+         <Option type="1" />
+         <Option compiler="gcc" />
+         <Compiler>
+            <Add option="-D_REENTRANT" />
+            <Add option="-D_FILE_OFFSET_BITS=64" />
+            <Add option="-DAC_HAS_INFO" />
+            <Add option="-DAC_HAS_WARNING" />
+            <Add option="-DAC_HAS_ERROR" />
+            <Add option="-DAC_HAS_CRITICAL" />
+            <Add option="-DTIXML_USE_STL" />
+            <Add option="-DAC_HAS_DEBUG" />
+            <Add option="-DLINUX_DAEMON" />
+            <Add directory="/home/benben/code/servegg/src/msg_server" />
+            <Add directory="/home/benben/code/servegg/src/msg_server/../base" />
+            <Add directory="/home/benben/code/servegg/src/msg_server/../base/pb" />
+            <Add directory="/home/benben/code/servegg/src/msg_server/../base/pb/protocol" />
+            <Add directory="/home/benben/code/servegg/src/msg_server/../base/security" />
+            <Add directory="/usr/include" />
+            <Add directory="/usr/include/c++/5" />
+            <Add directory="/usr/include/c++/5/backward" />
+            <Add directory="/usr/include/x86_64-linux-gnu" />
+            <Add directory="/usr/include/x86_64-linux-gnu/c++/5" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.6/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/4.6/include-fixed" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include" />
+            <Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed" />
+            <Add directory="/usr/local/include" />
+         </Compiler>
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/msg_server/Makefile&quot;  VERBOSE=1 msg_server/fast" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/msg_server/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/msg_server/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/msg_server/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      <Target title="rebuild_cache">
+         <Option working_dir="/home/benben/code/servegg/src/msg_server" />
+         <Option type="4" />
+         <MakeCommands>
+            <Build command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/msg_server/Makefile&quot;  VERBOSE=1 rebuild_cache" />
+            <CompileFile command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/msg_server/Makefile&quot;  VERBOSE=1 &quot;$file&quot;" />
+            <Clean command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/msg_server/Makefile&quot;  VERBOSE=1 clean" />
+            <DistClean command="/usr/bin/make -f &quot;/home/benben/code/servegg/src/msg_server/Makefile&quot;  VERBOSE=1 clean" />
+         </MakeCommands>
+      </Target>
+      </Build>
+      <Unit filename="/home/benben/code/servegg/src/msg_server/AttachData.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/msg_server/DBServConn.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/msg_server/FileHandler.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/msg_server/FileServConn.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/msg_server/GroupChat.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/msg_server/ImUser.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/msg_server/LoginServConn.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/msg_server/MsgConn.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/msg_server/PushServConn.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/msg_server/RouteServConn.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/msg_server/jsonxx.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/msg_server/msg_server.cpp">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/msg_server/AttachData.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/msg_server/DBServConn.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/msg_server/FileHandler.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/msg_server/FileServConn.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/msg_server/GroupChat.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/msg_server/ImUser.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/msg_server/LoginServConn.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/msg_server/MsgConn.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/msg_server/PushServConn.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/msg_server/RouteServConn.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/msg_server/jsonxx.h">
+      </Unit>
+      <Unit filename="/home/benben/code/servegg/src/msg_server/CMakeLists.txt">
+          <Option virtualFolder="CMake Files\" />
+      </Unit>
+   </Project>
+</CodeBlocks_project_file>

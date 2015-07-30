@@ -275,10 +275,13 @@ void CMsgConn::HandlePdu(CImPdu* pPdu)
         throw CPduException(pPdu->GetServiceId(), pPdu->GetCommandId(), ERROR_CODE_WRONG_SERVICE_ID, "HandlePdu error, user not login. ");
 		return;
     }
-    
+   log("hereeeeee");
 	switch (pPdu->GetCommandId()) {
         case CID_OTHER_HEARTBEAT:
             _HandleHeartBeat(pPdu);
+            break;
+        case CID_REGISTER_REQ_MSGSERVER:
+            log("reg in");
             break;
         case CID_LOGIN_REQ_USERLOGIN:
             _HandleLoginRequest(pPdu );
