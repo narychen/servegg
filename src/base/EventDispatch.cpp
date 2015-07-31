@@ -382,13 +382,13 @@ void CEventDispatch::StartDispatch(uint32_t wait_timeout)
 
 			if (events[i].events & EPOLLIN)
 			{
-				// logt("OnRead, socket=%d\n", ev_fd);
+				logt("OnRead, socket=%d\n", ev_fd);
 				pSocket->OnRead();
 			}
 
 			if (events[i].events & EPOLLOUT)
 			{
-				// logt("OnWrite, socket=%d\n", ev_fd);
+				logt("OnWrite, socket=%d\n", ev_fd);
 				pSocket->OnWrite();
 			}
 

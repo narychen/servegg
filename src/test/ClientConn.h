@@ -25,8 +25,20 @@
 #include "IM.Message.pb.h"
 #include "IM.Group.pb.h"
 
+typedef enum {
+    ON_CONFIRM_LOGIN = 1,
+    ON_CONFIRM_REGISTER
+} on_confirm_state_t;
 
-void init_client_conn(const string& ip, uint16_t);
+typedef struct {
+    string username;
+    string passwd;
+    on_confirm_state_t state;
+} on_confirm_data_t;
+
+
+void init_client_conn(const string& ip, uint16_t, on_confirm_data_t& data);
+void client_conn_register(string username, string passwd);
 
 
 class IPacketCallback
@@ -58,7 +70,7 @@ public:
 
     virtual void Close();
 public:
-    uint32_t login(const string& strName, const string& strPass);
+    
     uint32_t getUser(uint32_t nUserId, uint32_t nTime =0);
     uint32_t getUserInfo(uint32_t nUserId, list<uint32_t>& lsUserId);
     uint32_t sendMessage(uint32_t nFromId, uint32_t nToId, IM::BaseDefine::MsgType nType, const string& strMsgData);
@@ -72,11 +84,9 @@ public:
 	virtual void OnTimer(uint64_t curr_tick);
 
     net_handle_t Connect(const char* ip, uint16_t port, uint32_t idx);
-    void Register(string username, string passwd);
-	
-	static std::function<void(CClientConn*)> OnConnect;
-	
-	uint32_t reg(const string name, const string passwd);
+    uint32_t Login(const string &strName, const string &strPass);
+    uint32_t Register(const string &strName, const string &strPass);
+
 
 	virtual void HandlePdu(CImPdu* pPdu);
 private:

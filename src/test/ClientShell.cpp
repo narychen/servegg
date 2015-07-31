@@ -63,11 +63,21 @@ public:
 	
 	void Login(string username, string passwd) {
 	    cout << "login " << username << " " << passwd << endl;
+	    on_confirm_data_t data;
+	    data.username = username;
+	    data.passwd = passwd;
+	    data.state = ON_CONFIRM_LOGIN;
+	    ConnectMsgServer(data);
 	}
 	
 	void Register(string username, string passwd) {
 	    cout << "register " << username << " " << passwd << endl;
-	    ConnectMsgServer();
+	    on_confirm_data_t data;
+	    data.username = username;
+	    data.passwd = passwd;
+	    data.state = ON_CONFIRM_REGISTER;
+	    ConnectMsgServer(data);
+	    
 	}
 	
     void GetMsgServerAddr(string login_url, string& ip, uint16_t& port) {
@@ -91,12 +101,12 @@ public:
         port = value["port"].asUInt();
     }	
 	
-    void ConnectMsgServer() {
+    void ConnectMsgServer(on_confirm_data_t& data) {
         string ip;
         uint16_t port;
         GetMsgServerAddr("http://127.0.0.1:8080/msg_server", ip, port);
         log("Connect to %s:%d", ip.c_str(), port);
-        init_client_conn(ip, port);
+        init_client_conn(ip, port, data);
     }
     
     void Run() {

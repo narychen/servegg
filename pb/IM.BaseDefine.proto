@@ -15,12 +15,6 @@ enum ServiceID{
     SID_INTERNAL        = 0x0008;		     
 }
 
-//command id for register
-enum RegisterCmdID{
-    CID_REGISTER_REQ_MSGSERVER         = 0x0111;
-    CID_REGISTER_RES_MSGSERVER         = 0x0112;
-
-}
 
 // command id for login
 enum LoginCmdID{
@@ -35,6 +29,8 @@ enum LoginCmdID{
     CID_LOGIN_RES_DEVICETOKEN       = 0x0109;  //
     CID_LOGIN_REQ_KICKPCCLIENT      = 0x010a;
     CID_LOGIN_RES_KICKPCCLIENT      = 0x010b;
+    CID_LOGIN_REQ_USERREG           = 0x010c;
+    CID_LOGIN_RES_USERREG           = 0x010d;
 }
 
 // command id for buddy list

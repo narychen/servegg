@@ -270,7 +270,9 @@ void CMsgConn::OnTimer(uint64_t curr_tick)
 void CMsgConn::HandlePdu(CImPdu* pPdu)
 {
 	// request authorization check
-	if (pPdu->GetCommandId() != CID_LOGIN_REQ_USERLOGIN && !IsOpen() && IsKickOff()) {
+	if (pPdu->GetCommandId() != CID_LOGIN_REQ_USERLOGIN &&
+	    pPdu->GetCommandId() != CID_LOGIN_REQ_USERREG &&
+	    !IsOpen() && IsKickOff()) {
         log("HandlePdu, wrong msg. ");
         throw CPduException(pPdu->GetServiceId(), pPdu->GetCommandId(), ERROR_CODE_WRONG_SERVICE_ID, "HandlePdu error, user not login. ");
 		return;
@@ -280,7 +282,7 @@ void CMsgConn::HandlePdu(CImPdu* pPdu)
         case CID_OTHER_HEARTBEAT:
             _HandleHeartBeat(pPdu);
             break;
-        case CID_REGISTER_REQ_MSGSERVER:
+        case CID_LOGIN_REQ_USERREG:
             log("reg in");
             break;
         case CID_LOGIN_REQ_USERLOGIN:

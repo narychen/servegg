@@ -15,6 +15,9 @@ using namespace std;
 static ConnMap_sp_t s_client_conn_map;
 static CServInfo<CClientConn>* s_serv_info_list;
 
+on_confirm_data_t s_on_confirm_data;
+
+
 void client_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
 {
     uint64_t cur_time = get_tick_count();
@@ -24,7 +27,7 @@ void client_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handl
     CServInfo<CClientConn>::CheckReconnect(s_serv_info_list, 1);
 }
 
-void init_client_conn(const string& ip, uint16_t port)
+void init_client_conn(const string& ip, uint16_t port, on_confirm_data_t& data)
 {
     auto servInfoList = new CServInfo<CClientConn>[1];
     servInfoList[0].server_ip = ip;
@@ -32,12 +35,11 @@ void init_client_conn(const string& ip, uint16_t port)
     s_serv_info_list = servInfoList;
     CServInfo<CClientConn>::Init(servInfoList, 1);
     netlib_register_timer(client_conn_timer_callback, NULL, 1000);
+    s_on_confirm_data.username = data.username;
+    s_on_confirm_data.passwd = data.passwd;
+    s_on_confirm_data.state = data.state;
 }
 
-void client_conn_register(string username, string passwd)
-{
-    s_serv_info_list[0].serv_conn->Register(username, passwd);
-}
 
 CClientConn::CClientConn() : m_bOpen(false)
 {
@@ -61,25 +63,33 @@ net_handle_t CClientConn::Connect(const char* ip, uint16_t port, uint32_t idx)
     return  m_handle;
 }
 
-void CClientConn::Register(string username, string passwd)
+uint32_t CClientConn::Register(const string &strName, const string &strPass)
 {
     CImPdu pdu;
     IM::Login::IMRegisterReq msg;
-    msg.set_user_name(username);
-    msg.set_password(passwd);
+    msg.set_user_name(strName);
+    msg.set_password(strPass);
     msg.set_client_type(IM::BaseDefine::CLIENT_TYPE_WINDOWS);
     msg.set_client_version("1.0");
     pdu.SetPBMsg(&msg);
     pdu.SetServiceId(IM::BaseDefine::SID_LOGIN);
-    pdu.SetCommandId(IM::BaseDefine::CID_REGISTER_REQ_MSGSERVER);
+    pdu.SetCommandId(IM::BaseDefine::CID_LOGIN_REQ_USERREG);
     uint32_t nSeqNo = m_pSeqAlloctor->getSeq(ALLOCTOR_PACKET);
     pdu.SetSeqNum(nSeqNo);
+    log("send pdu");
     SendPdu(&pdu);
+    return nSeqNo;
 }
 
 void CClientConn::OnConfirm()
 {
     log("%s client on confirm ", typeid(*this).name());
+    switch (s_on_confirm_data.state) {
+        case ON_CONFIRM_LOGIN:
+            Login(s_on_confirm_data.username, s_on_confirm_data.passwd);
+        case ON_CONFIRM_REGISTER:
+            Register(s_on_confirm_data.username, s_on_confirm_data.passwd);
+    }
     // if(m_pCallback)
     // {
     //     m_pCallback->onConnect();
@@ -111,13 +121,7 @@ void CClientConn::OnTimer(uint64_t curr_tick)
     }
 }
 
-uint32_t CClientConn::reg(const string name, const string passwd)
-{
-    cout << "do reg!!!" << endl;
-    return 1;
-}
-
-uint32_t CClientConn::login(const string &strName, const string &strPass)
+uint32_t CClientConn::Login(const string &strName, const string &strPass)
 {
     CImPdu cPdu;
     IM::Login::IMLoginReq msg;
