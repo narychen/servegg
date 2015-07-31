@@ -567,6 +567,7 @@ void IMMsgServRsp::Swap(IMMsgServRsp* other) {
 #ifndef _MSC_VER
 const int IMRegisterReq::kUserNameFieldNumber;
 const int IMRegisterReq::kPasswordFieldNumber;
+const int IMRegisterReq::kOnlineStatusFieldNumber;
 const int IMRegisterReq::kClientTypeFieldNumber;
 const int IMRegisterReq::kClientVersionFieldNumber;
 #endif  // !_MSC_VER
@@ -592,6 +593,7 @@ void IMRegisterReq::SharedCtor() {
   _cached_size_ = 0;
   user_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   password_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  online_status_ = 1;
   client_type_ = 1;
   client_version_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
@@ -641,7 +643,7 @@ IMRegisterReq* IMRegisterReq::New() const {
 }
 
 void IMRegisterReq::Clear() {
-  if (_has_bits_[0 / 32] & 15) {
+  if (_has_bits_[0 / 32] & 31) {
     if (has_user_name()) {
       if (user_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         user_name_->clear();
@@ -652,6 +654,7 @@ void IMRegisterReq::Clear() {
         password_->clear();
       }
     }
+    online_status_ = 1;
     client_type_ = 1;
     if (has_client_version()) {
       if (client_version_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
@@ -695,6 +698,27 @@ bool IMRegisterReq::MergePartialFromCodedStream(
          parse_password:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_password()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(24)) goto parse_online_status;
+        break;
+      }
+
+      // optional .IM.BaseDefine.UserStatType online_status = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_online_status:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          if (::IM::BaseDefine::UserStatType_IsValid(value)) {
+            set_online_status(static_cast< ::IM::BaseDefine::UserStatType >(value));
+          } else {
+            unknown_fields_stream.WriteVarint32(tag);
+            unknown_fields_stream.WriteVarint32(value);
+          }
         } else {
           goto handle_unusual;
         }
@@ -773,6 +797,12 @@ void IMRegisterReq::SerializeWithCachedSizes(
       2, this->password(), output);
   }
 
+  // optional .IM.BaseDefine.UserStatType online_status = 3;
+  if (has_online_status()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      3, this->online_status(), output);
+  }
+
   // optional .IM.BaseDefine.ClientType client_type = 4;
   if (has_client_type()) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
@@ -806,6 +836,12 @@ int IMRegisterReq::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->password());
+    }
+
+    // optional .IM.BaseDefine.UserStatType online_status = 3;
+    if (has_online_status()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::EnumSize(this->online_status());
     }
 
     // optional .IM.BaseDefine.ClientType client_type = 4;
@@ -844,6 +880,9 @@ void IMRegisterReq::MergeFrom(const IMRegisterReq& from) {
     if (from.has_password()) {
       set_password(from.password());
     }
+    if (from.has_online_status()) {
+      set_online_status(from.online_status());
+    }
     if (from.has_client_type()) {
       set_client_type(from.client_type());
     }
@@ -869,6 +908,7 @@ void IMRegisterReq::Swap(IMRegisterReq* other) {
   if (other != this) {
     std::swap(user_name_, other->user_name_);
     std::swap(password_, other->password_);
+    std::swap(online_status_, other->online_status_);
     std::swap(client_type_, other->client_type_);
     std::swap(client_version_, other->client_version_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);

@@ -23,7 +23,7 @@ ADD_DEFINITIONS( -g -W -Wno-deprecated -Wno-unused-parameter -Wno-unused-functio
 -DAC_HAS_WARNING -DAC_HAS_ERROR -DAC_HAS_CRITICAL -DTIXML_USE_STL
 -DAC_HAS_DEBUG -DLINUX_DAEMON -std=c++11)
 
-INCLUDE_DIRECTORIES(${_} ${_}/../base ${_}/../base/pb/protocol ${_}/../base/jsoncpp/ ${_}/../base/pb/)
+INCLUDE_DIRECTORIES(${_} ${_}/../base ${_}/../base/pb/protocol ${_}/../base/jsoncpp ${_}/../base/pb)
 LINK_DIRECTORIES(${_} ${_}/../base ${PB_LIB_DIR} ${_}/../base/slog/lib)
 
 #ADD_XXXX必须在TARGET_LINK_LIBRARIES前面，否则会报错

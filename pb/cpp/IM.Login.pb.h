@@ -346,6 +346,13 @@ class IMRegisterReq : public ::google::protobuf::MessageLite {
   inline ::std::string* release_password();
   inline void set_allocated_password(::std::string* password);
 
+  // optional .IM.BaseDefine.UserStatType online_status = 3;
+  inline bool has_online_status() const;
+  inline void clear_online_status();
+  static const int kOnlineStatusFieldNumber = 3;
+  inline ::IM::BaseDefine::UserStatType online_status() const;
+  inline void set_online_status(::IM::BaseDefine::UserStatType value);
+
   // optional .IM.BaseDefine.ClientType client_type = 4;
   inline bool has_client_type() const;
   inline void clear_client_type();
@@ -371,6 +378,8 @@ class IMRegisterReq : public ::google::protobuf::MessageLite {
   inline void clear_has_user_name();
   inline void set_has_password();
   inline void clear_has_password();
+  inline void set_has_online_status();
+  inline void clear_has_online_status();
   inline void set_has_client_type();
   inline void clear_has_client_type();
   inline void set_has_client_version();
@@ -382,8 +391,9 @@ class IMRegisterReq : public ::google::protobuf::MessageLite {
   mutable int _cached_size_;
   ::std::string* user_name_;
   ::std::string* password_;
-  ::std::string* client_version_;
+  int online_status_;
   int client_type_;
+  ::std::string* client_version_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_IM_2eLogin_2eproto_impl();
   #else
@@ -1749,15 +1759,40 @@ inline void IMRegisterReq::set_allocated_password(::std::string* password) {
   // @@protoc_insertion_point(field_set_allocated:IM.Login.IMRegisterReq.password)
 }
 
-// optional .IM.BaseDefine.ClientType client_type = 4;
-inline bool IMRegisterReq::has_client_type() const {
+// optional .IM.BaseDefine.UserStatType online_status = 3;
+inline bool IMRegisterReq::has_online_status() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void IMRegisterReq::set_has_client_type() {
+inline void IMRegisterReq::set_has_online_status() {
   _has_bits_[0] |= 0x00000004u;
 }
-inline void IMRegisterReq::clear_has_client_type() {
+inline void IMRegisterReq::clear_has_online_status() {
   _has_bits_[0] &= ~0x00000004u;
+}
+inline void IMRegisterReq::clear_online_status() {
+  online_status_ = 1;
+  clear_has_online_status();
+}
+inline ::IM::BaseDefine::UserStatType IMRegisterReq::online_status() const {
+  // @@protoc_insertion_point(field_get:IM.Login.IMRegisterReq.online_status)
+  return static_cast< ::IM::BaseDefine::UserStatType >(online_status_);
+}
+inline void IMRegisterReq::set_online_status(::IM::BaseDefine::UserStatType value) {
+  assert(::IM::BaseDefine::UserStatType_IsValid(value));
+  set_has_online_status();
+  online_status_ = value;
+  // @@protoc_insertion_point(field_set:IM.Login.IMRegisterReq.online_status)
+}
+
+// optional .IM.BaseDefine.ClientType client_type = 4;
+inline bool IMRegisterReq::has_client_type() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void IMRegisterReq::set_has_client_type() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void IMRegisterReq::clear_has_client_type() {
+  _has_bits_[0] &= ~0x00000008u;
 }
 inline void IMRegisterReq::clear_client_type() {
   client_type_ = 1;
@@ -1776,13 +1811,13 @@ inline void IMRegisterReq::set_client_type(::IM::BaseDefine::ClientType value) {
 
 // optional string client_version = 5;
 inline bool IMRegisterReq::has_client_version() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
+  return (_has_bits_[0] & 0x00000010u) != 0;
 }
 inline void IMRegisterReq::set_has_client_version() {
-  _has_bits_[0] |= 0x00000008u;
+  _has_bits_[0] |= 0x00000010u;
 }
 inline void IMRegisterReq::clear_has_client_version() {
-  _has_bits_[0] &= ~0x00000008u;
+  _has_bits_[0] &= ~0x00000010u;
 }
 inline void IMRegisterReq::clear_client_version() {
   if (client_version_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {

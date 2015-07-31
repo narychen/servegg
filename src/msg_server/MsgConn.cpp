@@ -277,16 +277,15 @@ void CMsgConn::HandlePdu(CImPdu* pPdu)
         throw CPduException(pPdu->GetServiceId(), pPdu->GetCommandId(), ERROR_CODE_WRONG_SERVICE_ID, "HandlePdu error, user not login. ");
 		return;
     }
-   log("hereeeeee");
 	switch (pPdu->GetCommandId()) {
         case CID_OTHER_HEARTBEAT:
             _HandleHeartBeat(pPdu);
             break;
         case CID_LOGIN_REQ_USERREG:
-            log("reg in");
+            _HandleRegisterRequest(pPdu);
             break;
         case CID_LOGIN_REQ_USERLOGIN:
-            _HandleLoginRequest(pPdu );
+            _HandleLoginRequest(pPdu);
             break;
         case CID_LOGIN_REQ_LOGINOUT:
             _HandleLoginOutRequest(pPdu);
@@ -387,19 +386,41 @@ void CMsgConn::_HandleHeartBeat(CImPdu *pPdu)
     SendPdu(pPdu);
 }
 
-// process: send validate request to db server
-void CMsgConn::_HandleLoginRequest(CImPdu* pPdu)
+void CMsgConn::_HandleRegisterRequest(CImPdu* pPdu)
 {
-    // refuse second validate request
+    logt("user reg");
     if (m_login_name.length() != 0) {
-        log("duplicate LoginRequest in the same conn ");
+        loge("already login ");
+        return;
+    }
+    CDBServConn* pDbConn = get_db_serv_conn_for_login();
+    if (!_IsAllServerOk(pPdu, pDbConn)) {
+        loge("not all server ok ");
         return;
     }
     
-    // check if all server connection are OK
+    IM::Login::IMRegisterReq msg;
+    CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
+    m_login_name = msg.user_name();
+    string password = msg.password();
+    uint32_t online_status = msg.online_status();
+    if (online_status < IM::BaseDefine::USER_STATUS_ONLINE || online_status > IM::BaseDefine::USER_STATUS_LEAVE) {
+        loge("online status wrong: %u ", online_status);
+        online_status = IM::BaseDefine::USER_STATUS_ONLINE;
+    }
+    
+    m_client_version = msg.client_version();
+    m_client_type = msg.client_type();
+    m_online_status = online_status;
+    loge("user_name=%s, password=%s, status=%u, client_type=%u, client=%s, ",
+        m_login_name.c_str(), password.c_str(), online_status, m_client_type, m_client_version.c_str());
+}
+
+uint32_t CMsgConn::_IsAllServerOk(CImPdu* pPdu, CDBServConn* pDbConn)
+{
     uint32_t result = 0;
     string result_string = "";
-    CDBServConn* pDbConn = get_db_serv_conn_for_login();
+    
     if (!pDbConn) {
         result = IM::BaseDefine::REFUSE_REASON_NO_DB_SERVER;
         result_string = "服务端异常";
@@ -425,8 +446,57 @@ void CMsgConn::_HandleLoginRequest(CImPdu* pPdu)
         pdu.SetSeqNum(pPdu->GetSeqNum());
         SendPdu(&pdu);
         Close();
+        return 0;
+    }
+    return 1;
+}
+
+// process: send validate request to db server
+void CMsgConn::_HandleLoginRequest(CImPdu* pPdu)
+{
+    // refuse second validate request
+    if (m_login_name.length() != 0) {
+        loge("duplicate LoginRequest in the same conn ");
         return;
     }
+    
+    CDBServConn* pDbConn = get_db_serv_conn_for_login();
+    if (!_IsAllServerOk(pPdu, pDbConn)) {
+        loge("not all server ok ");
+        return;
+    }
+    
+    // check if all server connection are OK
+    // uint32_t result = 0;
+    // string result_string = "";
+    // CDBServConn* pDbConn = get_db_serv_conn_for_login();
+    // if (!pDbConn) {
+    //     result = IM::BaseDefine::REFUSE_REASON_NO_DB_SERVER;
+    //     result_string = "服务端异常";
+    // }
+    // else if (!is_login_server_available()) {
+    //     result = IM::BaseDefine::REFUSE_REASON_NO_LOGIN_SERVER;
+    //     result_string = "服务端异常";
+    // }
+    // else if (!is_route_server_available()) {
+    //     result = IM::BaseDefine::REFUSE_REASON_NO_ROUTE_SERVER;
+    //     result_string = "服务端异常";
+    // }
+    
+    // if (result) {
+    //     IM::Login::IMLoginRes msg;
+    //     msg.set_server_time(time(NULL));
+    //     msg.set_result_code((IM::BaseDefine::ResultType)result);
+    //     msg.set_result_string(result_string);
+    //     CImPdu pdu;
+    //     pdu.SetPBMsg(&msg);
+    //     pdu.SetServiceId(SID_LOGIN);
+    //     pdu.SetCommandId(CID_LOGIN_RES_USERLOGIN);
+    //     pdu.SetSeqNum(pPdu->GetSeqNum());
+    //     SendPdu(&pdu);
+    //     Close();
+    //     return;
+    // }
     
     IM::Login::IMLoginReq msg;
     CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
@@ -435,13 +505,13 @@ void CMsgConn::_HandleLoginRequest(CImPdu* pPdu)
     string password = msg.password();
     uint32_t online_status = msg.online_status();
     if (online_status < IM::BaseDefine::USER_STATUS_ONLINE || online_status > IM::BaseDefine::USER_STATUS_LEAVE) {
-        log("HandleLoginReq, online status wrong: %u ", online_status);
+        loge("HandleLoginReq, online status wrong: %u ", online_status);
         online_status = IM::BaseDefine::USER_STATUS_ONLINE;
     }
     m_client_version = msg.client_version();
     m_client_type = msg.client_type();
     m_online_status = online_status;
-    log("HandleLoginReq, user_name=%s, password=%s, status=%u, client_type=%u, client=%s, ",
+    loge("HandleLoginReq, user_name=%s, password=%s, status=%u, client_type=%u, client=%s, ",
         m_login_name.c_str(), password.c_str(), online_status, m_client_type, m_client_version.c_str());
     
     CImUser* pImUser = CImUserManager::GetInstance()->GetImUserByLoginName(GetLoginName());

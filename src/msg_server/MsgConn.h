@@ -9,7 +9,7 @@
 #define MSGCONN_H_
 
 #include "imconn.h"
-
+#include "DBServConn.h"
 
 #define KICK_FROM_ROUTE_SERVER 		1
 #define MAX_ONLINE_FRIEND_CNT		100	//通知好友状态通知的最多个数
@@ -55,8 +55,11 @@ public:
 	void AddToSendList(uint32_t msg_id, uint32_t from_id);
 	void DelFromSendList(uint32_t msg_id, uint32_t from_id);
 private:
+    uint32_t _IsAllServerOk(CImPdu* pPdu, CDBServConn* pDbConn);
+
     void _HandleHeartBeat(CImPdu* pPdu);
 	void _HandleLoginRequest(CImPdu* pPdu);
+	void _HandleRegisterRequest(CImPdu* pPdu);
     void _HandleLoginOutRequest(CImPdu* pPdu);
     void _HandleClientRecentContactSessionRequest(CImPdu* pPdu);
 	void _HandleClientMsgData(CImPdu* pPdu);

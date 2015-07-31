@@ -63,15 +63,6 @@ const ServiceID ServiceID_MIN = SID_LOGIN;
 const ServiceID ServiceID_MAX = SID_INTERNAL;
 const int ServiceID_ARRAYSIZE = ServiceID_MAX + 1;
 
-enum RegisterCmdID {
-  CID_REGISTER_REQ_MSGSERVER = 273,
-  CID_REGISTER_RES_MSGSERVER = 274
-};
-bool RegisterCmdID_IsValid(int value);
-const RegisterCmdID RegisterCmdID_MIN = CID_REGISTER_REQ_MSGSERVER;
-const RegisterCmdID RegisterCmdID_MAX = CID_REGISTER_RES_MSGSERVER;
-const int RegisterCmdID_ARRAYSIZE = RegisterCmdID_MAX + 1;
-
 enum LoginCmdID {
   CID_LOGIN_REQ_MSGSERVER = 257,
   CID_LOGIN_RES_MSGSERVER = 258,
@@ -83,11 +74,13 @@ enum LoginCmdID {
   CID_LOGIN_REQ_DEVICETOKEN = 264,
   CID_LOGIN_RES_DEVICETOKEN = 265,
   CID_LOGIN_REQ_KICKPCCLIENT = 266,
-  CID_LOGIN_RES_KICKPCCLIENT = 267
+  CID_LOGIN_RES_KICKPCCLIENT = 267,
+  CID_LOGIN_REQ_USERREG = 268,
+  CID_LOGIN_RES_USERREG = 269
 };
 bool LoginCmdID_IsValid(int value);
 const LoginCmdID LoginCmdID_MIN = CID_LOGIN_REQ_MSGSERVER;
-const LoginCmdID LoginCmdID_MAX = CID_LOGIN_RES_KICKPCCLIENT;
+const LoginCmdID LoginCmdID_MAX = CID_LOGIN_RES_USERREG;
 const int LoginCmdID_ARRAYSIZE = LoginCmdID_MAX + 1;
 
 enum BuddyListCmdID {
