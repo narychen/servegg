@@ -19,6 +19,8 @@ namespace Server {
 void protobuf_ShutdownFile_IM_2eServer_2eproto() {
   delete IMStopReceivePacket::default_instance_;
   delete IMValidateReq::default_instance_;
+  delete IMDbRegReq::default_instance_;
+  delete IMDbRegRes::default_instance_;
   delete IMValidateRsp::default_instance_;
   delete IMGetDeviceTokenReq::default_instance_;
   delete IMGetDeviceTokenRsp::default_instance_;
@@ -54,6 +56,8 @@ void protobuf_AddDesc_IM_2eServer_2eproto() {
   ::IM::BaseDefine::protobuf_AddDesc_IM_2eBaseDefine_2eproto();
   IMStopReceivePacket::default_instance_ = new IMStopReceivePacket();
   IMValidateReq::default_instance_ = new IMValidateReq();
+  IMDbRegReq::default_instance_ = new IMDbRegReq();
+  IMDbRegRes::default_instance_ = new IMDbRegRes();
   IMValidateRsp::default_instance_ = new IMValidateRsp();
   IMGetDeviceTokenReq::default_instance_ = new IMGetDeviceTokenReq();
   IMGetDeviceTokenRsp::default_instance_ = new IMGetDeviceTokenRsp();
@@ -74,6 +78,8 @@ void protobuf_AddDesc_IM_2eServer_2eproto() {
   IMFileServerIPRsp::default_instance_ = new IMFileServerIPRsp();
   IMStopReceivePacket::default_instance_->InitAsDefaultInstance();
   IMValidateReq::default_instance_->InitAsDefaultInstance();
+  IMDbRegReq::default_instance_->InitAsDefaultInstance();
+  IMDbRegRes::default_instance_->InitAsDefaultInstance();
   IMValidateRsp::default_instance_->InitAsDefaultInstance();
   IMGetDeviceTokenReq::default_instance_->InitAsDefaultInstance();
   IMGetDeviceTokenRsp::default_instance_->InitAsDefaultInstance();
@@ -580,6 +586,645 @@ void IMValidateReq::Swap(IMValidateReq* other) {
 
 ::std::string IMValidateReq::GetTypeName() const {
   return "IM.Server.IMValidateReq";
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int IMDbRegReq::kUserNameFieldNumber;
+const int IMDbRegReq::kPasswordFieldNumber;
+const int IMDbRegReq::kAttachDataFieldNumber;
+#endif  // !_MSC_VER
+
+IMDbRegReq::IMDbRegReq()
+  : ::google::protobuf::MessageLite() {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:IM.Server.IMDbRegReq)
+}
+
+void IMDbRegReq::InitAsDefaultInstance() {
+}
+
+IMDbRegReq::IMDbRegReq(const IMDbRegReq& from)
+  : ::google::protobuf::MessageLite() {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:IM.Server.IMDbRegReq)
+}
+
+void IMDbRegReq::SharedCtor() {
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  user_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  password_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+IMDbRegReq::~IMDbRegReq() {
+  // @@protoc_insertion_point(destructor:IM.Server.IMDbRegReq)
+  SharedDtor();
+}
+
+void IMDbRegReq::SharedDtor() {
+  if (user_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete user_name_;
+  }
+  if (password_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete password_;
+  }
+  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete attach_data_;
+  }
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  if (this != &default_instance()) {
+  #else
+  if (this != default_instance_) {
+  #endif
+  }
+}
+
+void IMDbRegReq::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const IMDbRegReq& IMDbRegReq::default_instance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_AddDesc_IM_2eServer_2eproto();
+#else
+  if (default_instance_ == NULL) protobuf_AddDesc_IM_2eServer_2eproto();
+#endif
+  return *default_instance_;
+}
+
+IMDbRegReq* IMDbRegReq::default_instance_ = NULL;
+
+IMDbRegReq* IMDbRegReq::New() const {
+  return new IMDbRegReq;
+}
+
+void IMDbRegReq::Clear() {
+  if (_has_bits_[0 / 32] & 7) {
+    if (has_user_name()) {
+      if (user_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        user_name_->clear();
+      }
+    }
+    if (has_password()) {
+      if (password_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        password_->clear();
+      }
+    }
+    if (has_attach_data()) {
+      if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        attach_data_->clear();
+      }
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->clear();
+}
+
+bool IMDbRegReq::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  ::google::protobuf::io::StringOutputStream unknown_fields_string(
+      mutable_unknown_fields());
+  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
+      &unknown_fields_string);
+  // @@protoc_insertion_point(parse_start:IM.Server.IMDbRegReq)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(16383);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string user_name = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_user_name()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_password;
+        break;
+      }
+
+      // optional string password = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_password:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_password()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(162)) goto parse_attach_data;
+        break;
+      }
+
+      // optional bytes attach_data = 20;
+      case 20: {
+        if (tag == 162) {
+         parse_attach_data:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
+                input, this->mutable_attach_data()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
+            input, tag, &unknown_fields_stream));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:IM.Server.IMDbRegReq)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:IM.Server.IMDbRegReq)
+  return false;
+#undef DO_
+}
+
+void IMDbRegReq::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:IM.Server.IMDbRegReq)
+  // optional string user_name = 1;
+  if (has_user_name()) {
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->user_name(), output);
+  }
+
+  // optional string password = 2;
+  if (has_password()) {
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->password(), output);
+  }
+
+  // optional bytes attach_data = 20;
+  if (has_attach_data()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
+      20, this->attach_data(), output);
+  }
+
+  output->WriteRaw(unknown_fields().data(),
+                   unknown_fields().size());
+  // @@protoc_insertion_point(serialize_end:IM.Server.IMDbRegReq)
+}
+
+int IMDbRegReq::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional string user_name = 1;
+    if (has_user_name()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->user_name());
+    }
+
+    // optional string password = 2;
+    if (has_password()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->password());
+    }
+
+    // optional bytes attach_data = 20;
+    if (has_attach_data()) {
+      total_size += 2 +
+        ::google::protobuf::internal::WireFormatLite::BytesSize(
+          this->attach_data());
+    }
+
+  }
+  total_size += unknown_fields().size();
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void IMDbRegReq::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const IMDbRegReq*>(&from));
+}
+
+void IMDbRegReq::MergeFrom(const IMDbRegReq& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_user_name()) {
+      set_user_name(from.user_name());
+    }
+    if (from.has_password()) {
+      set_password(from.password());
+    }
+    if (from.has_attach_data()) {
+      set_attach_data(from.attach_data());
+    }
+  }
+  mutable_unknown_fields()->append(from.unknown_fields());
+}
+
+void IMDbRegReq::CopyFrom(const IMDbRegReq& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool IMDbRegReq::IsInitialized() const {
+
+  return true;
+}
+
+void IMDbRegReq::Swap(IMDbRegReq* other) {
+  if (other != this) {
+    std::swap(user_name_, other->user_name_);
+    std::swap(password_, other->password_);
+    std::swap(attach_data_, other->attach_data_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.swap(other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::std::string IMDbRegReq::GetTypeName() const {
+  return "IM.Server.IMDbRegReq";
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int IMDbRegRes::kUserNameFieldNumber;
+const int IMDbRegRes::kResultCodeFieldNumber;
+const int IMDbRegRes::kResultStringFieldNumber;
+const int IMDbRegRes::kUserInfoFieldNumber;
+const int IMDbRegRes::kAttachDataFieldNumber;
+#endif  // !_MSC_VER
+
+IMDbRegRes::IMDbRegRes()
+  : ::google::protobuf::MessageLite() {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:IM.Server.IMDbRegRes)
+}
+
+void IMDbRegRes::InitAsDefaultInstance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  user_info_ = const_cast< ::IM::BaseDefine::UserInfo*>(
+      ::IM::BaseDefine::UserInfo::internal_default_instance());
+#else
+  user_info_ = const_cast< ::IM::BaseDefine::UserInfo*>(&::IM::BaseDefine::UserInfo::default_instance());
+#endif
+}
+
+IMDbRegRes::IMDbRegRes(const IMDbRegRes& from)
+  : ::google::protobuf::MessageLite() {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:IM.Server.IMDbRegRes)
+}
+
+void IMDbRegRes::SharedCtor() {
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  user_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  result_code_ = 0u;
+  result_string_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  user_info_ = NULL;
+  attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+IMDbRegRes::~IMDbRegRes() {
+  // @@protoc_insertion_point(destructor:IM.Server.IMDbRegRes)
+  SharedDtor();
+}
+
+void IMDbRegRes::SharedDtor() {
+  if (user_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete user_name_;
+  }
+  if (result_string_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete result_string_;
+  }
+  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete attach_data_;
+  }
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  if (this != &default_instance()) {
+  #else
+  if (this != default_instance_) {
+  #endif
+    delete user_info_;
+  }
+}
+
+void IMDbRegRes::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const IMDbRegRes& IMDbRegRes::default_instance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_AddDesc_IM_2eServer_2eproto();
+#else
+  if (default_instance_ == NULL) protobuf_AddDesc_IM_2eServer_2eproto();
+#endif
+  return *default_instance_;
+}
+
+IMDbRegRes* IMDbRegRes::default_instance_ = NULL;
+
+IMDbRegRes* IMDbRegRes::New() const {
+  return new IMDbRegRes;
+}
+
+void IMDbRegRes::Clear() {
+  if (_has_bits_[0 / 32] & 31) {
+    if (has_user_name()) {
+      if (user_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        user_name_->clear();
+      }
+    }
+    result_code_ = 0u;
+    if (has_result_string()) {
+      if (result_string_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        result_string_->clear();
+      }
+    }
+    if (has_user_info()) {
+      if (user_info_ != NULL) user_info_->::IM::BaseDefine::UserInfo::Clear();
+    }
+    if (has_attach_data()) {
+      if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        attach_data_->clear();
+      }
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->clear();
+}
+
+bool IMDbRegRes::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  ::google::protobuf::io::StringOutputStream unknown_fields_string(
+      mutable_unknown_fields());
+  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
+      &unknown_fields_string);
+  // @@protoc_insertion_point(parse_start:IM.Server.IMDbRegRes)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(16383);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional string user_name = 1;
+      case 1: {
+        if (tag == 10) {
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_user_name()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_result_code;
+        break;
+      }
+
+      // optional uint32 result_code = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_result_code:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &result_code_)));
+          set_has_result_code();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_result_string;
+        break;
+      }
+
+      // optional string result_string = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_result_string:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_result_string()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(34)) goto parse_user_info;
+        break;
+      }
+
+      // optional .IM.BaseDefine.UserInfo user_info = 4;
+      case 4: {
+        if (tag == 34) {
+         parse_user_info:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_user_info()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(162)) goto parse_attach_data;
+        break;
+      }
+
+      // optional bytes attach_data = 20;
+      case 20: {
+        if (tag == 162) {
+         parse_attach_data:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
+                input, this->mutable_attach_data()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
+            input, tag, &unknown_fields_stream));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:IM.Server.IMDbRegRes)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:IM.Server.IMDbRegRes)
+  return false;
+#undef DO_
+}
+
+void IMDbRegRes::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:IM.Server.IMDbRegRes)
+  // optional string user_name = 1;
+  if (has_user_name()) {
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      1, this->user_name(), output);
+  }
+
+  // optional uint32 result_code = 2;
+  if (has_result_code()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->result_code(), output);
+  }
+
+  // optional string result_string = 3;
+  if (has_result_string()) {
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->result_string(), output);
+  }
+
+  // optional .IM.BaseDefine.UserInfo user_info = 4;
+  if (has_user_info()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+      4, this->user_info(), output);
+  }
+
+  // optional bytes attach_data = 20;
+  if (has_attach_data()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
+      20, this->attach_data(), output);
+  }
+
+  output->WriteRaw(unknown_fields().data(),
+                   unknown_fields().size());
+  // @@protoc_insertion_point(serialize_end:IM.Server.IMDbRegRes)
+}
+
+int IMDbRegRes::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional string user_name = 1;
+    if (has_user_name()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->user_name());
+    }
+
+    // optional uint32 result_code = 2;
+    if (has_result_code()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->result_code());
+    }
+
+    // optional string result_string = 3;
+    if (has_result_string()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->result_string());
+    }
+
+    // optional .IM.BaseDefine.UserInfo user_info = 4;
+    if (has_user_info()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->user_info());
+    }
+
+    // optional bytes attach_data = 20;
+    if (has_attach_data()) {
+      total_size += 2 +
+        ::google::protobuf::internal::WireFormatLite::BytesSize(
+          this->attach_data());
+    }
+
+  }
+  total_size += unknown_fields().size();
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void IMDbRegRes::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const IMDbRegRes*>(&from));
+}
+
+void IMDbRegRes::MergeFrom(const IMDbRegRes& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_user_name()) {
+      set_user_name(from.user_name());
+    }
+    if (from.has_result_code()) {
+      set_result_code(from.result_code());
+    }
+    if (from.has_result_string()) {
+      set_result_string(from.result_string());
+    }
+    if (from.has_user_info()) {
+      mutable_user_info()->::IM::BaseDefine::UserInfo::MergeFrom(from.user_info());
+    }
+    if (from.has_attach_data()) {
+      set_attach_data(from.attach_data());
+    }
+  }
+  mutable_unknown_fields()->append(from.unknown_fields());
+}
+
+void IMDbRegRes::CopyFrom(const IMDbRegRes& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool IMDbRegRes::IsInitialized() const {
+
+  if (has_user_info()) {
+    if (!this->user_info().IsInitialized()) return false;
+  }
+  return true;
+}
+
+void IMDbRegRes::Swap(IMDbRegRes* other) {
+  if (other != this) {
+    std::swap(user_name_, other->user_name_);
+    std::swap(result_code_, other->result_code_);
+    std::swap(result_string_, other->result_string_);
+    std::swap(user_info_, other->user_info_);
+    std::swap(attach_data_, other->attach_data_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.swap(other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::std::string IMDbRegRes::GetTypeName() const {
+  return "IM.Server.IMDbRegRes";
 }
 
 

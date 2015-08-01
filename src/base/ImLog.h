@@ -7,7 +7,7 @@
 
 #include <stdarg.h>
 #include <stdio.h>
-#define NO_IM_ERROR_LOG
+
 #define __FILENAME__ (strrchr(__FILE__, '/') ? (strrchr(__FILE__, '/') + 1):__FILE__)
 
 #ifndef NO_IM_INFO_LOG

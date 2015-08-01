@@ -245,6 +245,8 @@ bool OtherCmdID_IsValid(int value) {
     case 1842:
     case 1843:
     case 1844:
+    case 1845:
+    case 1846:
       return true;
     default:
       return false;

@@ -127,8 +127,10 @@ int main(int argc, char* argv[])
 	CStrExplode listen_ip_list(listen_ip, ';');
 	for (uint32_t i = 0; i < listen_ip_list.GetItemCnt(); i++) {
 		ret = netlib_listen(listen_ip_list.GetItem(i), listen_port, msg_serv_callback, NULL);
-		if (ret == NETLIB_ERROR)
+		if (ret == NETLIB_ERROR){
+			loge("listen %s:%d failed", listen_ip_list.GetItem(i), listen_port);
 			return ret;
+		}
 	}
 
 	printf("server start listen on: %s:%d\n", listen_ip, listen_port);

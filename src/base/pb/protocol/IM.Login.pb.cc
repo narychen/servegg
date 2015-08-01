@@ -21,6 +21,7 @@ void protobuf_ShutdownFile_IM_2eLogin_2eproto() {
   delete IMMsgServRsp::default_instance_;
   delete IMRegisterReq::default_instance_;
   delete IMLoginReq::default_instance_;
+  delete IMRegisterRes::default_instance_;
   delete IMLoginRes::default_instance_;
   delete IMLogoutReq::default_instance_;
   delete IMLogoutRsp::default_instance_;
@@ -48,6 +49,7 @@ void protobuf_AddDesc_IM_2eLogin_2eproto() {
   IMMsgServRsp::default_instance_ = new IMMsgServRsp();
   IMRegisterReq::default_instance_ = new IMRegisterReq();
   IMLoginReq::default_instance_ = new IMLoginReq();
+  IMRegisterRes::default_instance_ = new IMRegisterRes();
   IMLoginRes::default_instance_ = new IMLoginRes();
   IMLogoutReq::default_instance_ = new IMLogoutReq();
   IMLogoutRsp::default_instance_ = new IMLogoutRsp();
@@ -60,6 +62,7 @@ void protobuf_AddDesc_IM_2eLogin_2eproto() {
   IMMsgServRsp::default_instance_->InitAsDefaultInstance();
   IMRegisterReq::default_instance_->InitAsDefaultInstance();
   IMLoginReq::default_instance_->InitAsDefaultInstance();
+  IMRegisterRes::default_instance_->InitAsDefaultInstance();
   IMLoginRes::default_instance_->InitAsDefaultInstance();
   IMLogoutReq::default_instance_->InitAsDefaultInstance();
   IMLogoutRsp::default_instance_->InitAsDefaultInstance();
@@ -570,6 +573,7 @@ const int IMRegisterReq::kPasswordFieldNumber;
 const int IMRegisterReq::kOnlineStatusFieldNumber;
 const int IMRegisterReq::kClientTypeFieldNumber;
 const int IMRegisterReq::kClientVersionFieldNumber;
+const int IMRegisterReq::kAttachDataFieldNumber;
 #endif  // !_MSC_VER
 
 IMRegisterReq::IMRegisterReq()
@@ -596,6 +600,7 @@ void IMRegisterReq::SharedCtor() {
   online_status_ = 1;
   client_type_ = 1;
   client_version_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -613,6 +618,9 @@ void IMRegisterReq::SharedDtor() {
   }
   if (client_version_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
     delete client_version_;
+  }
+  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete attach_data_;
   }
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   if (this != &default_instance()) {
@@ -643,7 +651,7 @@ IMRegisterReq* IMRegisterReq::New() const {
 }
 
 void IMRegisterReq::Clear() {
-  if (_has_bits_[0 / 32] & 31) {
+  if (_has_bits_[0 / 32] & 63) {
     if (has_user_name()) {
       if (user_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         user_name_->clear();
@@ -661,6 +669,11 @@ void IMRegisterReq::Clear() {
         client_version_->clear();
       }
     }
+    if (has_attach_data()) {
+      if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        attach_data_->clear();
+      }
+    }
   }
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   mutable_unknown_fields()->clear();
@@ -676,7 +689,7 @@ bool IMRegisterReq::MergePartialFromCodedStream(
       &unknown_fields_string);
   // @@protoc_insertion_point(parse_start:IM.Login.IMRegisterReq)
   for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(16383);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
@@ -756,6 +769,19 @@ bool IMRegisterReq::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(162)) goto parse_attach_data;
+        break;
+      }
+
+      // optional bytes attach_data = 20;
+      case 20: {
+        if (tag == 162) {
+         parse_attach_data:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadBytes(
+                input, this->mutable_attach_data()));
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -815,6 +841,12 @@ void IMRegisterReq::SerializeWithCachedSizes(
       5, this->client_version(), output);
   }
 
+  // optional bytes attach_data = 20;
+  if (has_attach_data()) {
+    ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
+      20, this->attach_data(), output);
+  }
+
   output->WriteRaw(unknown_fields().data(),
                    unknown_fields().size());
   // @@protoc_insertion_point(serialize_end:IM.Login.IMRegisterReq)
@@ -857,6 +889,13 @@ int IMRegisterReq::ByteSize() const {
           this->client_version());
     }
 
+    // optional bytes attach_data = 20;
+    if (has_attach_data()) {
+      total_size += 2 +
+        ::google::protobuf::internal::WireFormatLite::BytesSize(
+          this->attach_data());
+    }
+
   }
   total_size += unknown_fields().size();
 
@@ -889,6 +928,9 @@ void IMRegisterReq::MergeFrom(const IMRegisterReq& from) {
     if (from.has_client_version()) {
       set_client_version(from.client_version());
     }
+    if (from.has_attach_data()) {
+      set_attach_data(from.attach_data());
+    }
   }
   mutable_unknown_fields()->append(from.unknown_fields());
 }
@@ -911,6 +953,7 @@ void IMRegisterReq::Swap(IMRegisterReq* other) {
     std::swap(online_status_, other->online_status_);
     std::swap(client_type_, other->client_type_);
     std::swap(client_version_, other->client_version_);
+    std::swap(attach_data_, other->attach_data_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);
     std::swap(_cached_size_, other->_cached_size_);
@@ -1280,6 +1323,418 @@ void IMLoginReq::Swap(IMLoginReq* other) {
 
 ::std::string IMLoginReq::GetTypeName() const {
   return "IM.Login.IMLoginReq";
+}
+
+
+// ===================================================================
+
+#ifndef _MSC_VER
+const int IMRegisterRes::kServerTimeFieldNumber;
+const int IMRegisterRes::kResultCodeFieldNumber;
+const int IMRegisterRes::kResultStringFieldNumber;
+const int IMRegisterRes::kOnlineStatusFieldNumber;
+const int IMRegisterRes::kUserInfoFieldNumber;
+const int IMRegisterRes::kUserNameFieldNumber;
+#endif  // !_MSC_VER
+
+IMRegisterRes::IMRegisterRes()
+  : ::google::protobuf::MessageLite() {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:IM.Login.IMRegisterRes)
+}
+
+void IMRegisterRes::InitAsDefaultInstance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  user_info_ = const_cast< ::IM::BaseDefine::UserInfo*>(
+      ::IM::BaseDefine::UserInfo::internal_default_instance());
+#else
+  user_info_ = const_cast< ::IM::BaseDefine::UserInfo*>(&::IM::BaseDefine::UserInfo::default_instance());
+#endif
+}
+
+IMRegisterRes::IMRegisterRes(const IMRegisterRes& from)
+  : ::google::protobuf::MessageLite() {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:IM.Login.IMRegisterRes)
+}
+
+void IMRegisterRes::SharedCtor() {
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  server_time_ = 0u;
+  result_code_ = 0;
+  result_string_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  online_status_ = 1;
+  user_info_ = NULL;
+  user_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+IMRegisterRes::~IMRegisterRes() {
+  // @@protoc_insertion_point(destructor:IM.Login.IMRegisterRes)
+  SharedDtor();
+}
+
+void IMRegisterRes::SharedDtor() {
+  if (result_string_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete result_string_;
+  }
+  if (user_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete user_name_;
+  }
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  if (this != &default_instance()) {
+  #else
+  if (this != default_instance_) {
+  #endif
+    delete user_info_;
+  }
+}
+
+void IMRegisterRes::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const IMRegisterRes& IMRegisterRes::default_instance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_AddDesc_IM_2eLogin_2eproto();
+#else
+  if (default_instance_ == NULL) protobuf_AddDesc_IM_2eLogin_2eproto();
+#endif
+  return *default_instance_;
+}
+
+IMRegisterRes* IMRegisterRes::default_instance_ = NULL;
+
+IMRegisterRes* IMRegisterRes::New() const {
+  return new IMRegisterRes;
+}
+
+void IMRegisterRes::Clear() {
+#define OFFSET_OF_FIELD_(f) (reinterpret_cast<char*>(      \
+  &reinterpret_cast<IMRegisterRes*>(16)->f) - \
+   reinterpret_cast<char*>(16))
+
+#define ZR_(first, last) do {                              \
+    size_t f = OFFSET_OF_FIELD_(first);                    \
+    size_t n = OFFSET_OF_FIELD_(last) - f + sizeof(last);  \
+    ::memset(&first, 0, n);                                \
+  } while (0)
+
+  if (_has_bits_[0 / 32] & 63) {
+    ZR_(server_time_, result_code_);
+    if (has_result_string()) {
+      if (result_string_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        result_string_->clear();
+      }
+    }
+    online_status_ = 1;
+    if (has_user_info()) {
+      if (user_info_ != NULL) user_info_->::IM::BaseDefine::UserInfo::Clear();
+    }
+    if (has_user_name()) {
+      if (user_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+        user_name_->clear();
+      }
+    }
+  }
+
+#undef OFFSET_OF_FIELD_
+#undef ZR_
+
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  mutable_unknown_fields()->clear();
+}
+
+bool IMRegisterRes::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  ::google::protobuf::io::StringOutputStream unknown_fields_string(
+      mutable_unknown_fields());
+  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
+      &unknown_fields_string);
+  // @@protoc_insertion_point(parse_start:IM.Login.IMRegisterRes)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // optional uint32 server_time = 1;
+      case 1: {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::uint32, ::google::protobuf::internal::WireFormatLite::TYPE_UINT32>(
+                 input, &server_time_)));
+          set_has_server_time();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_result_code;
+        break;
+      }
+
+      // optional .IM.BaseDefine.ResultType result_code = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_result_code:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          if (::IM::BaseDefine::ResultType_IsValid(value)) {
+            set_result_code(static_cast< ::IM::BaseDefine::ResultType >(value));
+          } else {
+            unknown_fields_stream.WriteVarint32(tag);
+            unknown_fields_stream.WriteVarint32(value);
+          }
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_result_string;
+        break;
+      }
+
+      // optional string result_string = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_result_string:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_result_string()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(32)) goto parse_online_status;
+        break;
+      }
+
+      // optional .IM.BaseDefine.UserStatType online_status = 4;
+      case 4: {
+        if (tag == 32) {
+         parse_online_status:
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          if (::IM::BaseDefine::UserStatType_IsValid(value)) {
+            set_online_status(static_cast< ::IM::BaseDefine::UserStatType >(value));
+          } else {
+            unknown_fields_stream.WriteVarint32(tag);
+            unknown_fields_stream.WriteVarint32(value);
+          }
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(42)) goto parse_user_info;
+        break;
+      }
+
+      // optional .IM.BaseDefine.UserInfo user_info = 5;
+      case 5: {
+        if (tag == 42) {
+         parse_user_info:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_user_info()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(50)) goto parse_user_name;
+        break;
+      }
+
+      // optional string user_name = 6;
+      case 6: {
+        if (tag == 50) {
+         parse_user_name:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_user_name()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
+            input, tag, &unknown_fields_stream));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:IM.Login.IMRegisterRes)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:IM.Login.IMRegisterRes)
+  return false;
+#undef DO_
+}
+
+void IMRegisterRes::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:IM.Login.IMRegisterRes)
+  // optional uint32 server_time = 1;
+  if (has_server_time()) {
+    ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->server_time(), output);
+  }
+
+  // optional .IM.BaseDefine.ResultType result_code = 2;
+  if (has_result_code()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      2, this->result_code(), output);
+  }
+
+  // optional string result_string = 3;
+  if (has_result_string()) {
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->result_string(), output);
+  }
+
+  // optional .IM.BaseDefine.UserStatType online_status = 4;
+  if (has_online_status()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      4, this->online_status(), output);
+  }
+
+  // optional .IM.BaseDefine.UserInfo user_info = 5;
+  if (has_user_info()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+      5, this->user_info(), output);
+  }
+
+  // optional string user_name = 6;
+  if (has_user_name()) {
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      6, this->user_name(), output);
+  }
+
+  output->WriteRaw(unknown_fields().data(),
+                   unknown_fields().size());
+  // @@protoc_insertion_point(serialize_end:IM.Login.IMRegisterRes)
+}
+
+int IMRegisterRes::ByteSize() const {
+  int total_size = 0;
+
+  if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    // optional uint32 server_time = 1;
+    if (has_server_time()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::UInt32Size(
+          this->server_time());
+    }
+
+    // optional .IM.BaseDefine.ResultType result_code = 2;
+    if (has_result_code()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::EnumSize(this->result_code());
+    }
+
+    // optional string result_string = 3;
+    if (has_result_string()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->result_string());
+    }
+
+    // optional .IM.BaseDefine.UserStatType online_status = 4;
+    if (has_online_status()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::EnumSize(this->online_status());
+    }
+
+    // optional .IM.BaseDefine.UserInfo user_info = 5;
+    if (has_user_info()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->user_info());
+    }
+
+    // optional string user_name = 6;
+    if (has_user_name()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::StringSize(
+          this->user_name());
+    }
+
+  }
+  total_size += unknown_fields().size();
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void IMRegisterRes::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const IMRegisterRes*>(&from));
+}
+
+void IMRegisterRes::MergeFrom(const IMRegisterRes& from) {
+  GOOGLE_CHECK_NE(&from, this);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_server_time()) {
+      set_server_time(from.server_time());
+    }
+    if (from.has_result_code()) {
+      set_result_code(from.result_code());
+    }
+    if (from.has_result_string()) {
+      set_result_string(from.result_string());
+    }
+    if (from.has_online_status()) {
+      set_online_status(from.online_status());
+    }
+    if (from.has_user_info()) {
+      mutable_user_info()->::IM::BaseDefine::UserInfo::MergeFrom(from.user_info());
+    }
+    if (from.has_user_name()) {
+      set_user_name(from.user_name());
+    }
+  }
+  mutable_unknown_fields()->append(from.unknown_fields());
+}
+
+void IMRegisterRes::CopyFrom(const IMRegisterRes& from) {
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool IMRegisterRes::IsInitialized() const {
+
+  if (has_user_info()) {
+    if (!this->user_info().IsInitialized()) return false;
+  }
+  return true;
+}
+
+void IMRegisterRes::Swap(IMRegisterRes* other) {
+  if (other != this) {
+    std::swap(server_time_, other->server_time_);
+    std::swap(result_code_, other->result_code_);
+    std::swap(result_string_, other->result_string_);
+    std::swap(online_status_, other->online_status_);
+    std::swap(user_info_, other->user_info_);
+    std::swap(user_name_, other->user_name_);
+    std::swap(_has_bits_[0], other->_has_bits_[0]);
+    _unknown_fields_.swap(other->_unknown_fields_);
+    std::swap(_cached_size_, other->_cached_size_);
+  }
+}
+
+::std::string IMRegisterRes::GetTypeName() const {
+  return "IM.Login.IMRegisterRes";
 }
 
 

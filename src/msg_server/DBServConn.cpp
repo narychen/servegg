@@ -200,7 +200,10 @@ void CDBServConn::HandlePdu(CImPdu* pPdu)
         case CID_OTHER_HEARTBEAT:
             break;
         case CID_OTHER_VALIDATE_RSP:
-            _HandleValidateResponse(pPdu );
+            _HandleValidateResponse(pPdu);
+            break;
+        case CID_OTHER_DB_REGISTER_RES:
+            _HandleDbRegisterResponse(pPdu);
             break;
         case CID_LOGIN_RES_DEVICETOKEN:
             _HandleSetDeviceTokenResponse(pPdu);
@@ -271,6 +274,44 @@ void CDBServConn::HandlePdu(CImPdu* pPdu)
         default:
             log("db server, wrong cmd id=%d ", pPdu->GetCommandId());
 	}
+}
+
+void CDBServConn::_HandleDbRegisterResponse(CImPdu* pPdu)
+{
+    logt("db server reg conn");
+    IM::Server::IMDbRegRes msg;
+    CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
+
+    string login_name = msg.user_name();
+    CImUser* pImUser = CImUserManager::GetInstance()->GetImUserByLoginName(login_name);
+    if (!pImUser) {
+        log("ImUser for user_name=%s not exist", login_name.c_str());
+        return;
+    }
+    uint32_t result = msg.result_code();
+    string result_string = msg.result_string();
+    CDbAttachData attach_data((uchar_t*)msg.attach_data().c_str(), msg.attach_data().length());
+    CMsgConn* pMsgConn = NULL;
+    pMsgConn = pImUser->GetUnValidateMsgConn(attach_data.GetHandle());
+    if (!pMsgConn || pMsgConn->IsOpen()) {
+        log("no such conn, user_name=%s", login_name.c_str());
+        return;
+    }
+    if (result) {
+        IM::Login::IMRegisterRes msg;
+        msg.set_user_name(login_name);
+        msg.set_server_time(time(NULL));
+        msg.set_result_code((IM::BaseDefine::ResultType)result);
+        msg.set_result_string(result_string);
+        CImPdu pdu;
+        pdu.SetPBMsg(&msg);
+        pdu.SetServiceId(SID_LOGIN);
+        pdu.SetCommandId(CID_LOGIN_RES_USERREG);
+        pdu.SetSeqNum(pPdu->GetSeqNum());
+        pMsgConn->SendPdu(&pdu);
+        // pMsgConn->Close();
+        return;
+    }
 }
 
 void CDBServConn::_HandleValidateResponse(CImPdu* pPdu)

@@ -412,8 +412,28 @@ void CMsgConn::_HandleRegisterRequest(CImPdu* pPdu)
     m_client_version = msg.client_version();
     m_client_type = msg.client_type();
     m_online_status = online_status;
-    loge("user_name=%s, password=%s, status=%u, client_type=%u, client=%s, ",
+    log("user_name=%s, password=%s, status=%u, client_type=%u, client=%s ",
         m_login_name.c_str(), password.c_str(), online_status, m_client_type, m_client_version.c_str());
+
+    CImUser* pImUser = CImUserManager::GetInstance()->GetImUserByLoginName(GetLoginName());
+    if (!pImUser) {
+        pImUser = new CImUser(GetLoginName());
+        CImUserManager::GetInstance()->AddImUserByLoginName(GetLoginName(), pImUser);
+    }
+    pImUser->AddUnValidateMsgConn(this);
+    
+    CDbAttachData attach_data(ATTACH_TYPE_HANDLE, m_handle, 0);
+    IM::Server::IMDbRegReq msg2;
+    msg2.set_user_name(msg.user_name());
+    msg2.set_password(password);
+    msg2.set_attach_data(attach_data.GetBuffer(), attach_data.GetLength());
+    CImPdu pdu;
+    pdu.SetPBMsg(&msg2);
+    pdu.SetServiceId(SID_OTHER);
+    pdu.SetCommandId(CID_OTHER_DB_REGISTER_REQ);
+    pdu.SetSeqNum(pPdu->GetSeqNum());
+    pDbConn->SendPdu(&pdu);
+    
 }
 
 uint32_t CMsgConn::_IsAllServerOk(CImPdu* pPdu, CDBServConn* pDbConn)

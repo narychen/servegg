@@ -187,7 +187,7 @@ void CBaseSocket::OnWrite()
 #if ((defined _WIN32) || (defined __APPLE__))
 	CEventDispatch::Instance()->RemoveEvent(m_socket, SOCKET_WRITE);
 #endif
-
+	log("in on write");
 	if (m_state == SOCKET_STATE_CONNECTING)
 	{
 		int error = 0;
@@ -199,14 +199,17 @@ void CBaseSocket::OnWrite()
 		getsockopt(m_socket, SOL_SOCKET, SO_ERROR, (void*)&error, &len);
 #endif
 		if (error) {
+			log("2");
 			m_callback(m_callback_data, NETLIB_MSG_CLOSE, (net_handle_t)m_socket, NULL);
 		} else {
+			log("3");
 			m_state = SOCKET_STATE_CONNECTED;
 			m_callback(m_callback_data, NETLIB_MSG_CONFIRM, (net_handle_t)m_socket, NULL);
 		}
 	}
 	else
 	{
+		log("4");
 		m_callback(m_callback_data, NETLIB_MSG_WRITE, (net_handle_t)m_socket, NULL);
 	}
 }

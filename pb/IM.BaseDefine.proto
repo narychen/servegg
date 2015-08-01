@@ -130,6 +130,8 @@ enum OtherCmdID{
     CID_OTHER_FILE_TRANSFER_RSP             = 0x0732;
     CID_OTHER_FILE_SERVER_IP_REQ            = 0x0733;
     CID_OTHER_FILE_SERVER_IP_RSP            = 0x0734;
+    CID_OTHER_DB_REGISTER_REQ               = 0x0735;
+    CID_OTHER_DB_REGISTER_RES               = 0x0736;
 }
 
 enum ResultType{

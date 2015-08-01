@@ -56,8 +56,9 @@ CClientConn::~CClientConn()
 net_handle_t CClientConn::Connect(const char* ip, uint16_t port, uint32_t idx)
 {
 	m_handle = netlib_connect(ip, port, imconn_callback_sp, (void*)&s_client_conn_map);
-	
+	log("connect handle %d", m_handle);
 	if (m_handle != NETLIB_INVALID_HANDLE) {
+	    log("in invalid %d", m_handle);
         s_client_conn_map.insert(make_pair(m_handle, shared_from_this()));
 	}
     return  m_handle;
@@ -101,6 +102,11 @@ void CClientConn::OnClose()
 {
     log("onclose from handle=%d\n", m_handle);
     Close();
+}
+
+void CClientConn::OnWrite()
+{
+    log("in conn on write");
 }
 
 void CClientConn::OnTimer(uint64_t curr_tick)
@@ -266,23 +272,24 @@ void CClientConn::Close()
 
 void CClientConn::HandlePdu(CImPdu* pPdu)
 {
-    //printf("pdu type = %u\n", pPdu->GetPduType());
+    log("pdu %d", pPdu->GetCommandId());
 	switch (pPdu->GetCommandId()) {
         case IM::BaseDefine::CID_OTHER_HEARTBEAT:
-//		printf("Heartbeat\n");
-		break;
+    		break;
+    	case IM::BaseDefine::CID_LOGIN_RES_USERREG:
+    	    _HandleUserRegResponse(pPdu);
         case IM::BaseDefine::CID_LOGIN_RES_USERLOGIN:
             _HandleLoginResponse(pPdu);
-		break;
+    		break; 
         case IM::BaseDefine::CID_BUDDY_LIST_ALL_USER_RESPONSE:
             _HandleUser(pPdu);
-        break;
+            break;
         case IM::BaseDefine::CID_BUDDY_LIST_USER_INFO_RESPONSE:
             _HandleUserInfo(pPdu);
-        break;
+            break;
         case IM::BaseDefine::CID_MSG_DATA_ACK:
             _HandleSendMsg(pPdu);
-        break;
+            break;
         case IM::BaseDefine::CID_MSG_UNREAD_CNT_RESPONSE:
             _HandleUnreadCnt(pPdu);
             break;
@@ -300,6 +307,20 @@ void CClientConn::HandlePdu(CImPdu* pPdu)
 		break;
 	}
 }
+
+void CClientConn::_HandleUserRegResponse(CImPdu* pPdu)
+{
+    IM::Login::IMRegisterRes msg;
+    CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
+    string name = msg.user_name();
+    uint32_t ret = msg.result_code();
+    string strRet = msg.result_string();
+    if (1) {
+        loge("Register username=%s failed errno=%d, errinfo=%s",
+            name.c_str(), ret, strRet.c_str());
+    }
+}
+
 void CClientConn::_HandleLoginResponse(CImPdu* pPdu)
 {
     IM::Login::IMLoginRes msgResp;

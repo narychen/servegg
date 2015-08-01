@@ -82,6 +82,7 @@ public:
 	virtual void OnConfirm();
 	virtual void OnClose();
 	virtual void OnTimer(uint64_t curr_tick);
+	void OnWrite() override;
 
     net_handle_t Connect(const char* ip, uint16_t port, uint32_t idx);
     uint32_t Login(const string &strName, const string &strPass);
@@ -90,6 +91,7 @@ public:
 
 	virtual void HandlePdu(CImPdu* pPdu);
 private:
+    void _HandleUserRegResponse(CImPdu* pPdu);
 	void _HandleLoginResponse(CImPdu* pPdu);
     void _HandleUser(CImPdu* pPdu);
     void _HandleUserInfo(CImPdu* pPdu);

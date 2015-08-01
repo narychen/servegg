@@ -28,8 +28,12 @@ void imconn_callback_sp(void* callback_data, uint8_t msg, uint32_t handle, void*
 {
 	NOTUSED_ARG(handle);
 	NOTUSED_ARG(pParam);
-	
 	auto imconn_map_sp = (ConnMap_sp_t*)callback_data;
+	log("handle=%d", handle);
+	for (auto& e: (*imconn_map_sp)) {
+		log("map handle=%d", e.first);
+	}
+	
 	auto pConn = FindImConnSp(imconn_map_sp, handle);
 	if (!pConn)
 		return;

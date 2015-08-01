@@ -18,6 +18,7 @@
 #include "business/MessageCounter.h"
 #include "business/GroupAction.h"
 #include "business/DepartAction.h"
+#include "business/Register.h"
 #include "IM.BaseDefine.pb.h"
 
 using namespace IM::BaseDefine;
@@ -62,8 +63,8 @@ CHandlerMap* CHandlerMap::getInstance()
 void CHandlerMap::Init()
 {
 	// Login validate
-	m_handler_map.insert(make_pair(uint32_t(CID_OTHER_VALIDATE_REQ), DB_PROXY::doLogin));
-    
+    m_handler_map.insert(make_pair(uint32_t(CID_OTHER_VALIDATE_REQ), DB_PROXY::doLogin));
+    m_handler_map.insert(make_pair(uint32_t(CID_OTHER_DB_REGISTER_REQ), DB_PROXY::doRegister));
     
     // recent session
     m_handler_map.insert(make_pair(uint32_t(CID_BUDDY_LIST_RECENT_CONTACT_SESSION_REQUEST), DB_PROXY::getRecentSession));

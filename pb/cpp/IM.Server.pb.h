@@ -36,6 +36,8 @@ void protobuf_ShutdownFile_IM_2eServer_2eproto();
 
 class IMStopReceivePacket;
 class IMValidateReq;
+class IMDbRegReq;
+class IMDbRegRes;
 class IMValidateRsp;
 class IMGetDeviceTokenReq;
 class IMGetDeviceTokenRsp;
@@ -271,6 +273,280 @@ class IMValidateReq : public ::google::protobuf::MessageLite {
 
   void InitAsDefaultInstance();
   static IMValidateReq* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class IMDbRegReq : public ::google::protobuf::MessageLite {
+ public:
+  IMDbRegReq();
+  virtual ~IMDbRegReq();
+
+  IMDbRegReq(const IMDbRegReq& from);
+
+  inline IMDbRegReq& operator=(const IMDbRegReq& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::std::string& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::std::string* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const IMDbRegReq& default_instance();
+
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  // Returns the internal default instance pointer. This function can
+  // return NULL thus should not be used by the user. This is intended
+  // for Protobuf internal code. Please use default_instance() declared
+  // above instead.
+  static inline const IMDbRegReq* internal_default_instance() {
+    return default_instance_;
+  }
+  #endif
+
+  void Swap(IMDbRegReq* other);
+
+  // implements Message ----------------------------------------------
+
+  IMDbRegReq* New() const;
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const IMDbRegReq& from);
+  void MergeFrom(const IMDbRegReq& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  void DiscardUnknownFields();
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::std::string GetTypeName() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string user_name = 1;
+  inline bool has_user_name() const;
+  inline void clear_user_name();
+  static const int kUserNameFieldNumber = 1;
+  inline const ::std::string& user_name() const;
+  inline void set_user_name(const ::std::string& value);
+  inline void set_user_name(const char* value);
+  inline void set_user_name(const char* value, size_t size);
+  inline ::std::string* mutable_user_name();
+  inline ::std::string* release_user_name();
+  inline void set_allocated_user_name(::std::string* user_name);
+
+  // optional string password = 2;
+  inline bool has_password() const;
+  inline void clear_password();
+  static const int kPasswordFieldNumber = 2;
+  inline const ::std::string& password() const;
+  inline void set_password(const ::std::string& value);
+  inline void set_password(const char* value);
+  inline void set_password(const char* value, size_t size);
+  inline ::std::string* mutable_password();
+  inline ::std::string* release_password();
+  inline void set_allocated_password(::std::string* password);
+
+  // optional bytes attach_data = 20;
+  inline bool has_attach_data() const;
+  inline void clear_attach_data();
+  static const int kAttachDataFieldNumber = 20;
+  inline const ::std::string& attach_data() const;
+  inline void set_attach_data(const ::std::string& value);
+  inline void set_attach_data(const char* value);
+  inline void set_attach_data(const void* value, size_t size);
+  inline ::std::string* mutable_attach_data();
+  inline ::std::string* release_attach_data();
+  inline void set_allocated_attach_data(::std::string* attach_data);
+
+  // @@protoc_insertion_point(class_scope:IM.Server.IMDbRegReq)
+ private:
+  inline void set_has_user_name();
+  inline void clear_has_user_name();
+  inline void set_has_password();
+  inline void clear_has_password();
+  inline void set_has_attach_data();
+  inline void clear_has_attach_data();
+
+  ::std::string _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::std::string* user_name_;
+  ::std::string* password_;
+  ::std::string* attach_data_;
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  friend void  protobuf_AddDesc_IM_2eServer_2eproto_impl();
+  #else
+  friend void  protobuf_AddDesc_IM_2eServer_2eproto();
+  #endif
+  friend void protobuf_AssignDesc_IM_2eServer_2eproto();
+  friend void protobuf_ShutdownFile_IM_2eServer_2eproto();
+
+  void InitAsDefaultInstance();
+  static IMDbRegReq* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class IMDbRegRes : public ::google::protobuf::MessageLite {
+ public:
+  IMDbRegRes();
+  virtual ~IMDbRegRes();
+
+  IMDbRegRes(const IMDbRegRes& from);
+
+  inline IMDbRegRes& operator=(const IMDbRegRes& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::std::string& unknown_fields() const {
+    return _unknown_fields_;
+  }
+
+  inline ::std::string* mutable_unknown_fields() {
+    return &_unknown_fields_;
+  }
+
+  static const IMDbRegRes& default_instance();
+
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  // Returns the internal default instance pointer. This function can
+  // return NULL thus should not be used by the user. This is intended
+  // for Protobuf internal code. Please use default_instance() declared
+  // above instead.
+  static inline const IMDbRegRes* internal_default_instance() {
+    return default_instance_;
+  }
+  #endif
+
+  void Swap(IMDbRegRes* other);
+
+  // implements Message ----------------------------------------------
+
+  IMDbRegRes* New() const;
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const IMDbRegRes& from);
+  void MergeFrom(const IMDbRegRes& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  void DiscardUnknownFields();
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  public:
+  ::std::string GetTypeName() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // optional string user_name = 1;
+  inline bool has_user_name() const;
+  inline void clear_user_name();
+  static const int kUserNameFieldNumber = 1;
+  inline const ::std::string& user_name() const;
+  inline void set_user_name(const ::std::string& value);
+  inline void set_user_name(const char* value);
+  inline void set_user_name(const char* value, size_t size);
+  inline ::std::string* mutable_user_name();
+  inline ::std::string* release_user_name();
+  inline void set_allocated_user_name(::std::string* user_name);
+
+  // optional uint32 result_code = 2;
+  inline bool has_result_code() const;
+  inline void clear_result_code();
+  static const int kResultCodeFieldNumber = 2;
+  inline ::google::protobuf::uint32 result_code() const;
+  inline void set_result_code(::google::protobuf::uint32 value);
+
+  // optional string result_string = 3;
+  inline bool has_result_string() const;
+  inline void clear_result_string();
+  static const int kResultStringFieldNumber = 3;
+  inline const ::std::string& result_string() const;
+  inline void set_result_string(const ::std::string& value);
+  inline void set_result_string(const char* value);
+  inline void set_result_string(const char* value, size_t size);
+  inline ::std::string* mutable_result_string();
+  inline ::std::string* release_result_string();
+  inline void set_allocated_result_string(::std::string* result_string);
+
+  // optional .IM.BaseDefine.UserInfo user_info = 4;
+  inline bool has_user_info() const;
+  inline void clear_user_info();
+  static const int kUserInfoFieldNumber = 4;
+  inline const ::IM::BaseDefine::UserInfo& user_info() const;
+  inline ::IM::BaseDefine::UserInfo* mutable_user_info();
+  inline ::IM::BaseDefine::UserInfo* release_user_info();
+  inline void set_allocated_user_info(::IM::BaseDefine::UserInfo* user_info);
+
+  // optional bytes attach_data = 20;
+  inline bool has_attach_data() const;
+  inline void clear_attach_data();
+  static const int kAttachDataFieldNumber = 20;
+  inline const ::std::string& attach_data() const;
+  inline void set_attach_data(const ::std::string& value);
+  inline void set_attach_data(const char* value);
+  inline void set_attach_data(const void* value, size_t size);
+  inline ::std::string* mutable_attach_data();
+  inline ::std::string* release_attach_data();
+  inline void set_allocated_attach_data(::std::string* attach_data);
+
+  // @@protoc_insertion_point(class_scope:IM.Server.IMDbRegRes)
+ private:
+  inline void set_has_user_name();
+  inline void clear_has_user_name();
+  inline void set_has_result_code();
+  inline void clear_has_result_code();
+  inline void set_has_result_string();
+  inline void clear_has_result_string();
+  inline void set_has_user_info();
+  inline void clear_has_user_info();
+  inline void set_has_attach_data();
+  inline void clear_has_attach_data();
+
+  ::std::string _unknown_fields_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::std::string* user_name_;
+  ::std::string* result_string_;
+  ::IM::BaseDefine::UserInfo* user_info_;
+  ::std::string* attach_data_;
+  ::google::protobuf::uint32 result_code_;
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  friend void  protobuf_AddDesc_IM_2eServer_2eproto_impl();
+  #else
+  friend void  protobuf_AddDesc_IM_2eServer_2eproto();
+  #endif
+  friend void protobuf_AssignDesc_IM_2eServer_2eproto();
+  friend void protobuf_ShutdownFile_IM_2eServer_2eproto();
+
+  void InitAsDefaultInstance();
+  static IMDbRegRes* default_instance_;
 };
 // -------------------------------------------------------------------
 
@@ -2622,6 +2898,539 @@ inline void IMValidateReq::set_allocated_attach_data(::std::string* attach_data)
     attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
   // @@protoc_insertion_point(field_set_allocated:IM.Server.IMValidateReq.attach_data)
+}
+
+// -------------------------------------------------------------------
+
+// IMDbRegReq
+
+// optional string user_name = 1;
+inline bool IMDbRegReq::has_user_name() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void IMDbRegReq::set_has_user_name() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void IMDbRegReq::clear_has_user_name() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void IMDbRegReq::clear_user_name() {
+  if (user_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    user_name_->clear();
+  }
+  clear_has_user_name();
+}
+inline const ::std::string& IMDbRegReq::user_name() const {
+  // @@protoc_insertion_point(field_get:IM.Server.IMDbRegReq.user_name)
+  return *user_name_;
+}
+inline void IMDbRegReq::set_user_name(const ::std::string& value) {
+  set_has_user_name();
+  if (user_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    user_name_ = new ::std::string;
+  }
+  user_name_->assign(value);
+  // @@protoc_insertion_point(field_set:IM.Server.IMDbRegReq.user_name)
+}
+inline void IMDbRegReq::set_user_name(const char* value) {
+  set_has_user_name();
+  if (user_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    user_name_ = new ::std::string;
+  }
+  user_name_->assign(value);
+  // @@protoc_insertion_point(field_set_char:IM.Server.IMDbRegReq.user_name)
+}
+inline void IMDbRegReq::set_user_name(const char* value, size_t size) {
+  set_has_user_name();
+  if (user_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    user_name_ = new ::std::string;
+  }
+  user_name_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:IM.Server.IMDbRegReq.user_name)
+}
+inline ::std::string* IMDbRegReq::mutable_user_name() {
+  set_has_user_name();
+  if (user_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    user_name_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:IM.Server.IMDbRegReq.user_name)
+  return user_name_;
+}
+inline ::std::string* IMDbRegReq::release_user_name() {
+  clear_has_user_name();
+  if (user_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = user_name_;
+    user_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void IMDbRegReq::set_allocated_user_name(::std::string* user_name) {
+  if (user_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete user_name_;
+  }
+  if (user_name) {
+    set_has_user_name();
+    user_name_ = user_name;
+  } else {
+    clear_has_user_name();
+    user_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:IM.Server.IMDbRegReq.user_name)
+}
+
+// optional string password = 2;
+inline bool IMDbRegReq::has_password() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void IMDbRegReq::set_has_password() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void IMDbRegReq::clear_has_password() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void IMDbRegReq::clear_password() {
+  if (password_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    password_->clear();
+  }
+  clear_has_password();
+}
+inline const ::std::string& IMDbRegReq::password() const {
+  // @@protoc_insertion_point(field_get:IM.Server.IMDbRegReq.password)
+  return *password_;
+}
+inline void IMDbRegReq::set_password(const ::std::string& value) {
+  set_has_password();
+  if (password_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    password_ = new ::std::string;
+  }
+  password_->assign(value);
+  // @@protoc_insertion_point(field_set:IM.Server.IMDbRegReq.password)
+}
+inline void IMDbRegReq::set_password(const char* value) {
+  set_has_password();
+  if (password_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    password_ = new ::std::string;
+  }
+  password_->assign(value);
+  // @@protoc_insertion_point(field_set_char:IM.Server.IMDbRegReq.password)
+}
+inline void IMDbRegReq::set_password(const char* value, size_t size) {
+  set_has_password();
+  if (password_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    password_ = new ::std::string;
+  }
+  password_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:IM.Server.IMDbRegReq.password)
+}
+inline ::std::string* IMDbRegReq::mutable_password() {
+  set_has_password();
+  if (password_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    password_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:IM.Server.IMDbRegReq.password)
+  return password_;
+}
+inline ::std::string* IMDbRegReq::release_password() {
+  clear_has_password();
+  if (password_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = password_;
+    password_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void IMDbRegReq::set_allocated_password(::std::string* password) {
+  if (password_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete password_;
+  }
+  if (password) {
+    set_has_password();
+    password_ = password;
+  } else {
+    clear_has_password();
+    password_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:IM.Server.IMDbRegReq.password)
+}
+
+// optional bytes attach_data = 20;
+inline bool IMDbRegReq::has_attach_data() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void IMDbRegReq::set_has_attach_data() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void IMDbRegReq::clear_has_attach_data() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void IMDbRegReq::clear_attach_data() {
+  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    attach_data_->clear();
+  }
+  clear_has_attach_data();
+}
+inline const ::std::string& IMDbRegReq::attach_data() const {
+  // @@protoc_insertion_point(field_get:IM.Server.IMDbRegReq.attach_data)
+  return *attach_data_;
+}
+inline void IMDbRegReq::set_attach_data(const ::std::string& value) {
+  set_has_attach_data();
+  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    attach_data_ = new ::std::string;
+  }
+  attach_data_->assign(value);
+  // @@protoc_insertion_point(field_set:IM.Server.IMDbRegReq.attach_data)
+}
+inline void IMDbRegReq::set_attach_data(const char* value) {
+  set_has_attach_data();
+  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    attach_data_ = new ::std::string;
+  }
+  attach_data_->assign(value);
+  // @@protoc_insertion_point(field_set_char:IM.Server.IMDbRegReq.attach_data)
+}
+inline void IMDbRegReq::set_attach_data(const void* value, size_t size) {
+  set_has_attach_data();
+  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    attach_data_ = new ::std::string;
+  }
+  attach_data_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:IM.Server.IMDbRegReq.attach_data)
+}
+inline ::std::string* IMDbRegReq::mutable_attach_data() {
+  set_has_attach_data();
+  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    attach_data_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:IM.Server.IMDbRegReq.attach_data)
+  return attach_data_;
+}
+inline ::std::string* IMDbRegReq::release_attach_data() {
+  clear_has_attach_data();
+  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = attach_data_;
+    attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void IMDbRegReq::set_allocated_attach_data(::std::string* attach_data) {
+  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete attach_data_;
+  }
+  if (attach_data) {
+    set_has_attach_data();
+    attach_data_ = attach_data;
+  } else {
+    clear_has_attach_data();
+    attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:IM.Server.IMDbRegReq.attach_data)
+}
+
+// -------------------------------------------------------------------
+
+// IMDbRegRes
+
+// optional string user_name = 1;
+inline bool IMDbRegRes::has_user_name() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void IMDbRegRes::set_has_user_name() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void IMDbRegRes::clear_has_user_name() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void IMDbRegRes::clear_user_name() {
+  if (user_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    user_name_->clear();
+  }
+  clear_has_user_name();
+}
+inline const ::std::string& IMDbRegRes::user_name() const {
+  // @@protoc_insertion_point(field_get:IM.Server.IMDbRegRes.user_name)
+  return *user_name_;
+}
+inline void IMDbRegRes::set_user_name(const ::std::string& value) {
+  set_has_user_name();
+  if (user_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    user_name_ = new ::std::string;
+  }
+  user_name_->assign(value);
+  // @@protoc_insertion_point(field_set:IM.Server.IMDbRegRes.user_name)
+}
+inline void IMDbRegRes::set_user_name(const char* value) {
+  set_has_user_name();
+  if (user_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    user_name_ = new ::std::string;
+  }
+  user_name_->assign(value);
+  // @@protoc_insertion_point(field_set_char:IM.Server.IMDbRegRes.user_name)
+}
+inline void IMDbRegRes::set_user_name(const char* value, size_t size) {
+  set_has_user_name();
+  if (user_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    user_name_ = new ::std::string;
+  }
+  user_name_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:IM.Server.IMDbRegRes.user_name)
+}
+inline ::std::string* IMDbRegRes::mutable_user_name() {
+  set_has_user_name();
+  if (user_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    user_name_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:IM.Server.IMDbRegRes.user_name)
+  return user_name_;
+}
+inline ::std::string* IMDbRegRes::release_user_name() {
+  clear_has_user_name();
+  if (user_name_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = user_name_;
+    user_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void IMDbRegRes::set_allocated_user_name(::std::string* user_name) {
+  if (user_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete user_name_;
+  }
+  if (user_name) {
+    set_has_user_name();
+    user_name_ = user_name;
+  } else {
+    clear_has_user_name();
+    user_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:IM.Server.IMDbRegRes.user_name)
+}
+
+// optional uint32 result_code = 2;
+inline bool IMDbRegRes::has_result_code() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void IMDbRegRes::set_has_result_code() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void IMDbRegRes::clear_has_result_code() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void IMDbRegRes::clear_result_code() {
+  result_code_ = 0u;
+  clear_has_result_code();
+}
+inline ::google::protobuf::uint32 IMDbRegRes::result_code() const {
+  // @@protoc_insertion_point(field_get:IM.Server.IMDbRegRes.result_code)
+  return result_code_;
+}
+inline void IMDbRegRes::set_result_code(::google::protobuf::uint32 value) {
+  set_has_result_code();
+  result_code_ = value;
+  // @@protoc_insertion_point(field_set:IM.Server.IMDbRegRes.result_code)
+}
+
+// optional string result_string = 3;
+inline bool IMDbRegRes::has_result_string() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void IMDbRegRes::set_has_result_string() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void IMDbRegRes::clear_has_result_string() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void IMDbRegRes::clear_result_string() {
+  if (result_string_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    result_string_->clear();
+  }
+  clear_has_result_string();
+}
+inline const ::std::string& IMDbRegRes::result_string() const {
+  // @@protoc_insertion_point(field_get:IM.Server.IMDbRegRes.result_string)
+  return *result_string_;
+}
+inline void IMDbRegRes::set_result_string(const ::std::string& value) {
+  set_has_result_string();
+  if (result_string_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    result_string_ = new ::std::string;
+  }
+  result_string_->assign(value);
+  // @@protoc_insertion_point(field_set:IM.Server.IMDbRegRes.result_string)
+}
+inline void IMDbRegRes::set_result_string(const char* value) {
+  set_has_result_string();
+  if (result_string_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    result_string_ = new ::std::string;
+  }
+  result_string_->assign(value);
+  // @@protoc_insertion_point(field_set_char:IM.Server.IMDbRegRes.result_string)
+}
+inline void IMDbRegRes::set_result_string(const char* value, size_t size) {
+  set_has_result_string();
+  if (result_string_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    result_string_ = new ::std::string;
+  }
+  result_string_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:IM.Server.IMDbRegRes.result_string)
+}
+inline ::std::string* IMDbRegRes::mutable_result_string() {
+  set_has_result_string();
+  if (result_string_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    result_string_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:IM.Server.IMDbRegRes.result_string)
+  return result_string_;
+}
+inline ::std::string* IMDbRegRes::release_result_string() {
+  clear_has_result_string();
+  if (result_string_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = result_string_;
+    result_string_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void IMDbRegRes::set_allocated_result_string(::std::string* result_string) {
+  if (result_string_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete result_string_;
+  }
+  if (result_string) {
+    set_has_result_string();
+    result_string_ = result_string;
+  } else {
+    clear_has_result_string();
+    result_string_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:IM.Server.IMDbRegRes.result_string)
+}
+
+// optional .IM.BaseDefine.UserInfo user_info = 4;
+inline bool IMDbRegRes::has_user_info() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void IMDbRegRes::set_has_user_info() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void IMDbRegRes::clear_has_user_info() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void IMDbRegRes::clear_user_info() {
+  if (user_info_ != NULL) user_info_->::IM::BaseDefine::UserInfo::Clear();
+  clear_has_user_info();
+}
+inline const ::IM::BaseDefine::UserInfo& IMDbRegRes::user_info() const {
+  // @@protoc_insertion_point(field_get:IM.Server.IMDbRegRes.user_info)
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  return user_info_ != NULL ? *user_info_ : *default_instance().user_info_;
+#else
+  return user_info_ != NULL ? *user_info_ : *default_instance_->user_info_;
+#endif
+}
+inline ::IM::BaseDefine::UserInfo* IMDbRegRes::mutable_user_info() {
+  set_has_user_info();
+  if (user_info_ == NULL) user_info_ = new ::IM::BaseDefine::UserInfo;
+  // @@protoc_insertion_point(field_mutable:IM.Server.IMDbRegRes.user_info)
+  return user_info_;
+}
+inline ::IM::BaseDefine::UserInfo* IMDbRegRes::release_user_info() {
+  clear_has_user_info();
+  ::IM::BaseDefine::UserInfo* temp = user_info_;
+  user_info_ = NULL;
+  return temp;
+}
+inline void IMDbRegRes::set_allocated_user_info(::IM::BaseDefine::UserInfo* user_info) {
+  delete user_info_;
+  user_info_ = user_info;
+  if (user_info) {
+    set_has_user_info();
+  } else {
+    clear_has_user_info();
+  }
+  // @@protoc_insertion_point(field_set_allocated:IM.Server.IMDbRegRes.user_info)
+}
+
+// optional bytes attach_data = 20;
+inline bool IMDbRegRes::has_attach_data() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+inline void IMDbRegRes::set_has_attach_data() {
+  _has_bits_[0] |= 0x00000010u;
+}
+inline void IMDbRegRes::clear_has_attach_data() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+inline void IMDbRegRes::clear_attach_data() {
+  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    attach_data_->clear();
+  }
+  clear_has_attach_data();
+}
+inline const ::std::string& IMDbRegRes::attach_data() const {
+  // @@protoc_insertion_point(field_get:IM.Server.IMDbRegRes.attach_data)
+  return *attach_data_;
+}
+inline void IMDbRegRes::set_attach_data(const ::std::string& value) {
+  set_has_attach_data();
+  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    attach_data_ = new ::std::string;
+  }
+  attach_data_->assign(value);
+  // @@protoc_insertion_point(field_set:IM.Server.IMDbRegRes.attach_data)
+}
+inline void IMDbRegRes::set_attach_data(const char* value) {
+  set_has_attach_data();
+  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    attach_data_ = new ::std::string;
+  }
+  attach_data_->assign(value);
+  // @@protoc_insertion_point(field_set_char:IM.Server.IMDbRegRes.attach_data)
+}
+inline void IMDbRegRes::set_attach_data(const void* value, size_t size) {
+  set_has_attach_data();
+  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    attach_data_ = new ::std::string;
+  }
+  attach_data_->assign(reinterpret_cast<const char*>(value), size);
+  // @@protoc_insertion_point(field_set_pointer:IM.Server.IMDbRegRes.attach_data)
+}
+inline ::std::string* IMDbRegRes::mutable_attach_data() {
+  set_has_attach_data();
+  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    attach_data_ = new ::std::string;
+  }
+  // @@protoc_insertion_point(field_mutable:IM.Server.IMDbRegRes.attach_data)
+  return attach_data_;
+}
+inline ::std::string* IMDbRegRes::release_attach_data() {
+  clear_has_attach_data();
+  if (attach_data_ == &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    return NULL;
+  } else {
+    ::std::string* temp = attach_data_;
+    attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    return temp;
+  }
+}
+inline void IMDbRegRes::set_allocated_attach_data(::std::string* attach_data) {
+  if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
+    delete attach_data_;
+  }
+  if (attach_data) {
+    set_has_attach_data();
+    attach_data_ = attach_data;
+  } else {
+    clear_has_attach_data();
+    attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+  // @@protoc_insertion_point(field_set_allocated:IM.Server.IMDbRegRes.attach_data)
 }
 
 // -------------------------------------------------------------------

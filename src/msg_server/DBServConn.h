@@ -30,6 +30,7 @@ public:
 	virtual void HandlePdu(CImPdu* pPdu);
 private:
 	void _HandleValidateResponse(CImPdu* pPdu);
+	void _HandleDbRegisterResponse(CImPdu* pPdu);
     void _HandleRecentSessionResponse(CImPdu* pPdu);
     void _HandleAllUserResponse(CImPdu* pPdu);
     void _HandleGetMsgListResponse(CImPdu* pPdu);
