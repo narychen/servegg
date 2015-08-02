@@ -42,6 +42,11 @@
 #define logt(fmt, args...)
 #endif
 
+#ifndef NO_RUNTIME_TRACE
+#define RUNTIME_TRACE ImLog::Logt("*********<%s>|<%d>|<%s>*********", __FILENAME__, __LINE__, __FUNCTION__)
+#else
+#define RUNTIME_TRACE
+#endif
 
 class ImLog
 {

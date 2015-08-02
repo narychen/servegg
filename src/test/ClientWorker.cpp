@@ -1,10 +1,10 @@
 
-
+#include <memory>
 #include "ClientWorker.h"
 #include "HttpClient.h"
 #include "json/json.h"
 #include "util.h"
-#include "ClientConn.h"
+
 using namespace std;
 
 CClientWorker::CClientWorker(string cmd) {
@@ -28,20 +28,31 @@ void CClientWorker::ExecCmd(vector<string>& cmds) {
 
 void CClientWorker::Login(string username, string passwd) {
     cout << "login " << username << " " << passwd << endl;
-    on_confirm_data_t data;
-    data.username = username;
-    data.passwd = passwd;
-    data.state = ON_CONFIRM_LOGIN;
-    ConnectMsgServer(data);
+    string ip;
+    uint16_t port;
+    GetMsgServerAddr("http://127.0.0.1:8080/msg_server", ip, port);
+    if (!_clientconn) {
+        _clientconn = shared_ptr<CClientConn>(new CClientConn(ip, port));
+    } else {
+        _clientconn->Close();
+        _clientconn = shared_ptr<CClientConn>(new CClientConn(ip, port));
+    }
+    _clientconn->Login(username, passwd);
+
 }
 
 void CClientWorker::Register(string username, string passwd) {
     cout << "register " << username << " " << passwd << endl;
-    on_confirm_data_t data;
-    data.username = username;
-    data.passwd = passwd;
-    data.state = ON_CONFIRM_REGISTER;
-    ConnectMsgServer(data);
+    string ip;
+    uint16_t port;
+    GetMsgServerAddr("http://127.0.0.1:8080/msg_server", ip, port);
+    if (!_clientconn) {
+        _clientconn = shared_ptr<CClientConn>(new CClientConn(ip, port));
+    } else {
+        _clientconn->Close();
+        _clientconn = shared_ptr<CClientConn>(new CClientConn(ip, port));
+    }
+    _clientconn->Register(username, passwd);
     
 }
 
@@ -65,11 +76,3 @@ void CClientWorker::GetMsgServerAddr(string login_url, string& ip, uint16_t& por
     ip = value["priorIP"].asString();
     port = value["port"].asUInt();
 }	
-
-void CClientWorker::ConnectMsgServer(on_confirm_data_t& data) {
-    string ip;
-    uint16_t port;
-    GetMsgServerAddr("http://127.0.0.1:8080/msg_server", ip, port);
-    log("Connect to %s:%d", ip.c_str(), port);
-    init_client_conn(ip, port, data);
-}

@@ -3,6 +3,8 @@
 
 #include <vector>
 #include <string>
+#include <memory>
+#include "ClientConn.h"
 
 typedef enum {
     ON_CONFIRM_LOGIN = 1,
@@ -15,8 +17,10 @@ typedef struct {
     on_confirm_state_t state;
 } on_confirm_data_t;
 
+
 class CClientWorker
 {
+    std::shared_ptr<CClientConn> _clientconn;
 public:
     CClientWorker(std::string cmd);
     void ExecCmd(std::vector<std::string>& cmds);

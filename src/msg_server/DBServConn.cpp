@@ -278,44 +278,71 @@ void CDBServConn::HandlePdu(CImPdu* pPdu)
 
 void CDBServConn::_HandleDbRegisterResponse(CImPdu* pPdu)
 {
-    logt("db server reg conn");
-    IM::Server::IMDbRegRes msg;
-    CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
+    RUNTIME_TRACE;
+    IM::Server::IMDbRegRes msgDb;
+    CHECK_PB_PARSE_MSG(msgDb.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
 
-    string login_name = msg.user_name();
+    string login_name = msgDb.user_name();
     CImUser* pImUser = CImUserManager::GetInstance()->GetImUserByLoginName(login_name);
     if (!pImUser) {
         log("ImUser for user_name=%s not exist", login_name.c_str());
         return;
     }
-    uint32_t result = msg.result_code();
-    string result_string = msg.result_string();
-    CDbAttachData attach_data((uchar_t*)msg.attach_data().c_str(), msg.attach_data().length());
-    CMsgConn* pMsgConn = NULL;
-    pMsgConn = pImUser->GetUnValidateMsgConn(attach_data.GetHandle());
+    
+    CDbAttachData attach_data((uchar_t*)msgDb.attach_data().c_str(), msgDb.attach_data().length());
+
+    CMsgConn* pMsgConn = pImUser->GetUnValidateMsgConn(attach_data.GetHandle());
     if (!pMsgConn || pMsgConn->IsOpen()) {
         log("no such conn, user_name=%s", login_name.c_str());
         return;
     }
-    if (result) {
-        IM::Login::IMRegisterRes msg;
-        msg.set_user_name(login_name);
-        msg.set_server_time(time(NULL));
-        msg.set_result_code((IM::BaseDefine::ResultType)result);
-        msg.set_result_string(result_string);
-        CImPdu pdu;
-        pdu.SetPBMsg(&msg);
-        pdu.SetServiceId(SID_LOGIN);
-        pdu.SetCommandId(CID_LOGIN_RES_USERREG);
-        pdu.SetSeqNum(pPdu->GetSeqNum());
-        pMsgConn->SendPdu(&pdu);
-        // pMsgConn->Close();
-        return;
-    }
+    
+    IM::BaseDefine::UserInfo user_info = msgDb.user_info();
+    uint32_t user_id = user_info.user_id();
+    pImUser->SetUserId(user_id);
+    pImUser->SetNickName(user_info.user_nick_name());
+    pImUser->SetValidated();
+    CImUserManager::GetInstance()->AddImUserById(user_id, pImUser);
+    
+    log("user_name: %s, uid: %d", login_name.c_str(), user_id);
+    pMsgConn->SetUserId(user_id);
+    pMsgConn->SetOpen();
+    pMsgConn->SendUserStatusUpdate(IM::BaseDefine::USER_STATUS_ONLINE);
+    pImUser->ValidateMsgConn(pMsgConn->GetHandle(), pMsgConn);
+    
+    IM::Login::IMRegisterRes msgRes;
+    msgRes.set_user_name(login_name);
+    msgRes.set_server_time(time(NULL));
+    msgRes.set_result_code((IM::BaseDefine::ResultType)msgDb.result_code());
+    msgRes.set_online_status((IM::BaseDefine::UserStatType)pMsgConn->GetOnlineStatus());
+    msgRes.set_result_string(msgDb.result_string());
+    
+    IM::BaseDefine::UserInfo* user_info_tmp = msgRes.mutable_user_info();
+    user_info_tmp->set_user_id(user_info.user_id());
+    user_info_tmp->set_user_gender(user_info.user_gender());
+    user_info_tmp->set_user_nick_name(user_info.user_nick_name());
+    user_info_tmp->set_avatar_url(user_info.avatar_url());
+    user_info_tmp->set_department_id(user_info.department_id());
+    user_info_tmp->set_email(user_info.email());
+    user_info_tmp->set_user_real_name(user_info.user_real_name());
+    user_info_tmp->set_user_tel(user_info.user_tel());
+    user_info_tmp->set_user_domain(user_info.user_domain());
+    user_info_tmp->set_status(user_info.status());
+    CImPdu pdu;
+    pdu.SetPBMsg(&msgRes);
+    pdu.SetServiceId(SID_LOGIN);
+    pdu.SetCommandId(CID_LOGIN_RES_USERREG);
+    pdu.SetSeqNum(pPdu->GetSeqNum());
+    pMsgConn->SendPdu(&pdu);
+    log("send pdu command id = %d", pdu.GetCommandId());
+    if (msgDb.result_code())
+        pMsgConn->Close();
+
 }
 
 void CDBServConn::_HandleValidateResponse(CImPdu* pPdu)
 {
+    RUNTIME_TRACE;
     IM::Server::IMValidateRsp msg;
     CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
     string login_name = msg.user_name();

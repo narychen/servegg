@@ -46,6 +46,7 @@ public:
         netlib_init();
         cout << "Start event loop..." << endl;
         netlib_add_loop(client_conn_loop_callback, nullptr);
+        netlib_register_timer(client_conn_timer_callback, NULL, 1000);
         netlib_eventloop();
     }
 };

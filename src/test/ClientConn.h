@@ -16,7 +16,7 @@
 #include "SeqAlloctor.h"
 #include "imconn.h"
 #include "ImPduBase.h"
-#include "ClientWorker.h"
+
 
 #include "IM.BaseDefine.pb.h"
 #include "IM.Login.pb.h"
@@ -26,7 +26,6 @@
 #include "IM.Message.pb.h"
 #include "IM.Group.pb.h"
 
-void init_client_conn(const string& ip, uint16_t, on_confirm_data_t& data);
 void client_conn_register(string username, string passwd);
 void client_shell_cmds_add(string cmd);
 void client_conn_loop_callback(void* cbdata, uint8_t msg, uint32_t handle, void* pParam);
@@ -51,11 +50,15 @@ public:
     virtual void onRecvMsg(uint32_t nSeqNo, uint32_t nFromId, uint32_t nToId, uint32_t nMsgId, uint32_t nCreateTime, IM::BaseDefine::MsgType nMsgType, const string& strMsgData) {}
 };
 
+typedef enum {
+    CONN_STATE_REG = 1,
+    CONN_STATE_LOGIN
+}conn_state_t;
 
 class CClientConn : public CImConn
 {
 public:
-	CClientConn();
+	CClientConn(string ip, uint16_t port);
 	virtual ~CClientConn();
 
 	bool IsOpen() { return m_bOpen; }
@@ -75,11 +78,11 @@ public:
 	virtual void OnClose();
 	virtual void OnTimer(uint64_t curr_tick);
 	void OnWrite() override;
-
-    net_handle_t Connect(const char* ip, uint16_t port, uint32_t idx);
-    uint32_t Login(const string &strName, const string &strPass);
-    uint32_t Register(const string &strName, const string &strPass);
-
+	
+	void Register(string name, string passwd);
+	void Login(string name, string passwd);
+	uint32_t OnRegister();
+	uint32_t OnLogin();
 
 	virtual void HandlePdu(CImPdu* pPdu);
 private:
@@ -98,7 +101,11 @@ private:
     uint32_t m_serv_idx;
     CSeqAlloctor* m_pSeqAlloctor;
     IPacketCallback* m_pCallback;
-    
+    string m_ip;
+    uint16_t m_port;
+    string m_username;
+    string m_passwd;
+    conn_state_t m_state;
 };
 
 

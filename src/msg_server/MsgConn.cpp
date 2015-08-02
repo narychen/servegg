@@ -388,7 +388,7 @@ void CMsgConn::_HandleHeartBeat(CImPdu *pPdu)
 
 void CMsgConn::_HandleRegisterRequest(CImPdu* pPdu)
 {
-    logt("user reg");
+    RUNTIME_TRACE;
     if (m_login_name.length() != 0) {
         loge("already login ");
         return;
@@ -474,6 +474,7 @@ uint32_t CMsgConn::_IsAllServerOk(CImPdu* pPdu, CDBServConn* pDbConn)
 // process: send validate request to db server
 void CMsgConn::_HandleLoginRequest(CImPdu* pPdu)
 {
+    RUNTIME_TRACE;
     // refuse second validate request
     if (m_login_name.length() != 0) {
         loge("duplicate LoginRequest in the same conn ");

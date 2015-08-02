@@ -40,6 +40,7 @@ bool addUser(CDBConn* conn, UserRegInfo& userinfo)
 
 void doRegister(CImPdu* pPdu, uint32_t conn_uuid)
 {
+    RUNTIME_TRACE;
     CImPdu* pPduRes = new CImPdu;
     IM::Server::IMDbRegReq msg;
     IM::Server::IMDbRegRes msgRes;

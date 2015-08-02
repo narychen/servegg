@@ -10,6 +10,8 @@
  ================================================================*/
 #include "ClientConn.h"
 #include "ServInfo.h"
+#include "EncDec.h"
+#include "ClientWorker.h"
 
 using namespace std;
 
@@ -17,7 +19,6 @@ static ConnMap_sp_t s_client_conn_map;
 static CServInfo<CClientConn>* s_serv_info_list;
 static list<string> s_shell_cmds;
 static CLock s_cmds_lock;
-static on_confirm_data_t s_on_confirm_data;
 
 void client_conn_loop_callback(void* cbdata, uint8_t msg, uint32_t handle, void* pParam)
 {
@@ -41,28 +42,12 @@ void client_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handl
     for (auto& e : s_client_conn_map) {
         e.second->OnTimer(cur_time);
     }
-    CServInfo<CClientConn>::CheckReconnect(s_serv_info_list, 1);
 }
 
-void init_client_conn(const string& ip, uint16_t port, on_confirm_data_t& data)
-{
-    auto servInfoList = new CServInfo<CClientConn>[1];
-    servInfoList[0].server_ip = ip;
-    servInfoList[0].server_port = port;
-    s_serv_info_list = servInfoList;
-    CServInfo<CClientConn>::Init(servInfoList, 1);
-    netlib_register_timer(client_conn_timer_callback, NULL, 1000);
-    s_on_confirm_data.username = data.username;
-    s_on_confirm_data.passwd = data.passwd;
-    s_on_confirm_data.state = data.state;
-}
-
-
-CClientConn::CClientConn() : m_bOpen(false)
+CClientConn::CClientConn(string ip, uint16_t port) : m_bOpen(false), m_ip(ip), m_port(port)
 {
     m_pSeqAlloctor = CSeqAlloctor::getInstance();
-    m_pCallback = new IPacketCallback;
-    m_serv_idx = 0;
+    m_handle = 0;
 }
 
 CClientConn::~CClientConn()
@@ -70,21 +55,43 @@ CClientConn::~CClientConn()
      logd("destruct clientconn"); 
 }
 
-net_handle_t CClientConn::Connect(const char* ip, uint16_t port, uint32_t idx)
+void CClientConn::Register(string name, string passwd)
 {
-	m_handle = netlib_connect(ip, port, imconn_callback_sp, (void*)&s_client_conn_map);
+    RUNTIME_TRACE;
+    m_username = name;
+    m_passwd = passwd;
+    m_state = CONN_STATE_REG;
+	m_handle = netlib_connect(m_ip.c_str(), m_port, imconn_callback_sp, (void*)&s_client_conn_map);
 	if (m_handle != NETLIB_INVALID_HANDLE) {
         s_client_conn_map.insert(make_pair(m_handle, shared_from_this()));
+	} else {
+	    throw netex("connect to %s:%d failed", m_ip.c_str(), m_port);
 	}
-    return  m_handle;
 }
 
-uint32_t CClientConn::Register(const string &strName, const string &strPass)
+void CClientConn::Login(string name, string passwd)
 {
+    RUNTIME_TRACE;
+    m_username = name;
+    m_passwd = passwd;
+    m_state = CONN_STATE_LOGIN;
+    m_handle = netlib_connect(m_ip.c_str(), m_port, imconn_callback_sp, (void*)&s_client_conn_map);
+	if (m_handle != NETLIB_INVALID_HANDLE) {
+        s_client_conn_map.insert(make_pair(m_handle, shared_from_this()));
+	} else {
+	    throw netex("connect to %s:%d failed", m_ip.c_str(), m_port);
+	}
+}
+
+uint32_t CClientConn::OnRegister()
+{
+    RUNTIME_TRACE;
     CImPdu pdu;
     IM::Login::IMRegisterReq msg;
-    msg.set_user_name(strName);
-    msg.set_password(strPass);
+    msg.set_user_name(m_username);
+    char md5passwd[33];
+    CMd5::MD5_Calculate(m_passwd.c_str(), m_passwd.length(), md5passwd);
+    msg.set_password(string(md5passwd));
     msg.set_online_status(IM::BaseDefine::USER_STATUS_ONLINE);
     msg.set_client_type(IM::BaseDefine::CLIENT_TYPE_WINDOWS);
     msg.set_client_version("1.0");
@@ -93,24 +100,22 @@ uint32_t CClientConn::Register(const string &strName, const string &strPass)
     pdu.SetCommandId(IM::BaseDefine::CID_LOGIN_REQ_USERREG);
     uint32_t nSeqNo = m_pSeqAlloctor->getSeq(ALLOCTOR_PACKET);
     pdu.SetSeqNum(nSeqNo);
-    log("send pdu");
     SendPdu(&pdu);
     return nSeqNo;
 }
 
 void CClientConn::OnConfirm()
 {
-    log("%s client on confirm ", typeid(*this).name());
-    switch (s_on_confirm_data.state) {
-        case ON_CONFIRM_LOGIN:
-            Login(s_on_confirm_data.username, s_on_confirm_data.passwd);
-        case ON_CONFIRM_REGISTER:
-            Register(s_on_confirm_data.username, s_on_confirm_data.passwd);
+    // log("%s client on confirm ", typeid(*this).name());
+    RUNTIME_TRACE;
+    switch (m_state) {
+        case CONN_STATE_LOGIN:
+            OnLogin();
+            break;
+        case CONN_STATE_REG:
+            OnRegister();
+            break;
     }
-    // if(m_pCallback)
-    // {
-    //     m_pCallback->onConnect();
-    // }
 }
 
 void CClientConn::OnClose()
@@ -143,12 +148,13 @@ void CClientConn::OnTimer(uint64_t curr_tick)
     }
 }
 
-uint32_t CClientConn::Login(const string &strName, const string &strPass)
+uint32_t CClientConn::OnLogin()
 {
+    RUNTIME_TRACE;
     CImPdu cPdu;
     IM::Login::IMLoginReq msg;
-    msg.set_user_name(strName);
-    msg.set_password(strPass);
+    msg.set_user_name(m_username);
+    msg.set_password(m_passwd);
     msg.set_online_status(IM::BaseDefine::USER_STATUS_ONLINE);
     msg.set_client_type(IM::BaseDefine::CLIENT_TYPE_WINDOWS);
     msg.set_client_version("1.0");
@@ -280,6 +286,7 @@ uint32_t CClientConn::sendMsgAck(uint32_t nUserId, uint32_t nPeerId, IM::BaseDef
 void CClientConn::Close()
 {
 	if (m_handle != NETLIB_INVALID_HANDLE) {
+	    log("close conn handle=%d", m_handle);
 		netlib_close(m_handle);
         s_client_conn_map.erase(m_handle);
 	}
@@ -293,6 +300,7 @@ void CClientConn::HandlePdu(CImPdu* pPdu)
     		break;
     	case IM::BaseDefine::CID_LOGIN_RES_USERREG:
     	    _HandleUserRegResponse(pPdu);
+    	    break;
         case IM::BaseDefine::CID_LOGIN_RES_USERLOGIN:
             _HandleLoginResponse(pPdu);
     		break; 
@@ -325,40 +333,35 @@ void CClientConn::HandlePdu(CImPdu* pPdu)
 
 void CClientConn::_HandleUserRegResponse(CImPdu* pPdu)
 {
+    RUNTIME_TRACE;
     IM::Login::IMRegisterRes msg;
     CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
     string name = msg.user_name();
     uint32_t ret = msg.result_code();
     string strRet = msg.result_string();
-    if (1) {
+    if (ret) {
         loge("Register username=%s failed errno=%d, errinfo=%s",
             name.c_str(), ret, strRet.c_str());
+        return;
     }
 }
 
 void CClientConn::_HandleLoginResponse(CImPdu* pPdu)
 {
+    RUNTIME_TRACE;
     IM::Login::IMLoginRes msgResp;
     uint32_t nSeqNo = pPdu->GetSeqNum();
-    if(msgResp.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()))
-    {
-        uint32_t nRet = msgResp.result_code();
-        string strMsg = msgResp.result_string();
-        if(nRet == 0)
-        {
-            m_bOpen = true;
-            IM::BaseDefine::UserInfo cUser = msgResp.user_info();
-            m_pCallback->onLogin(nSeqNo, nRet, strMsg, &cUser);
-        }
-        else
-        {
-            m_pCallback->onLogin(nSeqNo, nRet, strMsg);
-        }
+    CHECK_PB_PARSE_MSG(msgResp.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
+    uint32_t ret = msgResp.result_code();
+    string strRet = msgResp.result_string();
+    if (ret) {
+        loge("login username=%s failed errno=%d, errinfo=%s",
+            m_username.c_str(), ret, strRet.c_str());
+        return;
     }
-    else
-    {
-        m_pCallback->onError(nSeqNo, pPdu->GetCommandId(), "parse pb error");
-    }
+    m_bOpen = true;
+    IM::BaseDefine::UserInfo cUser = msgResp.user_info();
+    log("%s login successful", m_username.c_str());
 }
 
 void CClientConn::_HandleUser(CImPdu* pPdu)
