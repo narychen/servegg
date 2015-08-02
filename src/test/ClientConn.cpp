@@ -12,10 +12,27 @@
 #include "ServInfo.h"
 
 using namespace std;
+
 static ConnMap_sp_t s_client_conn_map;
 static CServInfo<CClientConn>* s_serv_info_list;
+static list<string> s_shell_cmds;
+static CLock s_cmds_lock;
+static on_confirm_data_t s_on_confirm_data;
 
-on_confirm_data_t s_on_confirm_data;
+void client_conn_loop_callback(void* cbdata, uint8_t msg, uint32_t handle, void* pParam)
+{
+    CAutoLock autoLock(&s_cmds_lock);
+    for (auto& e : s_shell_cmds) {
+        CClientWorker worker(e);
+    }
+    s_shell_cmds.clear();
+}
+
+void client_shell_cmds_add(string cmd)
+{
+    CAutoLock autoLock(&s_cmds_lock);
+    s_shell_cmds.push_back(cmd);
+}
 
 
 void client_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
@@ -56,9 +73,7 @@ CClientConn::~CClientConn()
 net_handle_t CClientConn::Connect(const char* ip, uint16_t port, uint32_t idx)
 {
 	m_handle = netlib_connect(ip, port, imconn_callback_sp, (void*)&s_client_conn_map);
-	log("connect handle %d", m_handle);
 	if (m_handle != NETLIB_INVALID_HANDLE) {
-	    log("in invalid %d", m_handle);
         s_client_conn_map.insert(make_pair(m_handle, shared_from_this()));
 	}
     return  m_handle;

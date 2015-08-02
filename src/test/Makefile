@@ -156,6 +156,30 @@ ClientShell.cpp.s:
 	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/ClientShell.cpp.s
 .PHONY : ClientShell.cpp.s
 
+ClientWorker.o: ClientWorker.cpp.o
+.PHONY : ClientWorker.o
+
+# target to build an object file
+ClientWorker.cpp.o:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/ClientWorker.cpp.o
+.PHONY : ClientWorker.cpp.o
+
+ClientWorker.i: ClientWorker.cpp.i
+.PHONY : ClientWorker.i
+
+# target to preprocess a source file
+ClientWorker.cpp.i:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/ClientWorker.cpp.i
+.PHONY : ClientWorker.cpp.i
+
+ClientWorker.s: ClientWorker.cpp.s
+.PHONY : ClientWorker.s
+
+# target to generate assembly for a file
+ClientWorker.cpp.s:
+	$(MAKE) -f CMakeFiles/client.dir/build.make CMakeFiles/client.dir/ClientWorker.cpp.s
+.PHONY : ClientWorker.cpp.s
+
 home/nary/egserv/src/base/Base64.o: home/nary/egserv/src/base/Base64.cpp.o
 .PHONY : home/nary/egserv/src/base/Base64.o
 
@@ -963,6 +987,9 @@ help:
 	@echo "... ClientShell.o"
 	@echo "... ClientShell.i"
 	@echo "... ClientShell.s"
+	@echo "... ClientWorker.o"
+	@echo "... ClientWorker.i"
+	@echo "... ClientWorker.s"
 	@echo "... home/nary/egserv/src/base/Base64.o"
 	@echo "... home/nary/egserv/src/base/Base64.i"
 	@echo "... home/nary/egserv/src/base/Base64.s"

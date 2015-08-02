@@ -29,16 +29,12 @@ void imconn_callback_sp(void* callback_data, uint8_t msg, uint32_t handle, void*
 	NOTUSED_ARG(handle);
 	NOTUSED_ARG(pParam);
 	auto imconn_map_sp = (ConnMap_sp_t*)callback_data;
-	log("handle=%d", handle);
-	for (auto& e: (*imconn_map_sp)) {
-		log("map handle=%d", e.first);
-	}
 	
 	auto pConn = FindImConnSp(imconn_map_sp, handle);
 	if (!pConn)
 		return;
 
-	log("msg=%d, handle=%d ", msg, handle);
+	// log("msg=%d, handle=%d ", msg, handle);
 
 	switch (msg)
 	{
@@ -55,7 +51,7 @@ void imconn_callback_sp(void* callback_data, uint8_t msg, uint32_t handle, void*
 		pConn->OnClose();
 		break;
 	default:
-		log("!!!imconn_callback error msg: %d ", msg);
+		loge("!!!imconn_callback error msg: %d ", msg);
 		break;
 	}
 }
@@ -133,7 +129,7 @@ CImConn::~CImConn()
 
 int CImConn::Send(void* data, int len)
 {
-	CAutoLock autoLock(&s_send_lock);
+	// CAutoLock autoLock(&s_send_lock);
 	m_last_send_tick = get_tick_count();
 //	++g_send_pkt_cnt;
 
@@ -220,7 +216,7 @@ void CImConn::OnRead()
 
 void CImConn::OnWrite()
 {
-	CAutoLock autoLock(&s_send_lock);
+	// CAutoLock autoLock(&s_send_lock);
 	if (!m_busy)
 		return;
 
