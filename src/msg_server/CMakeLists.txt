@@ -22,12 +22,12 @@ ADD_DEFINITIONS( -g -W -Wall -Wno-deprecated -Wno-unused-parameter -Wno-unused-f
 -DAC_HAS_WARNING -DAC_HAS_ERROR -DAC_HAS_CRITICAL -DTIXML_USE_STL
 -DAC_HAS_DEBUG -DLINUX_DAEMON -std=c++11)
 
-INCLUDE_DIRECTORIES(${_} ${_}/../base ${_}/../base/pb/protocol ${_}/../base/pb ${_}/../base/security ${_}/../base/jsoncpp)
-LINK_DIRECTORIES(${_} ${_}/../base ${PB_LIB_DIR} ${_}/../base/slog/lib ${SECURITY_LIB_DIR})
+INCLUDE_DIRECTORIES(${_} ${_}/../base ${_}/../base/pb/protocol ${_}/../base/security ${_}/../base/jsoncpp ${_}/../include)
+LINK_DIRECTORIES(${_} ${_}/../lib ${SECURITY_LIB_DIR})
 
 #ADD_XXXX必须在TARGET_LINK_LIBRARIES前面，否则会报错
 #ADD_LIBRARY(${PROJECTNAME} SHARED/STATIC ${SRC_LIST})
 ADD_EXECUTABLE(msg_server ${SRC_LIST} ${SRC_BASE} ${SRC_PB} ${SRC_JSON})
 
-TARGET_LINK_LIBRARIES(msg_server protobuf-lite slog crypto pthread curl)
+TARGET_LINK_LIBRARIES(msg_server log4cxx protobuf-lite crypto pthread curl)
  

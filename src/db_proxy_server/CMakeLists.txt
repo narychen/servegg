@@ -25,13 +25,12 @@ ADD_DEFINITIONS( -g -W -Wno-deprecated -Wno-unused-parameter -Wno-unused-functio
 -DAC_HAS_WARNING -DAC_HAS_ERROR -DAC_HAS_CRITICAL -DTIXML_USE_STL
 -DAC_HAS_DEBUG -DLINUX_DAEMON -std=c++11 -DENCRYPT)
 
-INCLUDE_DIRECTORIES(${_} ${_}/businiess ${_}/../base ${_}/../base/jsoncpp ${_}/../base/pb/protocol
-${_}/../base/pb/ ${MYSQL_INCLUDE_DIR})
-LINK_DIRECTORIES(${_} ${_}/../base ${PB_LIB_DIR} ${MYSQL_LIB} ${_}/../base/slog/lib)
+INCLUDE_DIRECTORIES(${_} ${_}/businiess ${_}/../base ${_}/../base/jsoncpp ${_}/../base/pb/protocol ${_}/../include ${MYSQL_INCLUDE_DIR})
+LINK_DIRECTORIES(${_} ${PB_LIB_DIR} ${MYSQL_LIB} ${_}/../lib)
 
 #ADD_XXXX必须在TARGET_LINK_LIBRARIES前面，否则会报错
 #ADD_LIBRARY(${PROJECTNAME} SHARED/STATIC ${SRC_LIST})
 ADD_EXECUTABLE(db_proxy_server ${SRC_LIST} ${SRC_BASE} ${SRC_PB} ${SRC_JSON})
 
-TARGET_LINK_LIBRARIES(db_proxy_server pthread base protobuf-lite mysqlclient_r hiredis curl slog crypto)
+TARGET_LINK_LIBRARIES(db_proxy_server pthread protobuf-lite mysqlclient_r hiredis curl log4cxx crypto)
  
