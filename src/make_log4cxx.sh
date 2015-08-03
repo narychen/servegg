@@ -84,7 +84,7 @@ build_log4cxx(){
     download $LOG4CXX.tar.gz $LOG4CXX_PATH
     tar -xf $LOG4CXX.tar.gz
     cd $LOG4CXX
-    ./configure --prefix=$CUR_DIR/log4cxx --with-apr=/usr --with-apr-util=/usr
+    ./configure --prefix=$CUR_DIR/log4cxx --with-apr=/usr --with-apr-util=/usr --with-charset=utf-8 --with-logchar=utf-8
     cp ../inputstreamreader.cpp ./src/main/cpp/
     cp ../socketoutputstream.cpp ./src/main/cpp/
     cp ../console.cpp ./src/examples/cpp/

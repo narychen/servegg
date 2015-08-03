@@ -54,6 +54,7 @@ public:
 int main(int argc, char* argv[])
 {
 //    play("message.wav");
+    // setlocale(LC_CTYPE, "UTF-8");
     printf("pid is %d\n", getpid());
 	signal(SIGPIPE, SIG_IGN);
 	
