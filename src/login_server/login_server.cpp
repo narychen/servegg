@@ -5,6 +5,8 @@
  *      Author: ziteng@mogujie.com
  */
 
+#include <unistd.h>
+
 #include "LoginConn.h"
 #include "netlib.h"
 #include "ConfigFileReader.h"
@@ -19,7 +21,7 @@ void client_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pP
 {
 	if (msg == NETLIB_MSG_CONNECT)
 	{
-		CLoginConn* pConn = new CLoginConn();
+		auto pConn = shared_ptr<CLoginConn>(new CLoginConn());
 		pConn->OnConnect2(handle, LOGIN_CONN_TYPE_CLIENT);
 	}
 	else
@@ -33,7 +35,7 @@ void msg_serv_callback(void* callback_data, uint8_t msg, uint32_t handle, void* 
 {
 	if (msg == NETLIB_MSG_CONNECT)
 	{
-		CLoginConn* pConn = new CLoginConn();
+		auto pConn = shared_ptr<CLoginConn>(new CLoginConn());
 		pConn->OnConnect2(handle, LOGIN_CONN_TYPE_MSG_SERV);
 	}
 	else
@@ -47,29 +49,13 @@ void http_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pPar
 {
     if (msg == NETLIB_MSG_CONNECT)
     {
-        CHttpConn* pConn = new CHttpConn();
+        auto pConn = shared_ptr<CHttpConn>(new CHttpConn());
         pConn->OnConnect(handle);
     }
     else
     {
         log("!!!error msg: %d ", msg);
     }
-}
-
-void segfault_test2()
-{
-	int *foo = (int*)-1; // make a bad pointer
-  	printf("%d\n", *foo);       // causes segfault
-}
-
-void segfault_test(int n)
-{
-	char* cs = new char[n];
-	for(int i=0; i < n; i++){
-		cs[i] = i*i;
-		printf("index = %d\n", cs[i]);
-	}
-	segfault_test2();
 }
 
 void cxx_handler(int sig)
@@ -80,15 +66,16 @@ void cxx_handler(int sig)
 
 int main(int argc, char* argv[])
 {
+	if(access("core", F_OK) == 0)
+		unlink("core");
+	
 	if ((argc == 2) && (strcmp(argv[1], "-v") == 0)) {
 		printf("Server Version: LoginServer/%s\n", VERSION);
 		printf("Server Build: %s %s\n", __DATE__, __TIME__);
 		return 0;
 	}
-	signal(SIGSEGV, cxx_handler);   // install our handler
+	// signal(SIGSEGV, cxx_handler);   // install our handler
 	signal(SIGPIPE, SIG_IGN);
-	
-	// segfault_test(5);
 
 	CConfigFileReader config_file("loginserver.conf");
 

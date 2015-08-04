@@ -26,6 +26,7 @@ bool IpParser::isTelcome(const char *pIp)
     {
         return false;
     }
+
     CStrExplode strExp((char*)pIp,'.');
     if(strExp.GetItemCnt() != 4)
     {

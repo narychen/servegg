@@ -284,7 +284,9 @@ void CHttpConn::_HandleMsgServRequest(string& url, string& post_data)
         Json::Value value;
         value["code"] = 0;
         value["msg"] = "";
-        if(pIpParser->isTelcome(GetPeerIP()))
+        
+        auto peerIp = GetPeerIP();
+        if(pIpParser->isTelcome(peerIp))
         {
             value["priorIP"] = string(it_min_conn->second->ip_addr1);
             value["backupIP"] = string(it_min_conn->second->ip_addr2);

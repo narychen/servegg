@@ -11,29 +11,34 @@
 #include "IM.Login.pb.h"
 #include "public_define.h"
 using namespace IM::BaseDefine;
-static ConnMap_t g_client_conn_map;
-static ConnMap_t g_msg_serv_conn_map;
+static ConnMap_sp_t g_client_conn_map;
+static ConnMap_sp_t g_msg_serv_conn_map;
 static uint32_t g_total_online_user_cnt = 0;	// 并发在线总人数
 map<uint32_t, msg_serv_info_t*> g_msg_serv_info;
 
 void login_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
 {
 	uint64_t cur_time = get_tick_count();
-	for (ConnMap_t::iterator it = g_client_conn_map.begin(); it != g_client_conn_map.end(); ) {
-		ConnMap_t::iterator it_old = it;
-		it++;
+	// for (ConnMap_t::iterator it = g_client_conn_map.begin(); it != g_client_conn_map.end(); ) {
+	// 	ConnMap_t::iterator it_old = it;
+	// 	it++;
 
-		CLoginConn* pConn = (CLoginConn*)it_old->second;
-		pConn->OnTimer(cur_time);
-	}
+	// 	CLoginConn* pConn = (CLoginConn*)it_old->second;
+	// 	pConn->OnTimer(cur_time);
+	// }
+	for (auto& e : g_client_conn_map)
+		e.second->OnTimer(cur_time);
 
-	for (ConnMap_t::iterator it = g_msg_serv_conn_map.begin(); it != g_msg_serv_conn_map.end(); ) {
-		ConnMap_t::iterator it_old = it;
-		it++;
+	// for (ConnMap_t::iterator it = g_msg_serv_conn_map.begin(); it != g_msg_serv_conn_map.end(); ) {
+	// 	ConnMap_t::iterator it_old = it;
+	// 	it++;
 
-		CLoginConn* pConn = (CLoginConn*)it_old->second;
-		pConn->OnTimer(cur_time);
-	}
+	// 	CLoginConn* pConn = (CLoginConn*)it_old->second;
+	// 	pConn->OnTimer(cur_time);
+	// }
+	for (auto& e : g_msg_serv_conn_map) 
+		e.second->OnTimer(cur_time);
+	
 }
 
 void init_login_conn()
@@ -80,15 +85,17 @@ void CLoginConn::OnConnect2(net_handle_t handle, int conn_type)
 	m_handle = handle;
 	m_conn_type = conn_type;
 
-	ConnMap_t* conn_map = &g_msg_serv_conn_map;
 	if (conn_type == LOGIN_CONN_TYPE_CLIENT) {
-		conn_map = &g_client_conn_map;
+		auto conn_map = &g_client_conn_map;
+		conn_map->insert(make_pair(handle, shared_from_this()));
+		netlib_option(handle, NETLIB_OPT_SET_CALLBACK, (void*)imconn_callback_sp);
+		netlib_option(handle, NETLIB_OPT_SET_CALLBACK_DATA, (void*)conn_map);
+	} else {
+		auto conn_map = &g_msg_serv_conn_map;
+		conn_map->insert(make_pair(handle, shared_from_this()));
+		netlib_option(handle, NETLIB_OPT_SET_CALLBACK, (void*)imconn_callback_sp);
+		netlib_option(handle, NETLIB_OPT_SET_CALLBACK_DATA, (void*)conn_map);
 	}
-
-	conn_map->insert(make_pair(handle, this));
-
-	netlib_option(handle, NETLIB_OPT_SET_CALLBACK, (void*)imconn_callback);
-	netlib_option(handle, NETLIB_OPT_SET_CALLBACK_DATA, (void*)conn_map);
 }
 
 void CLoginConn::OnClose()
