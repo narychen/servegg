@@ -1,30 +1,52 @@
+
 #include "BaseSocket.h"
 #include "EventDispatch.h"
 
 typedef hash_map<net_handle_t, CBaseSocket*> SocketMap;
-SocketMap	g_socket_map;
+// SocketMap	g_socket_map;
 
-void AddBaseSocket(CBaseSocket* pSocket)
+BaseSocketMap_sp_t g_socket_map;
+
+// void AddBaseSocket(CBaseSocket* pSocket)
+// {
+// 	g_socket_map.insert(make_pair((net_handle_t)pSocket->GetSocket(), pSocket));
+// }
+
+void AddBaseSocket(sp_CBaseSocket spSocket)
 {
-	g_socket_map.insert(make_pair((net_handle_t)pSocket->GetSocket(), pSocket));
+	g_socket_map.insert(make_pair((net_handle_t)spSocket->GetSocket(), spSocket));
 }
 
-void RemoveBaseSocket(CBaseSocket* pSocket)
+// void RemoveBaseSocket(CBaseSocket* pSocket)
+// {
+// 	g_socket_map.erase((net_handle_t)pSocket->GetSocket());
+// }
+
+void RemoveBaseSocket(sp_CBaseSocket spSocket)
 {
-	g_socket_map.erase((net_handle_t)pSocket->GetSocket());
+	g_socket_map.erase((net_handle_t)spSocket->GetSocket());
 }
 
-CBaseSocket* FindBaseSocket(net_handle_t fd)
+// CBaseSocket* FindBaseSocket(net_handle_t fd)
+// {
+// 	CBaseSocket* pSocket = NULL;
+// 	SocketMap::iterator iter = g_socket_map.find(fd);
+// 	if (iter != g_socket_map.end())
+// 	{
+// 		pSocket = iter->second;
+// 		pSocket->AddRef();
+// 	}
+
+// 	return pSocket;
+// }
+
+sp_CBaseSocket FindBaseSocket(net_handle_t fd)
 {
-	CBaseSocket* pSocket = NULL;
-	SocketMap::iterator iter = g_socket_map.find(fd);
+	auto iter = g_socket_map.find(fd);
 	if (iter != g_socket_map.end())
-	{
-		pSocket = iter->second;
-		pSocket->AddRef();
-	}
-
-	return pSocket;
+		return iter->second;
+	else
+		return sp_CBaseSocket();
 }
 
 //////////////////////////////
@@ -80,7 +102,8 @@ int CBaseSocket::Listen(const char* server_ip, uint16_t port, callback_t callbac
 
 	log("CBaseSocket::Listen on %s:%d", server_ip, port);
 
-	AddBaseSocket(this);
+	// AddBaseSocket(this);
+	AddBaseSocket(shared_from_this());
 	CEventDispatch::Instance()->AddEvent(m_socket, SOCKET_READ | SOCKET_EXCEP);
 	return NETLIB_OK;
 }
@@ -115,7 +138,8 @@ net_handle_t CBaseSocket::Connect(const char* server_ip, uint16_t port, callback
 	}
 
 	m_state = SOCKET_STATE_CONNECTING;
-	AddBaseSocket(this);
+	// AddBaseSocket(this);
+	AddBaseSocket(shared_from_this());
 	CEventDispatch::Instance()->AddEvent(m_socket, SOCKET_ALL);
 	
 	return (net_handle_t)m_socket;
@@ -155,9 +179,10 @@ int CBaseSocket::Recv(void* buf, int len)
 int CBaseSocket::Close()
 {
 	CEventDispatch::Instance()->RemoveEvent(m_socket, SOCKET_ALL);
-	RemoveBaseSocket(this);
+	// RemoveBaseSocket(this);
+	RemoveBaseSocket(shared_from_this());
 	closesocket(m_socket);
-	ReleaseRef();
+	// ReleaseRef();
 
 	return 0;
 }
@@ -322,7 +347,8 @@ void CBaseSocket::_AcceptNewSocket()
 
 	while ( (fd = accept(m_socket, (sockaddr*)&peer_addr, &addr_len)) != INVALID_SOCKET )
 	{
-		CBaseSocket* pSocket = new CBaseSocket();
+		// CBaseSocket* pSocket = new CBaseSocket();
+		auto spSocket = sp_CBaseSocket(new CBaseSocket());
 
 		uint32_t ip = ntohl(peer_addr.sin_addr.s_addr);
 		uint16_t port = ntohs(peer_addr.sin_port);
@@ -331,16 +357,16 @@ void CBaseSocket::_AcceptNewSocket()
 
 		//log("AcceptNewSocket, socket=%d from %s:%d\n", fd, ip_str, port);
 
-		pSocket->SetSocket(fd);
-		pSocket->SetCallback(m_callback);
-		pSocket->SetCallbackData(m_callback_data);
-		pSocket->SetState(SOCKET_STATE_CONNECTED);
-		pSocket->SetRemoteIP(ip_str);
-		pSocket->SetRemotePort(port);
+		spSocket->SetSocket(fd);
+		spSocket->SetCallback(m_callback);
+		spSocket->SetCallbackData(m_callback_data);
+		spSocket->SetState(SOCKET_STATE_CONNECTED);
+		spSocket->SetRemoteIP(ip_str);
+		spSocket->SetRemotePort(port);
 
 		_SetNoDelay(fd);
 		_SetNonblock(fd);
-		AddBaseSocket(pSocket);
+		AddBaseSocket(spSocket);
 		CEventDispatch::Instance()->AddEvent(fd, SOCKET_READ | SOCKET_EXCEP);
 		m_callback(m_callback_data, NETLIB_MSG_CONNECT, (net_handle_t)fd, NULL);
 	}

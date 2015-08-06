@@ -142,7 +142,7 @@ void CHttpConn::Close()
     g_http_conn_map.erase(m_conn_handle);
     netlib_close(m_sock_handle);
 
-    ReleaseRef();
+    // ReleaseRef();
 }
 
 void CHttpConn::OnConnect(net_handle_t handle)

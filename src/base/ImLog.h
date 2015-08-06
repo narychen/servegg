@@ -141,39 +141,39 @@ public:
 #define __FILENAME__ (strrchr(__FILE__, '/') ? (strrchr(__FILE__, '/') + 1):__FILE__)
 
 #ifndef NO_IM_INFO_LOG
-#define log(fmt, args...) EgLog::Logi("<%s>|<%d>|<%s>--INFO--" fmt "\n", __FILENAME__, __LINE__, __FUNCTION__, ##args)
-#define logi(fmt, args...) EgLog::Logi("<%s>|<%d>|<%s>--INFO--" fmt "\n", __FILENAME__, __LINE__, __FUNCTION__, ##args)
+#define log(fmt, args...) EgLog::Logi(" %s:%d |<%s>----" fmt "\n", __FILE__, __LINE__, __FUNCTION__, ##args)
+#define logi(fmt, args...) EgLog::Logi(" %s:%d |<%s>----" fmt "\n", __FILE__, __LINE__, __FUNCTION__, ##args)
 #else
 #define log(fmt, args...)
 #define logi(fmt, args...)
 #endif
 
 #ifndef NO_IM_DEBUG_LOG
-#define logd(fmt, args...) EgLog::Logd("<%s>|<%d>|<%s>--DEBUG--" fmt "\n", __FILENAME__, __LINE__, __FUNCTION__, ##args)
+#define logd(fmt, args...) EgLog::Logd(" %s:%d |<%s>----" fmt "\n", __FILE__, __LINE__, __FUNCTION__, ##args)
 #else
 #define logd(fmt, args...)
 #endif
 
 #ifndef NO_IM_WARN_LOG
-#define logw(fmt, args...) EgLog::Logw("<%s>|<%d>|<%s>--WARN--" fmt "\n", __FILENAME__, __LINE__, __FUNCTION__, ##args)
+#define logw(fmt, args...) EgLog::Logw(" %s:%d |<%s>----" fmt "\n", __FILE__, __LINE__, __FUNCTION__, ##args)
 #else
 #define logw(fmt, args...)
 #endif
 
 #ifndef NO_IM_ERROR_LOG
-#define loge(fmt, args...) EgLog::Loge("<%s>|<%d>|<%s>--ERROR--" fmt "\n", __FILENAME__, __LINE__, __FUNCTION__, ##args)
+#define loge(fmt, args...) EgLog::Loge(" %s:%d |<%s>----" fmt "\n", __FILE__, __LINE__, __FUNCTION__, ##args)
 #else
 #define loge(fmt, args...)
 #endif
 
 #ifndef NO_IM_TRACE_LOG
-#define logt(fmt, args...) EgLog::Logt("<%s>|<%d>|<%s>--TRACE--" fmt "\n", __FILENAME__, __LINE__, __FUNCTION__, ##args)
+#define logt(fmt, args...) EgLog::Logt(" %s:%d |<%s>----" fmt "\n", __FILE__, __LINE__, __FUNCTION__, ##args)
 #else
 #define logt(fmt, args...)
 #endif
 
 #ifndef NO_RUNTIME_TRACE
-#define RUNTIME_TRACE EgLog::Logt("*********<%s>|<%d>|<%s>*********\n", __FILENAME__, __LINE__, __FUNCTION__)
+#define RUNTIME_TRACE EgLog::Logt("********* %s:%d |<%s>*********\n", __FILE__, __LINE__, __FUNCTION__)
 #else
 #define RUNTIME_TRACE
 #endif

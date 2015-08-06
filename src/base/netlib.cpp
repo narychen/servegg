@@ -36,13 +36,13 @@ int netlib_listen(
 		callback_t	callback,
 		void*		callback_data)
 {
-	CBaseSocket* pSocket = new CBaseSocket();
-	if (!pSocket)
+	auto spSocket = sp_CBaseSocket(new CBaseSocket());
+	if (!spSocket)
 		return NETLIB_ERROR;
 
-	int ret =  pSocket->Listen(server_ip, port, callback, callback_data);
-	if (ret == NETLIB_ERROR)
-		delete pSocket;
+	int ret =  spSocket->Listen(server_ip, port, callback, callback_data);
+	// if (ret == NETLIB_ERROR)
+	// 	delete pSocket;
 	return ret;
 }
 
@@ -52,54 +52,54 @@ net_handle_t netlib_connect(
 		callback_t	callback, 
 		void*		callback_data)
 {
-	CBaseSocket* pSocket = new CBaseSocket();
-	if (!pSocket)
+	auto spSocket = sp_CBaseSocket(new CBaseSocket());
+	if (!spSocket)
 		return NETLIB_INVALID_HANDLE;
 
-	net_handle_t handle = pSocket->Connect(server_ip, port, callback, callback_data);
-	if (handle == NETLIB_INVALID_HANDLE)
-		delete pSocket;
+	net_handle_t handle = spSocket->Connect(server_ip, port, callback, callback_data);
+	// if (handle == NETLIB_INVALID_HANDLE)
+	// 	delete pSocket;
 	return handle;
 }
 
 int netlib_send(net_handle_t handle, void* buf, int len)
 {
-	CBaseSocket* pSocket = FindBaseSocket(handle);
-	if (!pSocket)
+	auto spSocket = FindBaseSocket(handle);
+	if (!spSocket)
 	{
 		return NETLIB_ERROR;
 	}
-	int ret = pSocket->Send(buf, len);
-	pSocket->ReleaseRef();
+	int ret = spSocket->Send(buf, len);
+	// pSocket->ReleaseRef();
 	return ret;
 }
 
 int netlib_recv(net_handle_t handle, void* buf, int len)
 {
-	CBaseSocket* pSocket = FindBaseSocket(handle);
-	if (!pSocket)
+	auto spSocket = FindBaseSocket(handle);
+	if (!spSocket)
 		return NETLIB_ERROR;
 
-	int ret = pSocket->Recv(buf, len);
-	pSocket->ReleaseRef();
+	int ret = spSocket->Recv(buf, len);
+	// pSocket->ReleaseRef();
 	return ret;
 }
 
 int netlib_close(net_handle_t handle)
 {
-	CBaseSocket* pSocket = FindBaseSocket(handle);
-	if (!pSocket)
+	auto spSocket = FindBaseSocket(handle);
+	if (!spSocket)
 		return NETLIB_ERROR;
 
-	int ret = pSocket->Close();
-	pSocket->ReleaseRef();
+	int ret = spSocket->Close();
+	// pSocket->ReleaseRef();
 	return ret;
 }
 
 int netlib_option(net_handle_t handle, int opt, void* optval)
 {
-	CBaseSocket* pSocket = FindBaseSocket(handle);
-	if (!pSocket)
+	auto spSocket = FindBaseSocket(handle);
+	if (!spSocket)
 		return NETLIB_ERROR;
 
 	if ((opt >= NETLIB_OPT_GET_REMOTE_IP) && !optval)
@@ -108,32 +108,32 @@ int netlib_option(net_handle_t handle, int opt, void* optval)
 	switch (opt)
 	{
 	case NETLIB_OPT_SET_CALLBACK:
-		pSocket->SetCallback((callback_t)optval);
+		spSocket->SetCallback((callback_t)optval);
 		break;
 	case NETLIB_OPT_SET_CALLBACK_DATA:
-		pSocket->SetCallbackData(optval);
+		spSocket->SetCallbackData(optval);
 		break;
 	case NETLIB_OPT_GET_REMOTE_IP:
-		*(string*)optval = pSocket->GetRemoteIP();
+		*(string*)optval = spSocket->GetRemoteIP();
 		break;
 	case NETLIB_OPT_GET_REMOTE_PORT:
-		*(uint16_t*)optval = pSocket->GetRemotePort();
+		*(uint16_t*)optval = spSocket->GetRemotePort();
 		break;
 	case NETLIB_OPT_GET_LOCAL_IP:
-		*(string*)optval = pSocket->GetLocalIP();
+		*(string*)optval = spSocket->GetLocalIP();
 		break;
 	case NETLIB_OPT_GET_LOCAL_PORT:
-		*(uint16_t*)optval = pSocket->GetLocalPort();
+		*(uint16_t*)optval = spSocket->GetLocalPort();
 		break;
 	case NETLIB_OPT_SET_SEND_BUF_SIZE:
-		pSocket->SetSendBufSize(*(uint32_t*)optval);
+		spSocket->SetSendBufSize(*(uint32_t*)optval);
 		break;
 	case NETLIB_OPT_SET_RECV_BUF_SIZE:
-		pSocket->SetRecvBufSize(*(uint32_t*)optval);
+		spSocket->SetRecvBufSize(*(uint32_t*)optval);
 		break;
 	}
 
-	pSocket->ReleaseRef();
+	// pSocket->ReleaseRef();
 	return NETLIB_OK;
 }
 

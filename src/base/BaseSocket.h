@@ -4,7 +4,8 @@
 
 #ifndef __SOCKET_H__
 #define __SOCKET_H__
-
+#include <memory>
+#include <unordered_map>
 #include "ostype.h"
 #include "util.h"
 
@@ -17,7 +18,7 @@ enum
 	SOCKET_STATE_CLOSING
 };
 
-class CBaseSocket : public CRefObject
+class CBaseSocket : public CRefObject, public std::enable_shared_from_this<CBaseSocket>
 {
 public:
 	CBaseSocket();
@@ -87,6 +88,9 @@ private:
 	SOCKET			m_socket;
 };
 
-CBaseSocket* FindBaseSocket(net_handle_t fd);
+using sp_CBaseSocket = std::shared_ptr<CBaseSocket>;
+using BaseSocketMap_sp_t = std::unordered_map<net_handle_t, sp_CBaseSocket>;
 
+// CBaseSocket* FindBaseSocket(net_handle_t fd);
+sp_CBaseSocket FindBaseSocket(net_handle_t fd);
 #endif

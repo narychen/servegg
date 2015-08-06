@@ -77,7 +77,7 @@ void CLoginConn::Close()
 		}
 	}
 
-	ReleaseRef();
+	// ReleaseRef();
 }
 
 void CLoginConn::OnConnect2(net_handle_t handle, int conn_type)

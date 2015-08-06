@@ -366,8 +366,8 @@ void CEventDispatch::StartDispatch(uint32_t wait_timeout)
 		for (int i = 0; i < nfds; i++)
 		{
 			int ev_fd = events[i].data.fd;
-			CBaseSocket* pSocket = FindBaseSocket(ev_fd);
-			if (!pSocket)
+			auto spSocket = FindBaseSocket(ev_fd);
+			if (!spSocket)
 				continue;
             
             //Commit by zhfu @2015-02-28
@@ -375,7 +375,7 @@ void CEventDispatch::StartDispatch(uint32_t wait_timeout)
             if (events[i].events & EPOLLRDHUP)
             {
                 logt("On Peer Close, socket=%d", ev_fd);
-                pSocket->OnClose();
+                spSocket->OnClose();
             }
             #endif
             // Commit End
@@ -383,22 +383,22 @@ void CEventDispatch::StartDispatch(uint32_t wait_timeout)
 			if (events[i].events & EPOLLIN)
 			{
 				// logt("OnRead, socket=%d\n", ev_fd);
-				pSocket->OnRead();
+				spSocket->OnRead();
 			}
 
 			if (events[i].events & EPOLLOUT)
 			{
 				// logt("OnWrite, socket=%d\n", ev_fd);
-				pSocket->OnWrite();
+				spSocket->OnWrite();
 			}
 
 			if (events[i].events & (EPOLLPRI | EPOLLERR | EPOLLHUP))
 			{
 				logt("OnClose, socket=%d\n", ev_fd);
-				pSocket->OnClose();
+				spSocket->OnClose();
 			}
 
-			pSocket->ReleaseRef();
+			// pSocket->ReleaseRef();
 		}
 
 		_CheckTimer();

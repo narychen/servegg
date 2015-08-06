@@ -443,15 +443,15 @@ uint32_t CMsgConn::_IsAllServerOk(CImPdu* pPdu, CDBServConn* pDbConn)
     
     if (!pDbConn) {
         result = IM::BaseDefine::REFUSE_REASON_NO_DB_SERVER;
-        result_string = "服务端异常";
+        result_string = "no db server";
     }
     else if (!is_login_server_available()) {
         result = IM::BaseDefine::REFUSE_REASON_NO_LOGIN_SERVER;
-        result_string = "服务端异常";
+        result_string = "no login server";
     }
     else if (!is_route_server_available()) {
         result = IM::BaseDefine::REFUSE_REASON_NO_ROUTE_SERVER;
-        result_string = "服务端异常";
+        result_string = "no route server";
     }
     
     if (result) {
