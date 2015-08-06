@@ -7,7 +7,7 @@
 
 #ifndef __HTTP_CONN_H__
 #define __HTTP_CONN_H__
-
+#include "imconn.h"
 #include "netlib.h"
 #include "util.h"
 #include "HttpParserWrapper.h"
@@ -17,7 +17,7 @@
 #define READ_BUF_SIZE	2048
 #define HTTP_RESPONSE_HTML          "HTTP/1.1 200 OK\r\n"\
                                     "Connection:close\r\n"\
-                                    "Content-Length:%d\r\n"\
+                                    "Content-Length:%u\r\n"\
                                     "Content-Type:text/html;charset=utf-8\r\n\r\n%s"
 #define HTTP_RESPONSE_HTML_MAX      1024
 
@@ -28,7 +28,7 @@ enum {
     CONN_STATE_CLOSED,
 };
 
-class CHttpConn : public CRefObject
+class CHttpConn : public CImConn
 {
 public:
 	CHttpConn();
@@ -68,7 +68,8 @@ protected:
 
 typedef hash_map<uint32_t, CHttpConn*> HttpConnMap_t;
 
-CHttpConn* FindHttpConnByHandle(uint32_t handle);
+// CHttpConn* FindHttpConnByHandle(uint32_t handle);
+std::shared_ptr<CHttpConn> FindHttpConnByHandle(uint32_t conn_handle);
 void init_http_conn();
 
 #endif /* IMCONN_H_ */

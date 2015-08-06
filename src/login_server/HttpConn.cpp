@@ -11,7 +11,10 @@
 #include "HttpParserWrapper.h"
 #include "ipparser.h"
 
-static HttpConnMap_t g_http_conn_map;
+
+using namespace std;
+
+static ConnMap_sp_t g_http_conn_map;
 
 extern map<uint32_t, msg_serv_info_t*>  g_msg_serv_info;
 
@@ -22,15 +25,14 @@ extern string strDiscovery;
 // conn_handle 从0开始递增，可以防止因socket handle重用引起的一些冲突
 static uint32_t g_conn_handle_generator = 0;
 
-CHttpConn* FindHttpConnByHandle(uint32_t conn_handle)
+shared_ptr<CHttpConn> FindHttpConnByHandle(uint32_t conn_handle)
 {
-    CHttpConn* pConn = NULL;
-    HttpConnMap_t::iterator it = g_http_conn_map.find(conn_handle);
+    auto it = g_http_conn_map.find(conn_handle);
     if (it != g_http_conn_map.end()) {
-        pConn = it->second;
+        return static_pointer_cast<CHttpConn>(it->second);
+    } else {
+        return shared_ptr<CHttpConn>();
     }
-
-    return pConn;
 }
 
 void httpconn_callback(void* callback_data, uint8_t msg, uint32_t handle, uint32_t uParam, void* pParam)
@@ -40,7 +42,7 @@ void httpconn_callback(void* callback_data, uint8_t msg, uint32_t handle, uint32
 
 	// convert void* to uint32_t, oops
 	uint32_t conn_handle = *((uint32_t*)(&callback_data));
-    CHttpConn* pConn = FindHttpConnByHandle(conn_handle);
+    auto pConn = FindHttpConnByHandle(conn_handle);
     if (!pConn) {
         return;
     }
@@ -64,17 +66,19 @@ void httpconn_callback(void* callback_data, uint8_t msg, uint32_t handle, uint32
 
 void http_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
 {
-	CHttpConn* pConn = NULL;
-	HttpConnMap_t::iterator it, it_old;
-	uint64_t cur_time = get_tick_count();
+// 	CHttpConn* pConn = NULL;
+// 	HttpConnMap_t::iterator it, it_old;
+// 	uint64_t cur_time = get_tick_count();
 
-	for (it = g_http_conn_map.begin(); it != g_http_conn_map.end(); ) {
-		it_old = it;
-		it++;
+// 	for (it = g_http_conn_map.begin(); it != g_http_conn_map.end(); ) {
+// 		it_old = it;
+// 		it++;
 
-		pConn = it_old->second;
-		pConn->OnTimer(cur_time);
-	}
+// 		pConn = it_old->second;
+// 		pConn->OnTimer(cur_time);
+// 	}
+	for (auto& e : g_http_conn_map)
+	    e.second->OnTimer(get_tick_count());
 }
 
 void init_http_conn()
@@ -146,7 +150,7 @@ void CHttpConn::OnConnect(net_handle_t handle)
     printf("OnConnect, handle=%d\n", handle);
     m_sock_handle = handle;
     m_state = CONN_STATE_CONNECTED;
-    g_http_conn_map.insert(make_pair(m_conn_handle, this));
+    g_http_conn_map.insert(make_pair(m_conn_handle, shared_from_this()));
     
     netlib_option(handle, NETLIB_OPT_SET_CALLBACK, (void*)httpconn_callback);
     netlib_option(handle, NETLIB_OPT_SET_CALLBACK_DATA, reinterpret_cast<void *>(m_conn_handle) );

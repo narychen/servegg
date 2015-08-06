@@ -18,7 +18,7 @@ map<uint32_t, msg_serv_info_t*> g_msg_serv_info;
 
 void login_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
 {
-	uint64_t cur_time = get_tick_count();
+	// uint64_t cur_time = get_tick_count();
 	// for (ConnMap_t::iterator it = g_client_conn_map.begin(); it != g_client_conn_map.end(); ) {
 	// 	ConnMap_t::iterator it_old = it;
 	// 	it++;
@@ -27,7 +27,7 @@ void login_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle
 	// 	pConn->OnTimer(cur_time);
 	// }
 	for (auto& e : g_client_conn_map)
-		e.second->OnTimer(cur_time);
+		e.second->OnTimer(get_tick_count());
 
 	// for (ConnMap_t::iterator it = g_msg_serv_conn_map.begin(); it != g_msg_serv_conn_map.end(); ) {
 	// 	ConnMap_t::iterator it_old = it;
@@ -37,7 +37,7 @@ void login_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle
 	// 	pConn->OnTimer(cur_time);
 	// }
 	for (auto& e : g_msg_serv_conn_map) 
-		e.second->OnTimer(cur_time);
+		e.second->OnTimer(get_tick_count());
 	
 }
 
@@ -84,7 +84,7 @@ void CLoginConn::OnConnect2(net_handle_t handle, int conn_type)
 {
 	m_handle = handle;
 	m_conn_type = conn_type;
-
+	auto t = shared_from_this();
 	if (conn_type == LOGIN_CONN_TYPE_CLIENT) {
 		auto conn_map = &g_client_conn_map;
 		conn_map->insert(make_pair(handle, shared_from_this()));
