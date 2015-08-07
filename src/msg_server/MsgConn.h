@@ -55,7 +55,7 @@ public:
 	void AddToSendList(uint32_t msg_id, uint32_t from_id);
 	void DelFromSendList(uint32_t msg_id, uint32_t from_id);
 private:
-    uint32_t _IsAllServerOk(CImPdu* pPdu, CDBServConn* pDbConn);
+    uint32_t _IsAllServerOk(CImPdu* pPdu, std::shared_ptr<CDBServConn> pDbConn);
 
     void _HandleHeartBeat(CImPdu* pPdu);
 	void _HandleLoginRequest(CImPdu* pPdu);

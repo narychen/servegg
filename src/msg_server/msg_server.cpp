@@ -4,7 +4,7 @@
  *  Created on: 2013-6-21
  *      Author: ziteng@mogujie.com
  */
-
+#include <unistd.h>
 #include "netlib.h"
 #include "EncDec.h"
 #include "ConfigFileReader.h"
@@ -23,13 +23,10 @@ CAes *pAes;
 // for client connect in
 void msg_serv_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
 {
-	if (msg == NETLIB_MSG_CONNECT)
-	{
-		CMsgConn* pConn = new CMsgConn();
-		pConn->OnConnect(handle);
-	}
-	else
-	{
+	if (msg == NETLIB_MSG_CONNECT) {
+		auto sp = shared_ptr<CMsgConn>(new CMsgConn());
+		sp->OnConnect(handle);
+	} else {
 		log("!!!error msg: %d ", msg);
 	}
 }
@@ -37,6 +34,8 @@ void msg_serv_callback(void* callback_data, uint8_t msg, uint32_t handle, void* 
 
 int main(int argc, char* argv[])
 {
+	if(access("core", F_OK) == 0)
+		unlink("core");
 	if ((argc == 2) && (strcmp(argv[1], "-v") == 0)) {
 //		printf("Server Version: MsgServer/%s\n", VERSION);
 		printf("Server Build: %s %s\n", __DATE__, __TIME__);
@@ -100,7 +99,8 @@ int main(int argc, char* argv[])
 		db_server_count2 = db_server_count * concurrent_db_conn_cnt;
 	}
 
-	serv_info_t* db_server_list2 = new serv_info_t [ db_server_count2];
+	// serv_info_t* db_server_list2 = new serv_info_t [ db_server_count2];
+	auto db_server_list2 = new CServInfo<CDBServConn>[db_server_count2];
 	for (uint32_t i = 0; i < db_server_count2; i++) {
 		db_server_list2[i].server_ip = db_server_list[i / concurrent_db_conn_cnt].server_ip.c_str();
 		db_server_list2[i].server_port = db_server_list[i / concurrent_db_conn_cnt].server_port;

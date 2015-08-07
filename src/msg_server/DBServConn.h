@@ -51,8 +51,8 @@ private:
 	uint32_t	m_serv_idx;
 };
 
-void init_db_serv_conn(serv_info_t* server_list, uint32_t server_count, uint32_t concur_conn_cnt);
-CDBServConn* get_db_serv_conn_for_login();
-CDBServConn* get_db_serv_conn();
+void init_db_serv_conn(CServInfo<CDBServConn>* server_list, uint32_t server_count, uint32_t concur_conn_cnt);
+std::shared_ptr<CDBServConn> get_db_serv_conn_for_login();
+std::shared_ptr<CDBServConn> get_db_serv_conn();
 
 #endif /* DBSERVCONN_H_ */

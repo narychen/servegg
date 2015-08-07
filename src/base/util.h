@@ -64,8 +64,8 @@ public:
 	NetException(const char* why, ...);
 	virtual const char* what() const throw() { return _why.c_str();	}
 };
-#define __FILENAME__ (strrchr(__FILE__, '/') ? (strrchr(__FILE__, '/') + 1):__FILE__)
-#define netex(fmt, args...)  NetException("<%s>|<%d>|<%s>," fmt, __FILENAME__, __LINE__, __FUNCTION__, ##args)
+// #define __FILENAME__ (strrchr(__FILE__, '/') ? (strrchr(__FILE__, '/') + 1):__FILE__)
+#define netex(fmt, args...)  NetException(" %s:%d |<%s>," fmt, __FILE__, __LINE__, __FUNCTION__, ##args)
 
 void str_split(string s, vector<string>& ret);
 void str_split(string s, vector<string>& ret, char sep);

@@ -1,5 +1,6 @@
 
 #include <memory>
+#include <string>
 #include "ClientWorker.h"
 #include "HttpClient.h"
 #include "json/json.h"
@@ -74,5 +75,10 @@ void CClientWorker::GetMsgServerAddr(string login_url, string& ip, uint16_t& por
         throw netex("Get msgserver addr falied. errorMsg:%s\n", strMsg.c_str());
     }
     ip = value["priorIP"].asString();
-    port = value["port"].asUInt();
+    if (value["port"].isString())
+        port = stoul(value["port"].asString());
+    else if (value["port"].isUInt())
+        port = value["port"].asUInt();
+    else
+        throw netex("Get msgserver info json type wrong");
 }	

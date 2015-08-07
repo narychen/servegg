@@ -37,7 +37,7 @@ void CGroupChat::HandleClientGroupNormalRequest(CImPdu* pPdu, CMsgConn* pFromCon
     log("HandleClientGroupNormalRequest, user_id=%u. ", user_id);
     CDbAttachData attach_data(ATTACH_TYPE_HANDLE, pFromConn->GetHandle(), 0);
     
-    CDBServConn* pDBConn = get_db_serv_conn();
+    auto pDBConn = get_db_serv_conn();
     if (pDBConn)
     {
         msg.set_user_id(user_id);
@@ -88,7 +88,7 @@ void CGroupChat::HandleClientGroupInfoRequest(CImPdu *pPdu, CMsgConn* pFromConn)
     log("HandleClientGroupInfoRequest, user_id=%u, group_cnt=%u. ", user_id, group_cnt);
     CPduAttachData attach_data(ATTACH_TYPE_HANDLE, pFromConn->GetHandle(), 0, NULL);
     
-    CDBServConn* pDBConn = get_db_serv_conn();
+    auto pDBConn = get_db_serv_conn();
     if (pDBConn)
     {
         msg.set_user_id(user_id);
@@ -176,7 +176,7 @@ void CGroupChat::HandleGroupInfoResponse(CImPdu* pPdu)
         pdu2.SetPBMsg(&msg3);
         pdu2.SetServiceId(SID_OTHER);
         pdu2.SetCommandId(CID_OTHER_GET_SHIELD_REQ);
-        CDBServConn* pDbConn = get_db_serv_conn();
+        auto pDbConn = get_db_serv_conn();
         if (pDbConn)
         {
             pDbConn->SendPdu(&pdu2);
@@ -250,7 +250,7 @@ void CGroupChat::HandleGroupMessage(CImPdu* pPdu)
     pdu.SetPBMsg(&msg3);
     pdu.SetServiceId(SID_GROUP);
     pdu.SetCommandId(CID_GROUP_INFO_REQUEST);
-    CDBServConn* pDbConn = get_db_serv_conn();
+    auto pDbConn = get_db_serv_conn();
     if(pDbConn)
     {
         pDbConn->SendPdu(&pdu);
@@ -282,7 +282,7 @@ void CGroupChat::HandleGroupMessageBroadcast(CImPdu *pPdu)
     pdu.SetPBMsg(&msg2);
     pdu.SetServiceId(SID_GROUP);
     pdu.SetCommandId(CID_GROUP_INFO_REQUEST);
-    CDBServConn* pDbConn = get_db_serv_conn();
+    auto pDbConn = get_db_serv_conn();
     if(pDbConn)
     {
         pDbConn->SendPdu(&pdu);
@@ -306,7 +306,7 @@ void CGroupChat::HandleClientGroupCreateRequest(CImPdu* pPdu, CMsgConn* pFromCon
 	log("HandleClientGroupCreateRequest, req_id=%u, group_name=%s, avatar_url=%s, user_cnt=%u ",
 			req_user_id, group_name.c_str(), group_avatar.c_str(), user_cnt);
 
-	CDBServConn* pDbConn = get_db_serv_conn();
+	auto pDbConn = get_db_serv_conn();
 	if (pDbConn) {
 		CDbAttachData attach_data(ATTACH_TYPE_HANDLE, pFromConn->GetHandle(), 0);
         msg.set_user_id(req_user_id);
@@ -365,7 +365,7 @@ void CGroupChat::HandleClientGroupChangeMemberRequest(CImPdu* pPdu, CMsgConn* pF
 	log("HandleClientChangeMemberReq, change_type=%u, req_id=%u, group_id=%u, user_cnt=%u ",
 			change_type, req_user_id, group_id, user_cnt);
 
-	CDBServConn* pDbConn = get_db_serv_conn();
+	auto pDbConn = get_db_serv_conn();
 	if (pDbConn) {
 
         CDbAttachData attach_data(ATTACH_TYPE_HANDLE, pFromConn->GetHandle(), 0);
@@ -477,7 +477,7 @@ void CGroupChat::HandleClientGroupShieldGroupRequest(CImPdu *pPdu, CMsgConn *pFr
     log("HandleClientGroupShieldGroupRequest, user_id: %u, group_id: %u, shield_status: %u. ",
         user_id, group_id, shield_status);
     
-    CDBServConn* pDbConn = get_db_serv_conn();
+    auto pDbConn = get_db_serv_conn();
 	if (pDbConn) {
         CDbAttachData attach_data(ATTACH_TYPE_HANDLE, pFromConn->GetHandle(), 0);
         msg.set_user_id(user_id);
@@ -548,7 +548,7 @@ void CGroupChat::HandleGroupGetShieldByGroupResponse(CImPdu *pPdu)
     pdu.SetPBMsg(&msg2);
     pdu.SetServiceId(SID_OTHER);
     pdu.SetCommandId(CID_OTHER_GET_DEVICE_TOKEN_REQ);
-    CDBServConn* pDbConn = get_db_serv_conn();
+    auto pDbConn = get_db_serv_conn();
     if (pDbConn) {
         pDbConn->SendPdu(&pdu);
     }

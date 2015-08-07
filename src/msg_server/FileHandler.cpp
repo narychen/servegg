@@ -114,7 +114,7 @@ void CFileHandler::HandleClientFileHasOfflineReq(CMsgConn* pMsgConn, CImPdu* pPd
     log("HandleClientFileHasOfflineReq, req_id=%u   ", req_user_id);
     
     CDbAttachData attach_data(ATTACH_TYPE_HANDLE, pMsgConn->GetHandle(), 0);
-    CDBServConn* pDbConn = get_db_serv_conn();
+    auto pDbConn = get_db_serv_conn();
     if (pDbConn) {
         IM::File::IMFileHasOfflineReq msg;
         CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
@@ -150,7 +150,7 @@ void CFileHandler::HandleClientFileAddOfflineReq(CMsgConn* pMsgConn, CImPdu* pPd
     log("HandleClientFileAddOfflineReq, %u->%u, task_id: %s, file_name: %s, size: %u  ",
         from_id, to_id, task_id.c_str(), file_name.c_str(), file_size);
     
-    CDBServConn* pDbConn = get_db_serv_conn();
+    auto pDbConn = get_db_serv_conn();
     if (pDbConn) {
         msg.set_from_user_id(from_id);
         pPdu->SetPBMsg(&msg);
@@ -205,7 +205,7 @@ void CFileHandler::HandleClientFileDelOfflineReq(CMsgConn* pMsgConn, CImPdu* pPd
     string task_id = msg.task_id();
     log("HandleClientFileDelOfflineReq, %u->%u, task_id=%s ", from_id, to_id, task_id.c_str());
     
-    CDBServConn* pDbConn = get_db_serv_conn();
+    auto pDbConn = get_db_serv_conn();
     if (pDbConn) {
         msg.set_from_user_id(from_id);
         pPdu->SetPBMsg(&msg);

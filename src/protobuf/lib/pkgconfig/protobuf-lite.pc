@@ -1,4 +1,4 @@
-prefix=/home/nary/dandanhua/TeamTalk/server/src/protobuf
+prefix=/home/nary/servegg/src/protobuf
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include

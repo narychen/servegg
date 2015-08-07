@@ -25,10 +25,13 @@
 #include "ImPduBase.h"
 #include "public_define.h"
 using namespace IM::BaseDefine;
+using namespace std;
 
-static ConnMap_t g_db_server_conn_map;
+// static ConnMap_t g_db_server_conn_map;
+static ConnMap_sp_t g_db_server_conn_map;
 
-static serv_info_t* g_db_server_list = NULL;
+// static serv_info_t* g_db_server_list = NULL;
+static CServInfo<CDBServConn>* g_db_server_list;
 static uint32_t		g_db_server_count = 0;			// 到DBServer的总连接数
 static uint32_t		g_db_server_login_count = 0;	// 到进行登录处理的DBServer的总连接数
 static CGroupChat*	s_group_chat = NULL;
@@ -39,26 +42,29 @@ extern CAes *pAes;
 
 static void db_server_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
 {
-	ConnMap_t::iterator it_old;
-	CDBServConn* pConn = NULL;
-	uint64_t cur_time = get_tick_count();
+// 	ConnMap_t::iterator it_old;
+// 	CDBServConn* pConn = NULL;
+// 	uint64_t cur_time = get_tick_count();
 
-	for (ConnMap_t::iterator it = g_db_server_conn_map.begin(); it != g_db_server_conn_map.end(); ) {
-		it_old = it;
-		it++;
+// 	for (ConnMap_t::iterator it = g_db_server_conn_map.begin(); it != g_db_server_conn_map.end(); ) {
+// 		it_old = it;
+// 		it++;
 
-		pConn = (CDBServConn*)it_old->second;
-		if (pConn->IsOpen()) {
-			pConn->OnTimer(cur_time);
-		}
-	}
+// 		pConn = (CDBServConn*)it_old->second;
+// 		if (pConn->IsOpen()) {
+// 			pConn->OnTimer(cur_time);
+// 		}
+// 	}
+    for (auto& e : g_db_server_conn_map) 
+        e.second->OnTimer(get_tick_count());
 
 	// reconnect DB Storage Server
 	// will reconnect in 4s, 8s, 16s, 32s, 64s, 4s 8s ...
-	serv_check_reconnect<CDBServConn>(g_db_server_list, g_db_server_count);
+// 	serv_check_reconnect<CDBServConn>(g_db_server_list, g_db_server_count);
+	CServInfo<CDBServConn>::CheckReconnect(g_db_server_list, g_db_server_count);
 }
 
-void init_db_serv_conn(serv_info_t* server_list, uint32_t server_count, uint32_t concur_conn_cnt)
+void init_db_serv_conn(CServInfo<CDBServConn>* server_list, uint32_t server_count, uint32_t concur_conn_cnt)
 {
 	g_db_server_list = server_list;
 	g_db_server_count = server_count;
@@ -68,7 +74,8 @@ void init_db_serv_conn(serv_info_t* server_list, uint32_t server_count, uint32_t
 	log("DB server connection index for login business: [0, %u), for other business: [%u, %u) ",
 			g_db_server_login_count, g_db_server_login_count, g_db_server_count);
 
-	serv_init<CDBServConn>(g_db_server_list, g_db_server_count);
+// 	serv_init<CDBServConn>(g_db_server_list, g_db_server_count);
+    CServInfo<CDBServConn>::Init(g_db_server_list, g_db_server_count);
 
 	netlib_register_timer(db_server_conn_timer_callback, NULL, 1000);
 	s_group_chat = CGroupChat::GetInstance();
@@ -76,14 +83,14 @@ void init_db_serv_conn(serv_info_t* server_list, uint32_t server_count, uint32_t
 }
 
 // get a random db server connection in the range [start_pos, stop_pos)
-static CDBServConn* get_db_server_conn_in_range(uint32_t start_pos, uint32_t stop_pos)
+static shared_ptr<CDBServConn> get_db_server_conn_in_range(uint32_t start_pos, uint32_t stop_pos)
 {
 	uint32_t i = 0;
-	CDBServConn* pDbConn = NULL;
+	shared_ptr<CDBServConn> pDbConn;
 
 	// determine if there is a valid DB server connection
 	for (i = start_pos; i < stop_pos; i++) {
-		pDbConn = (CDBServConn*)g_db_server_list[i].serv_conn;
+		pDbConn = g_db_server_list[i].serv_conn;
 		if (pDbConn && pDbConn->IsOpen()) {
 			break;
 		}
@@ -97,7 +104,7 @@ static CDBServConn* get_db_server_conn_in_range(uint32_t start_pos, uint32_t sto
 	// return a random valid DB server connection
 	while (true) {
 		int i = rand() % (stop_pos - start_pos) + start_pos;
-		pDbConn = (CDBServConn*)g_db_server_list[i].serv_conn;
+		pDbConn = g_db_server_list[i].serv_conn;
 		if (pDbConn && pDbConn->IsOpen()) {
 			break;
 		}
@@ -106,10 +113,10 @@ static CDBServConn* get_db_server_conn_in_range(uint32_t start_pos, uint32_t sto
 	return pDbConn;
 }
 
-CDBServConn* get_db_serv_conn_for_login()
+shared_ptr<CDBServConn> get_db_serv_conn_for_login()
 {
 	// 先获取login业务的实例，没有就去获取其他业务流程的实例
-	CDBServConn* pDBConn = get_db_server_conn_in_range(0, g_db_server_login_count);
+	auto pDBConn = get_db_server_conn_in_range(0, g_db_server_login_count);
 	if (!pDBConn) {
 		pDBConn = get_db_server_conn_in_range(g_db_server_login_count, g_db_server_count);
 	}
@@ -117,10 +124,10 @@ CDBServConn* get_db_serv_conn_for_login()
 	return pDBConn;
 }
 
-CDBServConn* get_db_serv_conn()
+shared_ptr<CDBServConn> get_db_serv_conn()
 {
 	// 先获取其他业务流程的实例，没有就去获取login业务的实例
-	CDBServConn* pDBConn = get_db_server_conn_in_range(g_db_server_login_count, g_db_server_count);
+	auto pDBConn = get_db_server_conn_in_range(g_db_server_login_count, g_db_server_count);
 	if (!pDBConn) {
 		pDBConn = get_db_server_conn_in_range(0, g_db_server_login_count);
 	}
@@ -144,24 +151,25 @@ void CDBServConn::Connect(const char* server_ip, uint16_t server_port, uint32_t 
 	log("Connecting to DB Storage Server %s:%d ", server_ip, server_port);
 
 	m_serv_idx = serv_idx;
-	m_handle = netlib_connect(server_ip, server_port, imconn_callback, (void*)&g_db_server_conn_map);
+	m_handle = netlib_connect(server_ip, server_port, imconn_callback_sp, (void*)&g_db_server_conn_map);
 
 	if (m_handle != NETLIB_INVALID_HANDLE) {
-		g_db_server_conn_map.insert(make_pair(m_handle, this));
+		g_db_server_conn_map.insert(make_pair(m_handle, shared_from_this()));
 	}
 }
 
 void CDBServConn::Close()
 {
 	// reset server information for the next connect
-	serv_reset<CDBServConn>(g_db_server_list, g_db_server_count, m_serv_idx);
+// 	serv_reset<CDBServConn>(g_db_server_list, g_db_server_count, m_serv_idx);
+	CServInfo<CDBServConn>::Reset(g_db_server_list, g_db_server_count, m_serv_idx);
 
 	if (m_handle != NETLIB_INVALID_HANDLE) {
 		netlib_close(m_handle);
 		g_db_server_conn_map.erase(m_handle);
 	}
 
-	ReleaseRef();
+// 	ReleaseRef();
 }
 
 void CDBServConn::OnConfirm()
