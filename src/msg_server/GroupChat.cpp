@@ -29,7 +29,7 @@ CGroupChat* CGroupChat::GetInstance()
 	return s_group_chat_instance;
 }
 
-void CGroupChat::HandleClientGroupNormalRequest(CImPdu* pPdu, CMsgConn* pFromConn)
+void CGroupChat::HandleClientGroupNormalRequest(CImPdu* pPdu, SpCMsgConn pFromConn)
 {
     IM::Group::IMNormalGroupListReq msg;
     CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
@@ -72,14 +72,14 @@ void CGroupChat::HandleGroupNormalResponse(CImPdu* pPdu)
 
     msg.clear_attach_data();
     pPdu->SetPBMsg(&msg);
-    CMsgConn* pConn = CImUserManager::GetInstance()->GetMsgConnByHandle(user_id, attach_data.GetHandle());
+    SpCMsgConn pConn = CImUserManager::GetInstance()->GetMsgConnByHandle(user_id, attach_data.GetHandle());
     if (pConn)
     {
         pConn->SendPdu(pPdu);
     }
 }
 
-void CGroupChat::HandleClientGroupInfoRequest(CImPdu *pPdu, CMsgConn* pFromConn)
+void CGroupChat::HandleClientGroupInfoRequest(CImPdu *pPdu, SpCMsgConn pFromConn)
 {
     IM::Group::IMGroupInfoListReq msg;
     CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
@@ -160,7 +160,7 @@ void CGroupChat::HandleGroupInfoResponse(CImPdu* pPdu)
             CImUser* pToImUser = CImUserManager::GetInstance()->GetImUserById(member_user_id);
             if (pToImUser)
             {
-                CMsgConn* pFromConn = NULL;
+                SpCMsgConn pFromConn = NULL;
                 if( member_user_id == user_id )
                 {
                     uint32_t reqHandle = pduAttachData.GetHandle();
@@ -185,7 +185,7 @@ void CGroupChat::HandleGroupInfoResponse(CImPdu* pPdu)
     else if (pduAttachData.GetPduLength() == 0)
     {
         //正常获取群信息的返回
-        CMsgConn* pConn = CImUserManager::GetInstance()->GetMsgConnByHandle(user_id, pduAttachData.GetHandle());
+        SpCMsgConn pConn = CImUserManager::GetInstance()->GetMsgConnByHandle(user_id, pduAttachData.GetHandle());
         if (pConn)
         {
             msg.clear_attach_data();
@@ -212,7 +212,7 @@ void CGroupChat::HandleGroupMessage(CImPdu* pPdu)
 
     log("HandleGroupMsg, %u->%u, msg id=%u. ", from_user_id, to_group_id, msg_id);
 
-    CMsgConn* pFromConn = CImUserManager::GetInstance()->GetMsgConnByHandle(from_user_id,
+    SpCMsgConn pFromConn = CImUserManager::GetInstance()->GetMsgConnByHandle(from_user_id,
                                         attach_data.GetHandle());
     if (pFromConn)
     {
@@ -230,7 +230,7 @@ void CGroupChat::HandleGroupMessage(CImPdu* pPdu)
         pFromConn->SendPdu(&pdu);
     }
     
-    CRouteServConn* pRouteConn = get_route_serv_conn();
+    auto pRouteConn = get_route_serv_conn();
     if (pRouteConn)
     {
         pRouteConn->SendPdu(pPdu);
@@ -289,7 +289,7 @@ void CGroupChat::HandleGroupMessageBroadcast(CImPdu *pPdu)
     }
 }
 
-void CGroupChat::HandleClientGroupCreateRequest(CImPdu* pPdu, CMsgConn* pFromConn)
+void CGroupChat::HandleClientGroupCreateRequest(CImPdu* pPdu, SpCMsgConn pFromConn)
 {
     IM::Group::IMGroupCreateReq msg;
     CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
@@ -342,7 +342,7 @@ void CGroupChat::HandleGroupCreateResponse(CImPdu* pPdu)
 
     CDbAttachData attach_data((uchar_t*)msg.attach_data().c_str(), msg.attach_data().length());
     
-    CMsgConn* pFromConn = CImUserManager::GetInstance()->GetMsgConnByHandle(user_id,
+    SpCMsgConn pFromConn = CImUserManager::GetInstance()->GetMsgConnByHandle(user_id,
                                                                     attach_data.GetHandle());
     if (pFromConn)
     {
@@ -353,7 +353,7 @@ void CGroupChat::HandleGroupCreateResponse(CImPdu* pPdu)
     //创建的通知暂时取消，因为有消息的时候客户端也会去拉取
 }
 
-void CGroupChat::HandleClientGroupChangeMemberRequest(CImPdu* pPdu, CMsgConn* pFromConn)
+void CGroupChat::HandleClientGroupChangeMemberRequest(CImPdu* pPdu, SpCMsgConn pFromConn)
 {
     IM::Group::IMGroupChangeMemberReq msg;
     CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
@@ -404,7 +404,7 @@ void CGroupChat::HandleGroupChangeMemberResponse(CImPdu* pPdu)
 			change_type, user_id, group_id, result, chg_user_cnt, cur_user_cnt);
 
     CDbAttachData attach_data((uchar_t*)msg.attach_data().c_str(), msg.attach_data().length());
-    CMsgConn* pFromConn = CImUserManager::GetInstance()->GetMsgConnByHandle(user_id,
+    SpCMsgConn pFromConn = CImUserManager::GetInstance()->GetMsgConnByHandle(user_id,
                                                                 attach_data.GetHandle());
     if (pFromConn) {
         msg.clear_attach_data();
@@ -427,7 +427,7 @@ void CGroupChat::HandleGroupChangeMemberResponse(CImPdu* pPdu)
         pdu.SetPBMsg(&msg2);
         pdu.SetServiceId(SID_GROUP);
         pdu.SetCommandId(CID_GROUP_CHANGE_MEMBER_NOTIFY);
-		CRouteServConn* pRouteConn = get_route_serv_conn();
+		auto pRouteConn = get_route_serv_conn();
 		if (pRouteConn) {
 			pRouteConn->SendPdu(&pdu);
 		}
@@ -466,7 +466,7 @@ void CGroupChat::HandleGroupChangeMemberBroadcast(CImPdu* pPdu)
     }
 }
 
-void CGroupChat::HandleClientGroupShieldGroupRequest(CImPdu *pPdu, CMsgConn *pFromConn)
+void CGroupChat::HandleClientGroupShieldGroupRequest(CImPdu *pPdu, SpCMsgConn pFromConn)
 {
     IM::Group::IMGroupShieldReq msg;
     CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
@@ -511,7 +511,7 @@ void CGroupChat::HandleGroupShieldGroupResponse(CImPdu *pPdu)
         user_id, group_id);
     
     CDbAttachData attach_data((uchar_t*)msg.attach_data().c_str(), msg.attach_data().length());
-    CMsgConn* pMsgConn = CImUserManager::GetInstance()->GetMsgConnByHandle(user_id,
+    SpCMsgConn pMsgConn = CImUserManager::GetInstance()->GetMsgConnByHandle(user_id,
                                         attach_data.GetHandle());
     if (pMsgConn) {
         msg.clear_attach_data();
@@ -554,7 +554,7 @@ void CGroupChat::HandleGroupGetShieldByGroupResponse(CImPdu *pPdu)
     }
 }
 
-void CGroupChat::_SendPduToUser(CImPdu* pPdu, uint32_t user_id, CMsgConn* pReqConn)
+void CGroupChat::_SendPduToUser(CImPdu* pPdu, uint32_t user_id, SpCMsgConn pReqConn)
 {
     if(!pPdu) {
         return;

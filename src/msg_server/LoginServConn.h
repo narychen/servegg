@@ -32,7 +32,7 @@ private:
 	uint32_t	m_serv_idx;
 };
 
-void init_login_serv_conn(serv_info_t* server_list, uint32_t server_count, const char* msg_server_ip_addr1,
+void init_login_serv_conn(CServInfo<CLoginServConn>* server_list, uint32_t server_count, const char* msg_server_ip_addr1,
 		const char* msg_server_ip_addr2, uint16_t msg_server_port, uint32_t max_conn_cnt);
 bool is_login_server_available();
 void send_to_all_login_server(CImPdu* pPdu);

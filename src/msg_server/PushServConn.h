@@ -38,8 +38,8 @@ private:
 	uint32_t	m_serv_idx;
 };
 
-void init_push_serv_conn(serv_info_t* server_list, uint32_t server_count);
-CPushServConn* get_push_serv_conn();
+void init_push_serv_conn(CServInfo<CPushServConn>* server_list, uint32_t server_count);
+std::shared_ptr<CPushServConn> get_push_serv_conn();
 
 void build_ios_push_flash(string& flash, uint32_t msg_type, uint32_t from_id);
 #endif /* defined(__im_server_TT__PushServConn__) */

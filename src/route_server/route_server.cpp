@@ -9,13 +9,16 @@
 #include "netlib.h"
 #include "ConfigFileReader.h"
 #include "version.h"
+using namespace std;
+
+#define SP_NEW(p) std::shared_ptr<p>(new p())
 
 // this callback will be replaced by imconn_callback() in OnConnect()
 void route_serv_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
 {
 	if (msg == NETLIB_MSG_CONNECT)
 	{
-		CRouteConn* pConn = new CRouteConn();
+		auto pConn = SP_NEW(CRouteConn);
 		pConn->OnConnect(handle);
 	}
 	else

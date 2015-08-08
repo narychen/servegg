@@ -5,6 +5,7 @@
  *      Author: ziteng@mogujie.com
  */
 #include <unistd.h>
+#include <time.h>
 #include "netlib.h"
 #include "EncDec.h"
 #include "ConfigFileReader.h"
@@ -31,11 +32,24 @@ void msg_serv_callback(void* callback_data, uint8_t msg, uint32_t handle, void* 
 	}
 }
 
+void get_cur_time_fmt(char* s, int len)
+{
+	time_t t = time(nullptr);
+    struct tm* tm = localtime(&t);
+    snprintf(s, len, "%d-%d-%d_%d-%d-%d", 1900+tm->tm_year, 1+tm->tm_mon, tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec);
+}
+
 
 int main(int argc, char* argv[])
 {
-	if(access("core", F_OK) == 0)
-		unlink("core");
+	if (access("core", F_OK) == 0) {
+		char s[100];
+		get_cur_time_fmt(s, 100);
+		char s2[100];
+		snprintf(s2, 100, "./core_bak/%s", s);
+		rename("core", s2);
+	}
+		
 	if ((argc == 2) && (strcmp(argv[1], "-v") == 0)) {
 //		printf("Server Version: MsgServer/%s\n", VERSION);
 		printf("Server Build: %s %s\n", __DATE__, __TIME__);
@@ -58,20 +72,20 @@ int main(int argc, char* argv[])
     char* str_aes_key = config_file.GetConfigName("aesKey");
 
 	uint32_t db_server_count = 0;
-	serv_info_t* db_server_list = read_server_config(&config_file, "DBServerIP", "DBServerPort", db_server_count);
+	auto db_server_list = CServInfo<CDBServConn>::ReadServerConfig(&config_file, "DBServerIP", "DBServerPort", db_server_count);
 
 	uint32_t login_server_count = 0;
-	serv_info_t* login_server_list = read_server_config(&config_file, "LoginServerIP", "LoginServerPort", login_server_count);
+	auto login_server_list = CServInfo<CLoginServConn>::ReadServerConfig(&config_file, "LoginServerIP", "LoginServerPort", login_server_count);
 
 	uint32_t route_server_count = 0;
-	serv_info_t* route_server_list = read_server_config(&config_file, "RouteServerIP", "RouteServerPort", route_server_count);
+	auto route_server_list = CServInfo<CRouteServConn>::ReadServerConfig(&config_file, "RouteServerIP", "RouteServerPort", route_server_count);
 
     uint32_t push_server_count = 0;
-    serv_info_t* push_server_list = read_server_config(&config_file, "PushServerIP",
+    auto push_server_list = CServInfo<CPushServConn>::ReadServerConfig(&config_file, "PushServerIP",
                                                        "PushServerPort", push_server_count);
     
     uint32_t file_server_count = 0;
-    serv_info_t* file_server_list = read_server_config(&config_file, "FileServerIP",
+    auto file_server_list = CServInfo<CFileServConn>::ReadServerConfig(&config_file, "FileServerIP",
                                                        "FileServerPort", file_server_count);
 
     
@@ -137,7 +151,7 @@ int main(int argc, char* argv[])
 
 	init_msg_conn();
 
-    init_file_serv_conn(file_server_list, file_server_count);
+    // init_file_serv_conn(file_server_list, file_server_count);
 
 	init_db_serv_conn(db_server_list2, db_server_count2, concurrent_db_conn_cnt);
 
@@ -146,6 +160,7 @@ int main(int argc, char* argv[])
 	init_route_serv_conn(route_server_list, route_server_count);
 
     // init_push_serv_conn(push_server_list, push_server_count);
+    
 	printf("now enter the event loop...\n");
     
     writePid();

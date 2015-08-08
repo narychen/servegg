@@ -9,6 +9,7 @@
 #define FILEHANDLER_H_
 
 #include "ImPduBase.h"
+#include "MsgConn.h"
 
 class CMsgConn;
 
@@ -19,10 +20,10 @@ public:
 
 	static CFileHandler* getInstance();
 
-    void HandleClientFileRequest(CMsgConn* pMsgConn, CImPdu* pPdu);
-    void HandleClientFileHasOfflineReq(CMsgConn* pMsgConn, CImPdu* pPdu);
-    void HandleClientFileAddOfflineReq(CMsgConn* pMsgConn, CImPdu* pPdu);
-    void HandleClientFileDelOfflineReq(CMsgConn* pMsgConn, CImPdu* pPdu);
+    void HandleClientFileRequest(SpCMsgConn pMsgConn, CImPdu* pPdu);
+    void HandleClientFileHasOfflineReq(SpCMsgConn pMsgConn, CImPdu* pPdu);
+    void HandleClientFileAddOfflineReq(SpCMsgConn pMsgConn, CImPdu* pPdu);
+    void HandleClientFileDelOfflineReq(SpCMsgConn pMsgConn, CImPdu* pPdu);
     void HandleFileHasOfflineRes(CImPdu* pPdu);
     void HandleFileNotify(CImPdu* pPdu);
 private:

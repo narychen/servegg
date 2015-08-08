@@ -17,37 +17,44 @@
 #include "IM.Other.pb.h"
 #include "IM.File.pb.h"
 using namespace IM::BaseDefine;
-static ConnMap_t g_file_server_conn_map;
+using namespace std;
 
-static serv_info_t* g_file_server_list;
+static ConnMap_sp_t g_file_server_conn_map;
+static CServInfo<CFileServConn>* g_file_server_list;
+
 static uint32_t g_file_server_count;
 static CFileHandler* s_file_handler = NULL;
 
 void file_server_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
 {
-	ConnMap_t::iterator it_old;
-	CFileServConn* pConn = NULL;
+// 	ConnMap_t::iterator it_old;
+// 	CFileServConn* pConn = NULL;
 	uint64_t cur_time = get_tick_count();
     
-	for (ConnMap_t::iterator it = g_file_server_conn_map.begin(); it != g_file_server_conn_map.end();
-         )
-    {
-        it_old = it;
-        it++;
-		pConn = (CFileServConn*)it_old->second;
-		pConn->OnTimer(cur_time);
-	}
+// 	for (ConnMap_t::iterator it = g_file_server_conn_map.begin(); it != g_file_server_conn_map.end();
+//          )
+//     {
+//         it_old = it;
+//         it++;
+// 		pConn = (CFileServConn*)it_old->second;
+// 		pConn->OnTimer(cur_time);
+// 	}
+
+    for (auto& e : g_file_server_conn_map) 
+        e.second->OnTimer(cur_time);
     
 	// reconnect FileServer
-	serv_check_reconnect<CFileServConn>(g_file_server_list, g_file_server_count);
+// 	serv_check_reconnect<CFileServConn>(g_file_server_list, g_file_server_count);
+    CServInfo<CFileServConn>::CheckReconnect(g_file_server_list, g_file_server_count);
 }
 
-void init_file_serv_conn(serv_info_t* server_list, uint32_t server_count)
+void init_file_serv_conn(CServInfo<CFileServConn>* server_list, uint32_t server_count)
 {
 	g_file_server_list = server_list;
 	g_file_server_count = server_count;
     
-	serv_init<CFileServConn>(g_file_server_list, g_file_server_count);
+// 	serv_init<CFileServConn>(g_file_server_list, g_file_server_count);
+	CServInfo<CFileServConn>::Init(g_file_server_list, g_file_server_count);
     
 	netlib_register_timer(file_server_conn_timer_callback, NULL, 1000);
 	s_file_handler = CFileHandler::getInstance();
@@ -55,10 +62,11 @@ void init_file_serv_conn(serv_info_t* server_list, uint32_t server_count)
 
 bool is_file_server_available()
 {
-	CFileServConn* pConn = NULL;
+// 	CFileServConn* pConn = NULL;
+	shared_ptr<CFileServConn> pConn;
     
 	for (uint32_t i = 0; i < g_file_server_count; i++) {
-		pConn = (CFileServConn*)g_file_server_list[i].serv_conn;
+		pConn = g_file_server_list[i].serv_conn;
 		if (pConn && pConn->IsOpen()) {
 			return true;
 		}
@@ -66,16 +74,15 @@ bool is_file_server_available()
 	return false;
 }
 
-//
-CFileServConn* get_random_file_serv_conn()
+shared_ptr<CFileServConn> get_random_file_serv_conn()
 {
-    CFileServConn* pConn = NULL;
-    CFileServConn* pConnTmp = NULL;
+    shared_ptr<CFileServConn> pConn, pConnTmp;
+
     if (0 == g_file_server_count) {
         return pConn;
     }
     int32_t random_num = rand() % g_file_server_count;
-    pConnTmp = (CFileServConn*)g_file_server_list[random_num].serv_conn;
+    pConnTmp = g_file_server_list[random_num].serv_conn;
     if (pConnTmp && pConnTmp->IsOpen())
     {
         pConn = pConnTmp;
@@ -85,7 +92,7 @@ CFileServConn* get_random_file_serv_conn()
         for (uint32_t i = 0; i < g_file_server_count; i++)
         {
             int j = (random_num + i + 1) % g_file_server_count;
-            pConnTmp = (CFileServConn*)g_file_server_list[j].serv_conn;
+            pConnTmp = g_file_server_list[j].serv_conn;
             if (pConnTmp && pConnTmp->IsOpen())
             {
                 pConn = pConnTmp;
@@ -112,16 +119,17 @@ void CFileServConn::Connect(const char* server_ip, uint16_t server_port, uint32_
 	log("Connecting to FileServer %s:%d ", server_ip, server_port);
     
 	m_serv_idx = idx;
-	m_handle = netlib_connect(server_ip, server_port, imconn_callback, (void*)&g_file_server_conn_map);
+	m_handle = netlib_connect(server_ip, server_port, imconn_callback_sp, (void*)&g_file_server_conn_map);
     
 	if (m_handle != NETLIB_INVALID_HANDLE) {
-		g_file_server_conn_map.insert(make_pair(m_handle, this));
+		g_file_server_conn_map.insert(make_pair(m_handle, shared_from_this()));
 	}
 }
 
 void CFileServConn::Close()
 {
-	serv_reset<CFileServConn>(g_file_server_list, g_file_server_count, m_serv_idx);
+// 	serv_reset<CFileServConn>(g_file_server_list, g_file_server_count, m_serv_idx);
+	CServInfo<CFileServConn>::Reset(g_file_server_list, g_file_server_count, m_serv_idx);
     
 	m_bOpen = false;
 	if (m_handle != NETLIB_INVALID_HANDLE) {
@@ -129,7 +137,7 @@ void CFileServConn::Close()
 		g_file_server_conn_map.erase(m_handle);
 	}
     
-	ReleaseRef();
+// 	ReleaseRef();
 }
 
 void CFileServConn::OnConfirm()
@@ -227,7 +235,7 @@ void CFileServConn::_HandleFileMsgTransRsp(CImPdu* pPdu)
     pdu.SetSeqNum(pPdu->GetSeqNum());
     uint32_t handle = attach.GetHandle();
     
-    CMsgConn* pFromConn = CImUserManager::GetInstance()->GetMsgConnByHandle(from_id, handle);
+    auto pFromConn = CImUserManager::GetInstance()->GetMsgConnByHandle(from_id, handle);
     if (pFromConn)
     {
         pFromConn->SendPdu(&pdu);
@@ -263,7 +271,7 @@ void CFileServConn::_HandleFileMsgTransRsp(CImPdu* pPdu)
         }
         
         //send to route server
-        CRouteServConn* pRouteConn = get_route_serv_conn();
+        auto pRouteConn = get_route_serv_conn();
         if (pRouteConn) {
             pRouteConn->SendPdu(&pdu2);
         }

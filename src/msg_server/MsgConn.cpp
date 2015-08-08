@@ -44,6 +44,8 @@ static bool g_log_msg_toggle = true;	// 是否把收到的MsgData写入Log的开
 static CFileHandler* s_file_handler = NULL;
 static CGroupChat* s_group_chat = NULL;
 
+#define SELF static_pointer_cast<CMsgConn>(shared_from_this())
+
 void msg_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
 {
 // 	ConnMap_t::iterator it_old;
@@ -187,7 +189,7 @@ void CMsgConn::Close(bool kick_user)
     CImUser *pImUser = CImUserManager::GetInstance()->GetImUserById(GetUserId());
     if (pImUser) {
         pImUser->DelMsgConn(GetHandle());
-        pImUser->DelUnValidateMsgConn(this);
+        pImUser->DelUnValidateMsgConn(SELF);
         
         SendUserStatusUpdate(::IM::BaseDefine::USER_STATUS_OFFLINE);
         if (pImUser->IsMsgConnEmpty()) {
@@ -197,7 +199,7 @@ void CMsgConn::Close(bool kick_user)
     
     pImUser = CImUserManager::GetInstance()->GetImUserByLoginName(GetLoginName());
     if (pImUser) {
-        pImUser->DelUnValidateMsgConn(this);
+        pImUser->DelUnValidateMsgConn(SELF);
         if (pImUser->IsMsgConnEmpty()) {
             CImUserManager::GetInstance()->RemoveImUser(pImUser);
         }
@@ -212,7 +214,7 @@ void CMsgConn::OnConnect(net_handle_t handle)
 	m_handle = handle;
 	m_login_time = get_tick_count();
 
-	g_msg_conn_map.insert(make_pair(handle, shared_from_this()));
+	g_msg_conn_map.insert(make_pair(handle, SELF));
 
 	netlib_option(handle, NETLIB_OPT_SET_CALLBACK, (void*)imconn_callback_sp);
 	netlib_option(handle, NETLIB_OPT_SET_CALLBACK_DATA, (void*)&g_msg_conn_map);
@@ -351,32 +353,32 @@ void CMsgConn::HandlePdu(CImPdu* pPdu)
             break;
         // for group process
         case CID_GROUP_NORMAL_LIST_REQUEST:
-            s_group_chat->HandleClientGroupNormalRequest(pPdu, this);
+            s_group_chat->HandleClientGroupNormalRequest(pPdu, SELF);
             break;
         case CID_GROUP_INFO_REQUEST:
-            s_group_chat->HandleClientGroupInfoRequest(pPdu, this);
+            s_group_chat->HandleClientGroupInfoRequest(pPdu, SELF);
             break;
         case CID_GROUP_CREATE_REQUEST:
-            s_group_chat->HandleClientGroupCreateRequest(pPdu, this);
+            s_group_chat->HandleClientGroupCreateRequest(pPdu, SELF);
             break;
         case CID_GROUP_CHANGE_MEMBER_REQUEST:
-            s_group_chat->HandleClientGroupChangeMemberRequest(pPdu, this);
+            s_group_chat->HandleClientGroupChangeMemberRequest(pPdu, SELF);
             break;
         case CID_GROUP_SHIELD_GROUP_REQUEST:
-            s_group_chat->HandleClientGroupShieldGroupRequest(pPdu, this);
+            s_group_chat->HandleClientGroupShieldGroupRequest(pPdu, SELF);
             break;
             
         case CID_FILE_REQUEST:
-            s_file_handler->HandleClientFileRequest(this, pPdu);
+            s_file_handler->HandleClientFileRequest(SELF, pPdu);
             break;
         case CID_FILE_HAS_OFFLINE_REQ:
-            s_file_handler->HandleClientFileHasOfflineReq(this, pPdu);
+            s_file_handler->HandleClientFileHasOfflineReq(SELF, pPdu);
             break;
         case CID_FILE_ADD_OFFLINE_REQ:
-            s_file_handler->HandleClientFileAddOfflineReq(this, pPdu);
+            s_file_handler->HandleClientFileAddOfflineReq(SELF, pPdu);
             break;
         case CID_FILE_DEL_OFFLINE_REQ:
-            s_file_handler->HandleClientFileDelOfflineReq(this, pPdu);
+            s_file_handler->HandleClientFileDelOfflineReq(SELF, pPdu);
             break;
         default:
             log("wrong msg, cmd id=%d, user id=%u. ", pPdu->GetCommandId(), GetUserId());
@@ -424,7 +426,7 @@ void CMsgConn::_HandleRegisterRequest(CImPdu* pPdu)
         pImUser = new CImUser(GetLoginName());
         CImUserManager::GetInstance()->AddImUserByLoginName(GetLoginName(), pImUser);
     }
-    pImUser->AddUnValidateMsgConn(this);
+    pImUser->AddUnValidateMsgConn(SELF);
     
     CDbAttachData attach_data(ATTACH_TYPE_HANDLE, m_handle, 0);
     IM::Server::IMDbRegReq msg2;
@@ -544,7 +546,7 @@ void CMsgConn::_HandleLoginRequest(CImPdu* pPdu)
         pImUser = new CImUser(GetLoginName());
         CImUserManager::GetInstance()->AddImUserByLoginName(GetLoginName(), pImUser);
     }
-    pImUser->AddUnValidateMsgConn(this);
+    pImUser->AddUnValidateMsgConn(SELF);
     
     CDbAttachData attach_data(ATTACH_TYPE_HANDLE, m_handle, 0);
     // continue to validate if the user is OK
@@ -603,10 +605,10 @@ void CMsgConn::_HandleKickPCClient(CImPdu *pPdu)
     CImUser* pImUser = CImUserManager::GetInstance()->GetImUserById(user_id);
     if (pImUser)
     {
-        pImUser->KickOutSameClientType(CLIENT_TYPE_MAC, IM::BaseDefine::KICK_REASON_MOBILE_KICK,this);
+        pImUser->KickOutSameClientType(CLIENT_TYPE_MAC, IM::BaseDefine::KICK_REASON_MOBILE_KICK,SELF);
     }
     
-    CRouteServConn* pRouteConn = get_route_serv_conn();
+    auto pRouteConn = get_route_serv_conn();
     if (pRouteConn) {
         IM::Server::IMServerKickUser msg2;
         msg2.set_user_id(user_id);
@@ -801,9 +803,9 @@ void CMsgConn::_HandleClientMsgReadAck(CImPdu* pPdu)
     CImUser* pUser = CImUserManager::GetInstance()->GetImUserById(GetUserId());
     if (pUser)
     {
-        pUser->BroadcastPdu(&pdu, this);
+        pUser->BroadcastPdu(&pdu, SELF);
     }
-    CRouteServConn* pRouteConn = get_route_serv_conn();
+    auto pRouteConn = get_route_serv_conn();
     if (pRouteConn) {
         pRouteConn->SendPdu(&pdu);
     }
@@ -847,14 +849,14 @@ void CMsgConn::_HandleClientP2PCmdMsg(CImPdu* pPdu)
 	CImUser* pToImUser = CImUserManager::GetInstance()->GetImUserById(to_user_id);
     
 	if (pFromImUser) {
-		pFromImUser->BroadcastPdu(pPdu, this);
+		pFromImUser->BroadcastPdu(pPdu, SELF);
 	}
     
 	if (pToImUser) {
 		pToImUser->BroadcastPdu(pPdu, NULL);
 	}
     
-	CRouteServConn* pRouteConn = get_route_serv_conn();
+	auto pRouteConn = get_route_serv_conn();
 	if (pRouteConn) {
 		pRouteConn->SendPdu(pPdu);
 	}
@@ -905,9 +907,9 @@ void CMsgConn::_HandleClientRemoveSessionRequest(CImPdu* pPdu)
         pdu.SetCommandId(CID_BUDDY_LIST_REMOVE_SESSION_NOTIFY);
         CImUser* pImUser = CImUserManager::GetInstance()->GetImUserById(GetUserId());
         if (pImUser) {
-            pImUser->BroadcastPdu(&pdu, this);
+            pImUser->BroadcastPdu(&pdu, SELF);
         }
-        CRouteServConn* pRouteConn = get_route_serv_conn();
+        auto pRouteConn = get_route_serv_conn();
         if (pRouteConn) {
             pRouteConn->SendPdu(&pdu);
         }
@@ -951,7 +953,7 @@ void CMsgConn::_HandleClientUsersStatusRequest(CImPdu* pPdu)
 	uint32_t user_count = msg.user_id_list_size();
 	log("HandleClientUsersStatusReq, user_id=%u, query_count=%u.", GetUserId(), user_count);
     
-    CRouteServConn* pRouteConn = get_route_serv_conn();
+    auto pRouteConn = get_route_serv_conn();
     if(pRouteConn)
     {
         msg.set_user_id(GetUserId());

@@ -102,6 +102,8 @@ private:
     uint32_t        m_online_status;      //在线状态 1-online, 2-off-line, 3-leave
 };
 
+using SpCMsgConn = std::shared_ptr<CMsgConn>;
+
 void init_msg_conn();
 
 #endif /* MSGCONN_H_ */

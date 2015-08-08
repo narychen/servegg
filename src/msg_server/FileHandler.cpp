@@ -28,7 +28,7 @@ CFileHandler* CFileHandler::getInstance()
 	return s_handler_instance;
 }
 
-void CFileHandler::HandleClientFileRequest(CMsgConn* pMsgConn, CImPdu* pPdu)
+void CFileHandler::HandleClientFileRequest(SpCMsgConn pMsgConn, CImPdu* pPdu)
 {
     IM::File::IMFileReq msg;
     CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
@@ -41,7 +41,7 @@ void CFileHandler::HandleClientFileRequest(CMsgConn* pMsgConn, CImPdu* pPdu)
     log("HandleClientFileRequest, %u->%u, fileName: %s, trans_mode: %u.", from_id, to_id, file_name.c_str(), trans_mode);
     
     CDbAttachData attach(ATTACH_TYPE_HANDLE, pMsgConn->GetHandle());
-    CFileServConn* pFileConn = get_random_file_serv_conn();
+    auto pFileConn = get_random_file_serv_conn();
     if (pFileConn)
     {
         IM::Server::IMFileTransferReq msg2;
@@ -81,7 +81,7 @@ void CFileHandler::HandleClientFileRequest(CMsgConn* pMsgConn, CImPdu* pPdu)
                 pdu2.SetServiceId(SID_BUDDY_LIST);
                 pdu2.SetCommandId(CID_BUDDY_LIST_USERS_STATUS_REQUEST);
                 pdu2.SetSeqNum(pPdu->GetSeqNum());
-                CRouteServConn* route_conn = get_route_serv_conn();
+                auto route_conn = get_route_serv_conn();
                 if (route_conn)
                 {
                     route_conn->SendPdu(&pdu2);
@@ -108,7 +108,7 @@ void CFileHandler::HandleClientFileRequest(CMsgConn* pMsgConn, CImPdu* pPdu)
     }
 }
 
-void CFileHandler::HandleClientFileHasOfflineReq(CMsgConn* pMsgConn, CImPdu* pPdu)
+void CFileHandler::HandleClientFileHasOfflineReq(SpCMsgConn pMsgConn, CImPdu* pPdu)
 {
     uint32_t req_user_id = pMsgConn->GetUserId();
     log("HandleClientFileHasOfflineReq, req_id=%u   ", req_user_id);
@@ -137,7 +137,7 @@ void CFileHandler::HandleClientFileHasOfflineReq(CMsgConn* pMsgConn, CImPdu* pPd
     }
 }
 
-void CFileHandler::HandleClientFileAddOfflineReq(CMsgConn* pMsgConn, CImPdu* pPdu)
+void CFileHandler::HandleClientFileAddOfflineReq(SpCMsgConn pMsgConn, CImPdu* pPdu)
 {
     IM::File::IMFileAddOfflineReq msg;
     CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
@@ -157,7 +157,7 @@ void CFileHandler::HandleClientFileAddOfflineReq(CMsgConn* pMsgConn, CImPdu* pPd
         pDbConn->SendPdu(pPdu);
     }
     
-    CFileServConn* pFileConn = get_random_file_serv_conn();
+    auto pFileConn = get_random_file_serv_conn();
     if (pFileConn)
     {
         const list<IM::BaseDefine::IpAddr>* file_addr_list = pFileConn->GetFileServerIPList();
@@ -188,14 +188,14 @@ void CFileHandler::HandleClientFileAddOfflineReq(CMsgConn* pMsgConn, CImPdu* pPd
             //to user is online, notify the offline file has been ready
             pUser->BroadcastPduWithOutMobile(&pdu);
         }
-        CRouteServConn* pConn = get_route_serv_conn();
+        auto pConn = get_route_serv_conn();
         if (pConn) {
             pConn->SendPdu(&pdu);
         }
     }
 }
 
-void CFileHandler::HandleClientFileDelOfflineReq(CMsgConn* pMsgConn, CImPdu* pPdu)
+void CFileHandler::HandleClientFileDelOfflineReq(SpCMsgConn pMsgConn, CImPdu* pPdu)
 {
     IM::File::IMFileDelOfflineReq msg;
     CHECK_PB_PARSE_MSG(msg.ParseFromArray(pPdu->GetBodyData(), pPdu->GetBodyLength()));
@@ -223,9 +223,9 @@ void CFileHandler::HandleFileHasOfflineRes(CImPdu* pPdu)
     CDbAttachData attach((uchar_t*)msg.attach_data().c_str(), msg.attach_data().length());
     log("HandleFileHasOfflineRes, req_id=%u, file_cnt=%u ", req_user_id, file_cnt);
     
-    CMsgConn* pConn = CImUserManager::GetInstance()->GetMsgConnByHandle(req_user_id,
+    SpCMsgConn pConn = CImUserManager::GetInstance()->GetMsgConnByHandle(req_user_id,
                                                                         attach.GetHandle());
-    CFileServConn* pFileConn = get_random_file_serv_conn();
+    auto pFileConn = get_random_file_serv_conn();
     const list<IM::BaseDefine::IpAddr>* ip_list = NULL;
     if (pFileConn)
     {

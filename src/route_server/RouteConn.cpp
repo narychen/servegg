@@ -17,8 +17,10 @@
 #include "public_define.h"
 using namespace IM::BaseDefine;
 
+#define SELF static_pointer_cast<CRouteConn>(shared_from_this())
+
 //typedef hash_map<uint32_t /* user_id */, UserStat_t> UserStatMap_t;
-static ConnMap_t g_route_conn_map;
+static ConnMap_sp_t g_route_conn_map;
 typedef hash_map<uint32_t, CUserInfo*> UserInfoMap_t;
 static UserInfoMap_t g_user_map;
 
@@ -36,13 +38,16 @@ CUserInfo* GetUserInfo(uint32_t user_id)
 void route_serv_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
 {
 	uint64_t cur_time = get_tick_count();
-	for (ConnMap_t::iterator it = g_route_conn_map.begin(); it != g_route_conn_map.end(); ) {
-		ConnMap_t::iterator it_old = it;
-		it++;
+// 	for (ConnMap_t::iterator it = g_route_conn_map.begin(); it != g_route_conn_map.end(); ) {
+// 		ConnMap_t::iterator it_old = it;
+// 		it++;
 
-		CRouteConn* pConn = (CRouteConn*)it_old->second;
-		pConn->OnTimer(cur_time);
-	}
+// 		CRouteConn* pConn = (CRouteConn*)it_old->second;
+// 		pConn->OnTimer(cur_time);
+// 	}
+	
+	for (auto& e : g_route_conn_map)
+	    e.second->OnTimer(cur_time);
 }
 
 void init_routeconn_timer_callback()
@@ -76,7 +81,7 @@ void CRouteConn::Close()
         it++;
         
         CUserInfo* pUser = it_old->second;
-        pUser->RemoveRouteConn(this);
+        pUser->RemoveRouteConn(SELF);
         if (pUser->GetRouteConnCount() == 0)
         {
             delete pUser;
@@ -85,16 +90,16 @@ void CRouteConn::Close()
         }
     }
 
-	ReleaseRef();
+// 	ReleaseRef();
 }
 
 void CRouteConn::OnConnect(net_handle_t handle)
 {
 	m_handle = handle;
 
-	g_route_conn_map.insert(make_pair(handle, this));
+	g_route_conn_map.insert(make_pair(handle, SELF));
 
-	netlib_option(handle, NETLIB_OPT_SET_CALLBACK, (void*)imconn_callback);
+	netlib_option(handle, NETLIB_OPT_SET_CALLBACK, (void*)imconn_callback_sp);
 	netlib_option(handle, NETLIB_OPT_SET_CALLBACK_DATA, (void*)&g_route_conn_map);
 }
 
@@ -147,7 +152,7 @@ void CRouteConn::HandlePdu(CImPdu* pPdu)
         case CID_GROUP_CHANGE_MEMBER_NOTIFY:
         case CID_FILE_NOTIFY:
         case CID_BUDDY_LIST_REMOVE_SESSION_NOTIFY:
-            _BroadcastMsg(pPdu, this);
+            _BroadcastMsg(pPdu, SELF);
             break;
         
 	default:
@@ -313,14 +318,14 @@ void CRouteConn::_UpdateUserStatus(uint32_t user_id, uint32_t status, uint32_t c
 {
     CUserInfo* pUser = GetUserInfo(user_id);
     if (pUser) {
-        if (pUser->FindRouteConn(this))
+        if (pUser->FindRouteConn(SELF))
         {
             if (status == USER_STATUS_OFFLINE)
             {
                 pUser->RemoveClientType(client_type);
                 if (pUser->IsMsgConnNULL())
                 {
-                    pUser->RemoveRouteConn(this);
+                    pUser->RemoveRouteConn(SELF);
                     if (pUser->GetRouteConnCount() == 0) {
                         delete pUser;
                         pUser = NULL;
@@ -337,7 +342,7 @@ void CRouteConn::_UpdateUserStatus(uint32_t user_id, uint32_t status, uint32_t c
         {
             if (status != USER_STATUS_OFFLINE)
             {
-                pUser->AddRouteConn(this);
+                pUser->AddRouteConn(SELF);
                 pUser->AddClientType(client_type);
             }
         }
@@ -347,7 +352,7 @@ void CRouteConn::_UpdateUserStatus(uint32_t user_id, uint32_t status, uint32_t c
         if (status != USER_STATUS_OFFLINE) {
             CUserInfo* pUserInfo = new CUserInfo();
             if (pUserInfo != NULL) {
-                pUserInfo->AddRouteConn(this);
+                pUserInfo->AddRouteConn(SELF);
                 pUserInfo->AddClientType(client_type);
                 g_user_map.insert(make_pair(user_id, pUserInfo));
             }
@@ -359,15 +364,19 @@ void CRouteConn::_UpdateUserStatus(uint32_t user_id, uint32_t status, uint32_t c
     }
 }
 
-void CRouteConn::_BroadcastMsg(CImPdu* pPdu, CRouteConn* pFromConn)
+void CRouteConn::_BroadcastMsg(CImPdu* pPdu, SpCRouteConn pFromConn)
 {
-	ConnMap_t::iterator it;
-	for (it = g_route_conn_map.begin(); it != g_route_conn_map.end(); it++) {
-		CRouteConn* pRouteConn = (CRouteConn*)it->second;
-		if (pRouteConn != pFromConn) {
-			pRouteConn->SendPdu(pPdu);
-		}
-	}
+// 	ConnMap_t::iterator it;
+// 	for (it = g_route_conn_map.begin(); it != g_route_conn_map.end(); it++) {
+// 		SpCRouteConn pRouteConn = (SpCRouteConn)it->second;
+// 		if (pRouteConn != pFromConn) {
+// 			pRouteConn->SendPdu(pPdu);
+// 		}
+// 	}
+	for (auto& e : g_route_conn_map) 
+	    if (e.second != pFromConn)
+	        e.second->SendPdu(pPdu);
+
 }
 
 
@@ -376,11 +385,11 @@ void CRouteConn::_SendPduToUser(uint32_t user_id, CImPdu* pPdu, bool bAll)
     CUserInfo* pUser = GetUserInfo(user_id);
     if (pUser)
     {
-        set<CRouteConn*>* pUserSet = pUser->GetRouteConn();
-        for (set<CRouteConn*>::iterator it = pUserSet->begin(); it != pUserSet->end(); it++)
+        set<SpCRouteConn>* pUserSet = pUser->GetRouteConn();
+        for (set<SpCRouteConn>::iterator it = pUserSet->begin(); it != pUserSet->end(); it++)
         {
-            CRouteConn* pToConn = *it;
-            if (bAll || pToConn != this)
+            SpCRouteConn pToConn = *it;
+            if (bAll || pToConn != SELF)
             {
                 pToConn->Send(pPdu->GetBuffer(), pPdu->GetLength());
             }

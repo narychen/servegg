@@ -14,10 +14,11 @@
 #include "ImPduBase.h"
 #include "public_define.h"
 using namespace IM::BaseDefine;
+using namespace std;
 
-static ConnMap_t g_login_server_conn_map;
+static ConnMap_sp_t g_login_server_conn_map;
 
-static serv_info_t* g_login_server_list;
+static CServInfo<CLoginServConn>* g_login_server_list;
 static uint32_t	g_login_server_count;
 
 static string g_msg_server_ip_addr1;
@@ -27,29 +28,34 @@ static uint32_t g_max_conn_cnt;
 
 void login_server_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
 {
-	ConnMap_t::iterator it_old;
-	CLoginServConn* pConn = NULL;
+	// ConnMap_t::iterator it_old;
+	// CLoginServConn* pConn = NULL;
 	uint64_t cur_time = get_tick_count();
 
-	for (ConnMap_t::iterator it = g_login_server_conn_map.begin(); it != g_login_server_conn_map.end(); ) {
-		it_old = it;
-		it++;
+	// for (ConnMap_t::iterator it = g_login_server_conn_map.begin(); it != g_login_server_conn_map.end(); ) {
+	// 	it_old = it;
+	// 	it++;
 
-		pConn = (CLoginServConn*)it_old->second;
-		pConn->OnTimer(cur_time);
-	}
+	// 	pConn = (CLoginServConn*)it_old->second;
+	// 	pConn->OnTimer(cur_time);
+	// }
+	
+	for (auto& e : g_login_server_conn_map) 
+		e.second->OnTimer(cur_time);
 
 	// reconnect LoginServer
-	serv_check_reconnect<CLoginServConn>(g_login_server_list, g_login_server_count);
+	// serv_check_reconnect<CLoginServConn>(g_login_server_list, g_login_server_count);
+	CServInfo<CLoginServConn>::CheckReconnect(g_login_server_list, g_login_server_count);
 }
 
-void init_login_serv_conn(serv_info_t* server_list, uint32_t server_count, const char* msg_server_ip_addr1,
+void init_login_serv_conn(CServInfo<CLoginServConn>* server_list, uint32_t server_count, const char* msg_server_ip_addr1,
 		const char* msg_server_ip_addr2, uint16_t msg_server_port, uint32_t max_conn_cnt)
 {
 	g_login_server_list = server_list;
 	g_login_server_count = server_count;
 
-	serv_init<CLoginServConn>(g_login_server_list, g_login_server_count);
+	// serv_init<CLoginServConn>(g_login_server_list, g_login_server_count);
+	CServInfo<CLoginServConn>::Init(g_login_server_list, g_login_server_count);
 
 	g_msg_server_ip_addr1 = msg_server_ip_addr1;
 	g_msg_server_ip_addr2 = msg_server_ip_addr2;
@@ -62,10 +68,10 @@ void init_login_serv_conn(serv_info_t* server_list, uint32_t server_count, const
 // if there is one LoginServer available, return true
 bool is_login_server_available()
 {
-	CLoginServConn* pConn = NULL;
+	shared_ptr<CLoginServConn> pConn;
 
 	for (uint32_t i = 0; i < g_login_server_count; i++) {
-		pConn = (CLoginServConn*)g_login_server_list[i].serv_conn;
+		pConn = g_login_server_list[i].serv_conn;
 		if (pConn && pConn->IsOpen()) {
 			return true;
 		}
@@ -76,10 +82,11 @@ bool is_login_server_available()
 
 void send_to_all_login_server(CImPdu* pPdu)
 {
-	CLoginServConn* pConn = NULL;
+	// CLoginServConn* pConn = NULL;
+	shared_ptr<CLoginServConn> pConn;
 
 	for (uint32_t i = 0; i < g_login_server_count; i++) {
-		pConn = (CLoginServConn*)g_login_server_list[i].serv_conn;
+		pConn = g_login_server_list[i].serv_conn;
 		if (pConn && pConn->IsOpen()) {
 			pConn->SendPdu(pPdu);
 		}
@@ -102,23 +109,24 @@ void CLoginServConn::Connect(const char* server_ip, uint16_t server_port, uint32
 	log("Connecting to LoginServer %s:%d ", server_ip, server_port);
 
 	m_serv_idx = serv_idx;
-	m_handle = netlib_connect(server_ip, server_port, imconn_callback, (void*)&g_login_server_conn_map);
+	m_handle = netlib_connect(server_ip, server_port, imconn_callback_sp, (void*)&g_login_server_conn_map);
 
 	if (m_handle != NETLIB_INVALID_HANDLE) {
-		g_login_server_conn_map.insert(make_pair(m_handle, this));
+		g_login_server_conn_map.insert(make_pair(m_handle, shared_from_this()));
 	}
 }
 
 void CLoginServConn::Close()
 {
-	serv_reset<CLoginServConn>(g_login_server_list, g_login_server_count, m_serv_idx);
+	CServInfo<CLoginServConn>::Reset(g_login_server_list, g_login_server_count, m_serv_idx);
+	// serv_reset<CLoginServConn>(g_login_server_list, g_login_server_count, m_serv_idx);
 
 	if (m_handle != NETLIB_INVALID_HANDLE) {
 		netlib_close(m_handle);
 		g_login_server_conn_map.erase(m_handle);
 	}
 
-	ReleaseRef();
+	// ReleaseRef();
 }
 
 void CLoginServConn::OnConfirm()

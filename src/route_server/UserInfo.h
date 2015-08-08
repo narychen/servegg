@@ -13,6 +13,8 @@
 #include <set>
 #include <map>
 #include "ostype.h"
+#include "RouteConn.h"
+
 class CRouteConn;
 
 using namespace std;
@@ -24,11 +26,11 @@ public:
     
     uint32_t GetStatus();
     
-    void AddRouteConn(CRouteConn* pConn) { m_RouteConnSet.insert(pConn); }
-    void RemoveRouteConn(CRouteConn* pConn) { m_RouteConnSet.erase(pConn); }
+    void AddRouteConn(SpCRouteConn pConn) { m_RouteConnSet.insert(pConn); }
+    void RemoveRouteConn(SpCRouteConn pConn) { m_RouteConnSet.erase(pConn); }
     void ClearRouteConn() { m_RouteConnSet.clear(); }
-    set<CRouteConn* >* GetRouteConn() { return &m_RouteConnSet; }
-    bool FindRouteConn(CRouteConn* pConn);
+    set<SpCRouteConn >* GetRouteConn() { return &m_RouteConnSet; }
+    bool FindRouteConn(SpCRouteConn pConn);
     
     uint32_t GetRouteConnCount() { return m_RouteConnSet.size(); }
     void AddClientType(uint32_t client_type);
@@ -40,7 +42,7 @@ public:
     bool IsPCClientLogin();
     bool IsMobileClientLogin();
 private:
-    set<CRouteConn* > m_RouteConnSet;
+    set<SpCRouteConn> m_RouteConnSet;
     map<uint32_t /* client_type */, uint32_t /* count */> m_ClientTypeList;
 };
 

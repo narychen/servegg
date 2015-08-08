@@ -299,7 +299,7 @@ void CDBServConn::_HandleDbRegisterResponse(CImPdu* pPdu)
     
     CDbAttachData attach_data((uchar_t*)msgDb.attach_data().c_str(), msgDb.attach_data().length());
 
-    CMsgConn* pMsgConn = pImUser->GetUnValidateMsgConn(attach_data.GetHandle());
+    auto pMsgConn = pImUser->GetUnValidateMsgConn(attach_data.GetHandle());
     if (!pMsgConn || pMsgConn->IsOpen()) {
         log("no such conn, user_name=%s", login_name.c_str());
         return;
@@ -360,7 +360,7 @@ void CDBServConn::_HandleValidateResponse(CImPdu* pPdu)
     log("HandleValidateResp, user_name=%s, result=%d", login_name.c_str(), result);
     
     CImUser* pImUser = CImUserManager::GetInstance()->GetImUserByLoginName(login_name);
-    CMsgConn* pMsgConn = NULL;
+    SpCMsgConn pMsgConn = NULL;
     if (!pImUser) {
         log("ImUser for user_name=%s not exist", login_name.c_str());
         return;
@@ -403,7 +403,7 @@ void CDBServConn::_HandleValidateResponse(CImPdu* pPdu)
         
         pUser->KickOutSameClientType(pMsgConn->GetClientType(), IM::BaseDefine::KICK_REASON_DUPLICATE_USER, pMsgConn);
         
-        CRouteServConn* pRouteConn = get_route_serv_conn();
+        auto pRouteConn = get_route_serv_conn();
         if (pRouteConn) {
             IM::Server::IMServerKickUser msg2;
             msg2.set_user_id(user_id);
@@ -472,7 +472,7 @@ void CDBServConn::_HandleRecentSessionResponse(CImPdu *pPdu)
     
     log("HandleRecentSessionResponse, userId=%u, session_cnt=%u", user_id, session_cnt);
     
-    CMsgConn* pMsgConn = CImUserManager::GetInstance()->GetMsgConnByHandle(user_id, handle);
+    SpCMsgConn pMsgConn = CImUserManager::GetInstance()->GetMsgConnByHandle(user_id, handle);
     
     if (pMsgConn && pMsgConn->IsOpen())
     {
@@ -495,7 +495,7 @@ void CDBServConn::_HandleAllUserResponse(CImPdu *pPdu)
     
     log("HandleAllUserResponse, userId=%u, latest_update_time=%u, user_cnt=%u", user_id, latest_update_time, user_cnt);
     
-    CMsgConn* pMsgConn = CImUserManager::GetInstance()->GetMsgConnByHandle(user_id, handle);
+    SpCMsgConn pMsgConn = CImUserManager::GetInstance()->GetMsgConnByHandle(user_id, handle);
     
     if (pMsgConn && pMsgConn->IsOpen())
     {
@@ -520,7 +520,7 @@ void CDBServConn::_HandleGetMsgListResponse(CImPdu *pPdu)
     
     log("HandleGetMsgListResponse, userId=%u, session_type=%u, opposite_user_id=%u, msg_id_begin=%u, cnt=%u.", user_id, session_type, session_id, msg_id_begin, msg_cnt);
     
-    CMsgConn* pMsgConn = CImUserManager::GetInstance()->GetMsgConnByHandle(user_id, handle);
+    SpCMsgConn pMsgConn = CImUserManager::GetInstance()->GetMsgConnByHandle(user_id, handle);
     if (pMsgConn && pMsgConn->IsOpen()) {
         msg.clear_attach_data();
         pPdu->SetPBMsg(&msg);
@@ -542,7 +542,7 @@ void CDBServConn::_HandleGetMsgByIdResponse(CImPdu *pPdu)
     
     log("HandleGetMsgByIdResponse, userId=%u, session_type=%u, opposite_user_id=%u, cnt=%u.", user_id, session_type, session_id, msg_cnt);
     
-    CMsgConn* pMsgConn = CImUserManager::GetInstance()->GetMsgConnByHandle(user_id, handle);
+    SpCMsgConn pMsgConn = CImUserManager::GetInstance()->GetMsgConnByHandle(user_id, handle);
     if (pMsgConn && pMsgConn->IsOpen()) {
         msg.clear_attach_data();
         pPdu->SetPBMsg(&msg);
@@ -573,7 +573,7 @@ void CDBServConn::_HandleMsgData(CImPdu *pPdu)
     
     log("HandleMsgData, from_user_id=%u, to_user_id=%u, msg_id=%u.", from_user_id, to_user_id, msg_id);
     
-    CMsgConn* pMsgConn = CImUserManager::GetInstance()->GetMsgConnByHandle(from_user_id, attach_data.GetHandle());
+    SpCMsgConn pMsgConn = CImUserManager::GetInstance()->GetMsgConnByHandle(from_user_id, attach_data.GetHandle());
     if (pMsgConn)
     {
         IM::Message::IMMsgDataAck msg2;
@@ -589,7 +589,7 @@ void CDBServConn::_HandleMsgData(CImPdu *pPdu)
         pMsgConn->SendPdu(&pdu);
     }
     
-    CRouteServConn* pRouteConn = get_route_serv_conn();
+    auto pRouteConn = get_route_serv_conn();
     if (pRouteConn) {
         pRouteConn->SendPdu(pPdu);
     }
@@ -632,7 +632,7 @@ void CDBServConn::_HandleGetLatestMsgIDRsp(CImPdu *pPdu)
     log("HandleUnreadMsgCntResp, userId=%u, session_id=%u, session_type=%u, latest_msg_id=%u.",
         user_id, session_id, session_type, latest_msg_id);
     
-    CMsgConn* pMsgConn = CImUserManager::GetInstance()->GetMsgConnByHandle(user_id, handle);
+    SpCMsgConn pMsgConn = CImUserManager::GetInstance()->GetMsgConnByHandle(user_id, handle);
     if (pMsgConn && pMsgConn->IsOpen()) {
         msg.clear_attach_data();
         pPdu->SetPBMsg(&msg);
@@ -654,7 +654,7 @@ void CDBServConn::_HandleUnreadMsgCountResponse(CImPdu* pPdu)
 	log("HandleUnreadMsgCntResp, userId=%u, total_cnt=%u, user_unread_cnt=%u.", user_id,
         total_cnt, user_unread_cnt);
 
-    CMsgConn* pMsgConn = CImUserManager::GetInstance()->GetMsgConnByHandle(user_id, handle);
+    SpCMsgConn pMsgConn = CImUserManager::GetInstance()->GetMsgConnByHandle(user_id, handle);
 
 	if (pMsgConn && pMsgConn->IsOpen()) {
         msg.clear_attach_data();
@@ -675,7 +675,7 @@ void CDBServConn::_HandleUsersInfoResponse(CImPdu* pPdu)
     
     log("HandleUsersInfoResp, user_id=%u, user_cnt=%u.", user_id, user_cnt);
     
-    CMsgConn* pMsgConn = CImUserManager::GetInstance()->GetMsgConnByHandle(user_id, handle);
+    SpCMsgConn pMsgConn = CImUserManager::GetInstance()->GetMsgConnByHandle(user_id, handle);
     if (pMsgConn && pMsgConn->IsOpen()) {
         msg.clear_attach_data();
         pPdu->SetPBMsg(&msg);
@@ -705,7 +705,7 @@ void CDBServConn::_HandleRemoveSessionResponse(CImPdu* pPdu)
 
     CDbAttachData attach_data((uchar_t*)msg.attach_data().c_str(), msg.attach_data().length());
     uint32_t handle = attach_data.GetHandle();
-    CMsgConn* pConn = CImUserManager::GetInstance()->GetMsgConnByHandle(user_id, handle);
+    SpCMsgConn pConn = CImUserManager::GetInstance()->GetMsgConnByHandle(user_id, handle);
 	if (pConn && pConn->IsOpen()) {
         msg.clear_attach_data();
         pPdu->SetPBMsg(&msg);
@@ -743,7 +743,7 @@ void CDBServConn::_HandleDepartmentResponse(CImPdu *pPdu)
     
     CDbAttachData attach_data((uchar_t*)msg.attach_data().c_str(), msg.attach_data().length());
     uint32_t handle = attach_data.GetHandle();
-    CMsgConn* pConn = CImUserManager::GetInstance()->GetMsgConnByHandle(user_id, handle);
+    SpCMsgConn pConn = CImUserManager::GetInstance()->GetMsgConnByHandle(user_id, handle);
     if (pConn && pConn->IsOpen()) {
         msg.clear_attach_data();
         pPdu->SetPBMsg(&msg);
@@ -867,7 +867,7 @@ void CDBServConn::_HandleGetDeviceTokenResponse(CImPdu *pPdu)
             pdu2.SetPBMsg(&msg5);
             pdu2.SetServiceId(SID_BUDDY_LIST);
             pdu2.SetCommandId(CID_BUDDY_LIST_USERS_STATUS_REQUEST);
-            CRouteServConn* route_conn = get_route_serv_conn();
+            auto route_conn = get_route_serv_conn();
             if (route_conn)
             {
                 route_conn->SendPdu(&pdu2);
@@ -882,7 +882,7 @@ void CDBServConn::_HandleGetDeviceTokenResponse(CImPdu *pPdu)
         pdu3.SetServiceId(SID_OTHER);
         pdu3.SetCommandId(CID_OTHER_PUSH_TO_USER_REQ);
         
-        CPushServConn* PushConn = get_push_serv_conn();
+        auto PushConn = get_push_serv_conn();
         if (PushConn) {
             PushConn->SendPdu(&pdu3);
         }

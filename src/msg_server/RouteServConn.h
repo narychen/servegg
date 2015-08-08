@@ -43,10 +43,10 @@ private:
 	uint64_t	m_connect_time;
 };
 
-void init_route_serv_conn(serv_info_t* server_list, uint32_t server_count);
+void init_route_serv_conn(CServInfo<CRouteServConn>* server_list, uint32_t server_count);
 bool is_route_server_available();
 void send_to_all_route_server(CImPdu* pPdu);
-CRouteServConn* get_route_serv_conn();
+shared_ptr<CRouteServConn> get_route_serv_conn();
 
 
 #endif /* ROUTESERVCONN_H_ */

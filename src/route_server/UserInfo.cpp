@@ -48,9 +48,9 @@ void CUserInfo::RemoveClientType(uint32_t client_type)
     }
 }
 
-bool CUserInfo::FindRouteConn(CRouteConn *pConn)
+bool CUserInfo::FindRouteConn(SpCRouteConn pConn)
 {
-    set<CRouteConn*>::iterator it = m_RouteConnSet.find(pConn);
+    set<SpCRouteConn>::iterator it = m_RouteConnSet.find(pConn);
     if (it != m_RouteConnSet.end())
     {
         return true;

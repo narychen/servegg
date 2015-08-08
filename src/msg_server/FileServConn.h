@@ -45,7 +45,7 @@ private:
     list<IM::BaseDefine::IpAddr> m_ip_list;
 };
 
-void init_file_serv_conn(serv_info_t* server_list, uint32_t server_count);
+void init_file_serv_conn(CServInfo<CFileServConn>* server_list, uint32_t server_count);
 bool is_file_server_available();
-CFileServConn* get_random_file_serv_conn();
+std::shared_ptr<CFileServConn> get_random_file_serv_conn();
 #endif /* defined(__FileServConn__) */

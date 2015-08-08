@@ -9,11 +9,12 @@
 #define GROUPCHAT_H_
 
 #include "ImPduBase.h" 
+#include "MsgConn.h"
 
 typedef set<uint32_t> group_member_t;
 typedef hash_map<uint32_t, group_member_t*> group_map_t;
 
-class CMsgConn;
+// class CMsgConn;
 
 class CGroupChat
 {
@@ -22,31 +23,31 @@ public:
 
 	static CGroupChat* GetInstance();
 
-    void HandleClientGroupNormalRequest(CImPdu* pPdu, CMsgConn* pFromConn);
+    void HandleClientGroupNormalRequest(CImPdu* pPdu, SpCMsgConn pFromConn);
     void HandleGroupNormalResponse(CImPdu* pPdu);
     
-    void HandleClientGroupInfoRequest(CImPdu* pPdu, CMsgConn* pFromConn);
+    void HandleClientGroupInfoRequest(CImPdu* pPdu, SpCMsgConn pFromConn);
     void HandleGroupInfoResponse(CImPdu* pPdu);
 
 	void HandleGroupMessage(CImPdu* pPdu);
     void HandleGroupMessageBroadcast(CImPdu* pPdu);
     
-	void HandleClientGroupCreateRequest(CImPdu* pPdu, CMsgConn* pFromConn);
+	void HandleClientGroupCreateRequest(CImPdu* pPdu, SpCMsgConn pFromConn);
 	void HandleGroupCreateResponse(CImPdu* pPdu);
     
-	void HandleClientGroupChangeMemberRequest(CImPdu* pPdu, CMsgConn* pFromConn);
+	void HandleClientGroupChangeMemberRequest(CImPdu* pPdu, SpCMsgConn pFromConn);
 	void HandleGroupChangeMemberResponse(CImPdu* pPdu);
 	void HandleGroupChangeMemberBroadcast(CImPdu* pPdu);
 
     void HandleClientGroupShieldGroupRequest(CImPdu* pPdu,
-        CMsgConn* pFromConn);
+        SpCMsgConn pFromConn);
     
     void HandleGroupShieldGroupResponse(CImPdu* pPdu);
     void HandleGroupGetShieldByGroupResponse(CImPdu* pPdu);
 private:
 	CGroupChat() {}	// for singleton;
 
-	void _SendPduToUser(CImPdu* pPdu, uint32_t user_id, CMsgConn* pReqConn = NULL);
+	void _SendPduToUser(CImPdu* pPdu, uint32_t user_id, SpCMsgConn pReqConn = NULL);
 private:
 
 	static CGroupChat* s_group_chat_instance;

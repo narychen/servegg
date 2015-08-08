@@ -10,6 +10,7 @@
 
 #include "imconn.h"
 #include "public_define.h"
+#include "MsgConn.h"
 #define MAX_ONLINE_FRIEND_CNT		100	//通知好友状态通知的最多个数
 
 class CMsgConn;
@@ -34,26 +35,26 @@ public:
     user_conn_t GetUserConn();
     
     bool IsMsgConnEmpty() { return m_conn_map.empty(); }
-    void AddMsgConn(uint32_t handle, CMsgConn* pMsgConn) { m_conn_map[handle] = pMsgConn; }
+    void AddMsgConn(uint32_t handle, SpCMsgConn pMsgConn) { m_conn_map[handle] = pMsgConn; }
     void DelMsgConn(uint32_t handle) { m_conn_map.erase(handle); }
-    CMsgConn* GetMsgConn(uint32_t handle);
-    void ValidateMsgConn(uint32_t handle, CMsgConn* pMsgConn);
+    SpCMsgConn GetMsgConn(uint32_t handle);
+    void ValidateMsgConn(uint32_t handle, SpCMsgConn pMsgConn);
     
-    void AddUnValidateMsgConn(CMsgConn* pMsgConn) { m_unvalidate_conn_set.insert(pMsgConn); }
-    void DelUnValidateMsgConn(CMsgConn* pMsgConn) { m_unvalidate_conn_set.erase(pMsgConn); }
-    CMsgConn* GetUnValidateMsgConn(uint32_t handle);
+    void AddUnValidateMsgConn(SpCMsgConn pMsgConn) { m_unvalidate_conn_set.insert(pMsgConn); }
+    void DelUnValidateMsgConn(SpCMsgConn pMsgConn) { m_unvalidate_conn_set.erase(pMsgConn); }
+    SpCMsgConn GetUnValidateMsgConn(uint32_t handle);
     
-    map<uint32_t, CMsgConn*>& GetMsgConnMap() { return m_conn_map; }
+    map<uint32_t, SpCMsgConn>& GetMsgConnMap() { return m_conn_map; }
 
-    void BroadcastPdu(CImPdu* pPdu, CMsgConn* pFromConn = NULL);
-    void BroadcastPduWithOutMobile(CImPdu* pPdu, CMsgConn* pFromConn = NULL);
-    void BroadcastPduToMobile(CImPdu* pPdu, CMsgConn* pFromConn = NULL);
-    void BroadcastClientMsgData(CImPdu* pPdu, uint32_t msg_id, CMsgConn* pFromConn = NULL, uint32_t from_id = 0);
-    void BroadcastData(void* buff, uint32_t len, CMsgConn* pFromConn = NULL);
+    void BroadcastPdu(CImPdu* pPdu, SpCMsgConn pFromConn = NULL);
+    void BroadcastPduWithOutMobile(CImPdu* pPdu, SpCMsgConn pFromConn = NULL);
+    void BroadcastPduToMobile(CImPdu* pPdu, SpCMsgConn pFromConn = NULL);
+    void BroadcastClientMsgData(CImPdu* pPdu, uint32_t msg_id, SpCMsgConn pFromConn = NULL, uint32_t from_id = 0);
+    void BroadcastData(void* buff, uint32_t len, SpCMsgConn pFromConn = NULL);
         
-    void HandleKickUser(CMsgConn* pConn, uint32_t reason);
+    void HandleKickUser(SpCMsgConn pConn, uint32_t reason);
     
-    bool KickOutSameClientType(uint32_t client_type, uint32_t reason, CMsgConn* pFromConn = NULL);
+    bool KickOutSameClientType(uint32_t client_type, uint32_t reason, SpCMsgConn pFromConn = NULL);
     
     uint32_t GetClientTypeFlag();
 private:
@@ -65,8 +66,8 @@ private:
     
     bool 			m_bValidate;
     
-    map<uint32_t /* handle */, CMsgConn*>	m_conn_map;
-    set<CMsgConn*> m_unvalidate_conn_set;
+    map<uint32_t /* handle */, SpCMsgConn>	m_conn_map;
+    set<SpCMsgConn> m_unvalidate_conn_set;
 };
 
 typedef map<uint32_t /* user_id */, CImUser*> ImUserMap_t;
@@ -82,7 +83,7 @@ public:
     CImUser* GetImUserById(uint32_t user_id);
     CImUser* GetImUserByLoginName(string login_name);
     
-    CMsgConn* GetMsgConnByHandle(uint32_t user_id, uint32_t handle);
+    SpCMsgConn GetMsgConnByHandle(uint32_t user_id, uint32_t handle);
     bool AddImUserByLoginName(string login_name, CImUser* pUser);
     void RemoveImUserByLoginName(string login_name);
     
