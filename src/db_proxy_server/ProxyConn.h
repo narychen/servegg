@@ -44,6 +44,6 @@ private:
 };
 
 int init_proxy_conn(uint32_t thread_num);
-CProxyConn* get_proxy_conn_by_uuid(uint32_t uuid);
+std::shared_ptr<CProxyConn> get_proxy_conn_by_uuid(uint32_t uuid);
 
 #endif /* PROXYCONN_H_ */

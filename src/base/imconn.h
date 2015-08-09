@@ -67,6 +67,8 @@ typedef hash_map<uint32_t, CImConn*> UserMap_t;
 
 using sp_CImConn = shared_ptr<CImConn>;
 using ConnMap_sp_t = unordered_map<net_handle_t, sp_CImConn>;
+using UserMap_sp_t = unordered_map<uint32_t, sp_CImConn>;
+
 void imconn_callback_sp(void* callback_data, uint8_t msg, uint32_t handle, void* pParam);
 
 void imconn_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam);

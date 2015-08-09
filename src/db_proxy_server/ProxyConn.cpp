@@ -14,8 +14,11 @@
 #include "IM.Server.pb.h"
 #include "ThreadPool.h"
 #include "SyncCenter.h"
-static ConnMap_t g_proxy_conn_map;
-static UserMap_t g_uuid_conn_map;
+
+using namespace std;
+
+static ConnMap_sp_t g_proxy_conn_map;
+static UserMap_sp_t g_uuid_conn_map;
 static CHandlerMap* s_handler_map;
 
 uint32_t CProxyConn::s_uuid_alloctor = 0;
@@ -25,13 +28,17 @@ static CThreadPool g_thread_pool;
 
 void proxy_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
 {
-	uint64_t cur_time = get_tick_count();
-	for (ConnMap_t::iterator it = g_proxy_conn_map.begin(); it != g_proxy_conn_map.end(); ) {
-		ConnMap_t::iterator it_old = it;
-		it++;
+	// uint64_t cur_time = get_tick_count();
+	// for (ConnMap_t::iterator it = g_proxy_conn_map.begin(); it != g_proxy_conn_map.end(); ) {
+	// 	ConnMap_t::iterator it_old = it;
+	// 	it++;
 
-		CProxyConn* pConn = (CProxyConn*)it_old->second;
-		pConn->OnTimer(cur_time);
+	// 	CProxyConn* pConn = (CProxyConn*)it_old->second;
+	// 	pConn->OnTimer(cur_time);
+	// }
+	for (auto& e : g_proxy_conn_map) {
+		auto p = static_pointer_cast<CProxyConn>(e.second);
+		p->OnTimer(get_tick_count());
 	}
 }
 
@@ -63,8 +70,8 @@ static void sig_handler(int sig_no)
         cPdu.SetPBMsg(&msg);
         cPdu.SetServiceId(IM::BaseDefine::SID_OTHER);
         cPdu.SetCommandId(IM::BaseDefine::CID_OTHER_STOP_RECV_PACKET);
-        for (ConnMap_t::iterator it = g_proxy_conn_map.begin(); it != g_proxy_conn_map.end(); it++) {
-            CProxyConn* pConn = (CProxyConn*)it->second;
+        for (auto it = g_proxy_conn_map.begin(); it != g_proxy_conn_map.end(); it++) {
+            auto pConn = static_pointer_cast<CProxyConn>(it->second);
             pConn->SendPdu(&cPdu);
         }
         // Add By ZhangYuanhao
@@ -88,12 +95,12 @@ int init_proxy_conn(uint32_t thread_num)
 	return netlib_register_timer(proxy_timer_callback, NULL, 1000);
 }
 
-CProxyConn* get_proxy_conn_by_uuid(uint32_t uuid)
+shared_ptr<CProxyConn> get_proxy_conn_by_uuid(uint32_t uuid)
 {
-	CProxyConn* pConn = NULL;
-	UserMap_t::iterator it = g_uuid_conn_map.find(uuid);
+	shared_ptr<CProxyConn> pConn;
+	auto it = g_uuid_conn_map.find(uuid);
 	if (it != g_uuid_conn_map.end()) {
-		pConn = (CProxyConn *)it->second;
+		pConn = static_pointer_cast<CProxyConn>(it->second);
 	}
 
 	return pConn;
@@ -107,7 +114,7 @@ CProxyConn::CProxyConn()
 		m_uuid = ++CProxyConn::s_uuid_alloctor;
 	}
 
-	g_uuid_conn_map.insert(make_pair(m_uuid, this));
+	
 }
 
 CProxyConn::~CProxyConn()
@@ -124,16 +131,16 @@ void CProxyConn::Close()
 		g_uuid_conn_map.erase(m_uuid);
 	}
 
-	ReleaseRef();
+	// ReleaseRef();
 }
 
 void CProxyConn::OnConnect(net_handle_t handle)
 {
 	m_handle = handle;
+	g_uuid_conn_map.insert(make_pair(m_uuid, shared_from_this()));
+	g_proxy_conn_map.insert(make_pair(handle, shared_from_this()));
 
-	g_proxy_conn_map.insert(make_pair(handle, this));
-
-	netlib_option(handle, NETLIB_OPT_SET_CALLBACK, (void*)imconn_callback);
+	netlib_option(handle, NETLIB_OPT_SET_CALLBACK, (void*)imconn_callback_sp);
 	netlib_option(handle, NETLIB_OPT_SET_CALLBACK_DATA, (void*)&g_proxy_conn_map);
 	netlib_option(handle, NETLIB_OPT_GET_REMOTE_IP, (void*)&m_peer_ip);
 	netlib_option(handle, NETLIB_OPT_GET_REMOTE_PORT, (void*)&m_peer_port);
@@ -240,7 +247,7 @@ void CProxyConn::SendResponsePduList()
 		s_response_pdu_list.pop_front();
 		s_list_lock.unlock();
 
-		CProxyConn* pConn = get_proxy_conn_by_uuid(pResp->conn_uuid);
+		auto pConn = get_proxy_conn_by_uuid(pResp->conn_uuid);
 		if (pConn) {
 			if (pResp->pPdu) {
 				pConn->SendPdu(pResp->pPdu);

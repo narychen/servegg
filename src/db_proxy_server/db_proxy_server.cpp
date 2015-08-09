@@ -24,13 +24,15 @@
 #include "business/FileModel.h"
 #include "SyncCenter.h"
 
+using namespace std;
+
 string strAudioEnc;
 // this callback will be replaced by imconn_callback() in OnConnect()
 void proxy_serv_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
 {
 	if (msg == NETLIB_MSG_CONNECT)
 	{
-		CProxyConn* pConn = new CProxyConn();
+		auto pConn = shared_ptr<CProxyConn>(new CProxyConn());
 		pConn->OnConnect(handle);
 	}
 	else

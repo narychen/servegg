@@ -32,24 +32,11 @@ void msg_serv_callback(void* callback_data, uint8_t msg, uint32_t handle, void* 
 	}
 }
 
-void get_cur_time_fmt(char* s, int len)
-{
-	time_t t = time(nullptr);
-    struct tm* tm = localtime(&t);
-    snprintf(s, len, "%d-%d-%d_%d-%d-%d", 1900+tm->tm_year, 1+tm->tm_mon, tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec);
-}
-
 
 int main(int argc, char* argv[])
 {
-	if (access("core", F_OK) == 0) {
-		char s[100];
-		get_cur_time_fmt(s, 100);
-		char s2[100];
-		snprintf(s2, 100, "./core_bak/%s", s);
-		rename("core", s2);
-	}
-		
+	backup_core_file();
+	
 	if ((argc == 2) && (strcmp(argv[1], "-v") == 0)) {
 //		printf("Server Version: MsgServer/%s\n", VERSION);
 		printf("Server Build: %s %s\n", __DATE__, __TIME__);

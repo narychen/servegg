@@ -103,4 +103,6 @@ int64_t get_file_size(const char *path);
 const char*  memfind(const char *src_str,size_t src_len, const char *sub_str, size_t sub_len, bool flag = true);
 void print_stacktrace(FILE *out = stderr, unsigned int max_frames = 63);
 
+void backup_core_file();
+
 #endif

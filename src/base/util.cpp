@@ -455,3 +455,18 @@ void print_stacktrace(FILE *out, unsigned int max_frames)
     free(funcname);
     free(symbollist);
 }
+
+
+void backup_core_file()
+{
+	if (access("core", F_OK) == 0) {
+		time_t t = time(nullptr);
+	    struct tm* tm = localtime(&t);
+	    
+	    char s[100];
+	    snprintf(s, 100, "./core_bak/core_%d_%d_%d_%d_%d_%d", 1900+tm->tm_year, 
+	    	1+tm->tm_mon, tm->tm_mday, tm->tm_hour, tm->tm_min, tm->tm_sec);
+
+		rename("core", s);
+	}
+}
