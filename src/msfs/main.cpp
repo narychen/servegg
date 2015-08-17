@@ -123,7 +123,8 @@ void cxx_handler(int sig)
 
 int main(int argc, char* argv[])
 {
-    signal(SIGSEGV, cxx_handler);
+    backup_core_file();
+    // signal(SIGSEGV, cxx_handler);
     for(int i=0; i < argc; ++i)
        {
            if(strncmp(argv[i], "-d", 2) == 0)

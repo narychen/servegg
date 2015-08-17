@@ -12,7 +12,6 @@
 #include "HttpConn.h"
 #include "HttpParserWrapper.h"
 #include "atomic.h"
-
 static HttpConnMap_t g_http_conn_map;
 
 // conn_handle 从0开始递增，可以防止因socket handle重用引起的一些冲突
@@ -367,7 +366,7 @@ void  CHttpTask::OnDownload()
         string strPath;
         if(g_fileManager->getAbsPathByUrl(m_strUrl, strPath ) == 0)
         {
-            nTmpSize = File::getFileSize((char*)strPath.c_str());
+            nTmpSize = msfs::File::getFileSize((char*)strPath.c_str());
             if(nTmpSize != -1)
             {
                 char szResponseHeader[1024];

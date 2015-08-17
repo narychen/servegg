@@ -29,6 +29,7 @@ void route_serv_callback(void* callback_data, uint8_t msg, uint32_t handle, void
 
 int main(int argc, char* argv[])
 {
+	backup_core_file();
 	if ((argc == 2) && (strcmp(argv[1], "-v") == 0)) {
 		printf("Server Version: RouteServer/%s\n", VERSION);
 		printf("Server Build: %s %s\n", __DATE__, __TIME__);

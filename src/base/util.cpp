@@ -459,6 +459,8 @@ void print_stacktrace(FILE *out, unsigned int max_frames)
 
 void backup_core_file()
 {
+    if (access("core_bak", F_OK) != 0)
+        mkdir("core_bak", 0777);
 	if (access("core", F_OK) == 0) {
 		time_t t = time(nullptr);
 	    struct tm* tm = localtime(&t);

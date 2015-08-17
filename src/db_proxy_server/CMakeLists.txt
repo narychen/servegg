@@ -21,7 +21,7 @@ endif()
 SET(MYSQL_INCLUDE_DIR /usr/include/mysql)
 SET(MYSQL_LIB /usr/lib64/mysql)
 
-ADD_DEFINITIONS( -g -W -Wno-deprecated -Wno-unused-parameter -Wno-unused-function -Wno-unused-variable -fdiagnostics-color=always -Wall -D_REENTRANT -D_FILE_OFFSET_BITS=64 -DAC_HAS_INFO
+ADD_DEFINITIONS( -g -O0 -W -Wno-deprecated -Wno-unused-parameter -Wno-unused-function -Wno-unused-variable -fdiagnostics-color=always -Wall -D_REENTRANT -D_FILE_OFFSET_BITS=64 -DAC_HAS_INFO
 -DAC_HAS_WARNING -DAC_HAS_ERROR -DAC_HAS_CRITICAL -DTIXML_USE_STL
 -DAC_HAS_DEBUG -DLINUX_DAEMON -std=c++11 -DENCRYPT)
 

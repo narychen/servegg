@@ -66,8 +66,7 @@ void cxx_handler(int sig)
 
 int main(int argc, char* argv[])
 {
-	if(access("core", F_OK) == 0)
-		unlink("core");
+	backup_core_file();
 	
 	if ((argc == 2) && (strcmp(argv[1], "-v") == 0)) {
 		printf("Server Version: LoginServer/%s\n", VERSION);

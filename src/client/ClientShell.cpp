@@ -53,6 +53,7 @@ public:
 
 int main(int argc, char* argv[])
 {
+    backup_core_file();
 //    play("message.wav");
     // setlocale(LC_CTYPE, "UTF-8");
     printf("pid is %d\n", getpid());

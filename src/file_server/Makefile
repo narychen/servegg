@@ -35,11 +35,14 @@ CMAKE_COMMAND = /usr/bin/cmake
 # The command to remove a file.
 RM = /usr/bin/cmake -E remove -f
 
+# Escaping for special characters.
+EQUALS = =
+
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/benben/code/servegg/src/file_server
+CMAKE_SOURCE_DIR = /home/nary/servegg/src/file_server
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/benben/code/servegg/src/file_server
+CMAKE_BINARY_DIR = /home/nary/servegg/src/file_server
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -66,9 +69,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/benben/code/servegg/src/file_server/CMakeFiles /home/benben/code/servegg/src/file_server/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nary/servegg/src/file_server/CMakeFiles /home/nary/servegg/src/file_server/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/benben/code/servegg/src/file_server/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/nary/servegg/src/file_server/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -156,221 +159,797 @@ file_server.cpp.s:
 	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/file_server.cpp.s
 .PHONY : file_server.cpp.s
 
-home/benben/code/servegg/src/base/pb/protocol/IM.BaseDefine.pb.o: home/benben/code/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.o
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.BaseDefine.pb.o
+home/nary/servegg/src/base/Base64.o: home/nary/servegg/src/base/Base64.cpp.o
+.PHONY : home/nary/servegg/src/base/Base64.o
 
 # target to build an object file
-home/benben/code/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.o:
-	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/benben/code/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.o
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.o
+home/nary/servegg/src/base/Base64.cpp.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/Base64.cpp.o
+.PHONY : home/nary/servegg/src/base/Base64.cpp.o
 
-home/benben/code/servegg/src/base/pb/protocol/IM.BaseDefine.pb.i: home/benben/code/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.i
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.BaseDefine.pb.i
+home/nary/servegg/src/base/Base64.i: home/nary/servegg/src/base/Base64.cpp.i
+.PHONY : home/nary/servegg/src/base/Base64.i
 
 # target to preprocess a source file
-home/benben/code/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.i:
-	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/benben/code/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.i
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.i
+home/nary/servegg/src/base/Base64.cpp.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/Base64.cpp.i
+.PHONY : home/nary/servegg/src/base/Base64.cpp.i
 
-home/benben/code/servegg/src/base/pb/protocol/IM.BaseDefine.pb.s: home/benben/code/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.s
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.BaseDefine.pb.s
+home/nary/servegg/src/base/Base64.s: home/nary/servegg/src/base/Base64.cpp.s
+.PHONY : home/nary/servegg/src/base/Base64.s
 
 # target to generate assembly for a file
-home/benben/code/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.s:
-	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/benben/code/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.s
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.s
+home/nary/servegg/src/base/Base64.cpp.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/Base64.cpp.s
+.PHONY : home/nary/servegg/src/base/Base64.cpp.s
 
-home/benben/code/servegg/src/base/pb/protocol/IM.Buddy.pb.o: home/benben/code/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.o
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Buddy.pb.o
+home/nary/servegg/src/base/BaseSocket.o: home/nary/servegg/src/base/BaseSocket.cpp.o
+.PHONY : home/nary/servegg/src/base/BaseSocket.o
 
 # target to build an object file
-home/benben/code/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.o:
-	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/benben/code/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.o
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.o
+home/nary/servegg/src/base/BaseSocket.cpp.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/BaseSocket.cpp.o
+.PHONY : home/nary/servegg/src/base/BaseSocket.cpp.o
 
-home/benben/code/servegg/src/base/pb/protocol/IM.Buddy.pb.i: home/benben/code/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.i
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Buddy.pb.i
+home/nary/servegg/src/base/BaseSocket.i: home/nary/servegg/src/base/BaseSocket.cpp.i
+.PHONY : home/nary/servegg/src/base/BaseSocket.i
 
 # target to preprocess a source file
-home/benben/code/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.i:
-	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/benben/code/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.i
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.i
+home/nary/servegg/src/base/BaseSocket.cpp.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/BaseSocket.cpp.i
+.PHONY : home/nary/servegg/src/base/BaseSocket.cpp.i
 
-home/benben/code/servegg/src/base/pb/protocol/IM.Buddy.pb.s: home/benben/code/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.s
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Buddy.pb.s
+home/nary/servegg/src/base/BaseSocket.s: home/nary/servegg/src/base/BaseSocket.cpp.s
+.PHONY : home/nary/servegg/src/base/BaseSocket.s
 
 # target to generate assembly for a file
-home/benben/code/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.s:
-	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/benben/code/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.s
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.s
+home/nary/servegg/src/base/BaseSocket.cpp.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/BaseSocket.cpp.s
+.PHONY : home/nary/servegg/src/base/BaseSocket.cpp.s
 
-home/benben/code/servegg/src/base/pb/protocol/IM.File.pb.o: home/benben/code/servegg/src/base/pb/protocol/IM.File.pb.cc.o
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.File.pb.o
+home/nary/servegg/src/base/Condition.o: home/nary/servegg/src/base/Condition.cpp.o
+.PHONY : home/nary/servegg/src/base/Condition.o
 
 # target to build an object file
-home/benben/code/servegg/src/base/pb/protocol/IM.File.pb.cc.o:
-	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/benben/code/servegg/src/base/pb/protocol/IM.File.pb.cc.o
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.File.pb.cc.o
+home/nary/servegg/src/base/Condition.cpp.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/Condition.cpp.o
+.PHONY : home/nary/servegg/src/base/Condition.cpp.o
 
-home/benben/code/servegg/src/base/pb/protocol/IM.File.pb.i: home/benben/code/servegg/src/base/pb/protocol/IM.File.pb.cc.i
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.File.pb.i
+home/nary/servegg/src/base/Condition.i: home/nary/servegg/src/base/Condition.cpp.i
+.PHONY : home/nary/servegg/src/base/Condition.i
 
 # target to preprocess a source file
-home/benben/code/servegg/src/base/pb/protocol/IM.File.pb.cc.i:
-	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/benben/code/servegg/src/base/pb/protocol/IM.File.pb.cc.i
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.File.pb.cc.i
+home/nary/servegg/src/base/Condition.cpp.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/Condition.cpp.i
+.PHONY : home/nary/servegg/src/base/Condition.cpp.i
 
-home/benben/code/servegg/src/base/pb/protocol/IM.File.pb.s: home/benben/code/servegg/src/base/pb/protocol/IM.File.pb.cc.s
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.File.pb.s
+home/nary/servegg/src/base/Condition.s: home/nary/servegg/src/base/Condition.cpp.s
+.PHONY : home/nary/servegg/src/base/Condition.s
 
 # target to generate assembly for a file
-home/benben/code/servegg/src/base/pb/protocol/IM.File.pb.cc.s:
-	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/benben/code/servegg/src/base/pb/protocol/IM.File.pb.cc.s
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.File.pb.cc.s
+home/nary/servegg/src/base/Condition.cpp.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/Condition.cpp.s
+.PHONY : home/nary/servegg/src/base/Condition.cpp.s
 
-home/benben/code/servegg/src/base/pb/protocol/IM.Group.pb.o: home/benben/code/servegg/src/base/pb/protocol/IM.Group.pb.cc.o
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Group.pb.o
+home/nary/servegg/src/base/ConfigFileReader.o: home/nary/servegg/src/base/ConfigFileReader.cpp.o
+.PHONY : home/nary/servegg/src/base/ConfigFileReader.o
 
 # target to build an object file
-home/benben/code/servegg/src/base/pb/protocol/IM.Group.pb.cc.o:
-	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/benben/code/servegg/src/base/pb/protocol/IM.Group.pb.cc.o
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Group.pb.cc.o
+home/nary/servegg/src/base/ConfigFileReader.cpp.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/ConfigFileReader.cpp.o
+.PHONY : home/nary/servegg/src/base/ConfigFileReader.cpp.o
 
-home/benben/code/servegg/src/base/pb/protocol/IM.Group.pb.i: home/benben/code/servegg/src/base/pb/protocol/IM.Group.pb.cc.i
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Group.pb.i
+home/nary/servegg/src/base/ConfigFileReader.i: home/nary/servegg/src/base/ConfigFileReader.cpp.i
+.PHONY : home/nary/servegg/src/base/ConfigFileReader.i
 
 # target to preprocess a source file
-home/benben/code/servegg/src/base/pb/protocol/IM.Group.pb.cc.i:
-	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/benben/code/servegg/src/base/pb/protocol/IM.Group.pb.cc.i
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Group.pb.cc.i
+home/nary/servegg/src/base/ConfigFileReader.cpp.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/ConfigFileReader.cpp.i
+.PHONY : home/nary/servegg/src/base/ConfigFileReader.cpp.i
 
-home/benben/code/servegg/src/base/pb/protocol/IM.Group.pb.s: home/benben/code/servegg/src/base/pb/protocol/IM.Group.pb.cc.s
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Group.pb.s
+home/nary/servegg/src/base/ConfigFileReader.s: home/nary/servegg/src/base/ConfigFileReader.cpp.s
+.PHONY : home/nary/servegg/src/base/ConfigFileReader.s
 
 # target to generate assembly for a file
-home/benben/code/servegg/src/base/pb/protocol/IM.Group.pb.cc.s:
-	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/benben/code/servegg/src/base/pb/protocol/IM.Group.pb.cc.s
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Group.pb.cc.s
+home/nary/servegg/src/base/ConfigFileReader.cpp.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/ConfigFileReader.cpp.s
+.PHONY : home/nary/servegg/src/base/ConfigFileReader.cpp.s
 
-home/benben/code/servegg/src/base/pb/protocol/IM.Login.pb.o: home/benben/code/servegg/src/base/pb/protocol/IM.Login.pb.cc.o
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Login.pb.o
+home/nary/servegg/src/base/EncDec.o: home/nary/servegg/src/base/EncDec.cpp.o
+.PHONY : home/nary/servegg/src/base/EncDec.o
 
 # target to build an object file
-home/benben/code/servegg/src/base/pb/protocol/IM.Login.pb.cc.o:
-	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/benben/code/servegg/src/base/pb/protocol/IM.Login.pb.cc.o
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Login.pb.cc.o
+home/nary/servegg/src/base/EncDec.cpp.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/EncDec.cpp.o
+.PHONY : home/nary/servegg/src/base/EncDec.cpp.o
 
-home/benben/code/servegg/src/base/pb/protocol/IM.Login.pb.i: home/benben/code/servegg/src/base/pb/protocol/IM.Login.pb.cc.i
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Login.pb.i
+home/nary/servegg/src/base/EncDec.i: home/nary/servegg/src/base/EncDec.cpp.i
+.PHONY : home/nary/servegg/src/base/EncDec.i
 
 # target to preprocess a source file
-home/benben/code/servegg/src/base/pb/protocol/IM.Login.pb.cc.i:
-	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/benben/code/servegg/src/base/pb/protocol/IM.Login.pb.cc.i
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Login.pb.cc.i
+home/nary/servegg/src/base/EncDec.cpp.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/EncDec.cpp.i
+.PHONY : home/nary/servegg/src/base/EncDec.cpp.i
 
-home/benben/code/servegg/src/base/pb/protocol/IM.Login.pb.s: home/benben/code/servegg/src/base/pb/protocol/IM.Login.pb.cc.s
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Login.pb.s
+home/nary/servegg/src/base/EncDec.s: home/nary/servegg/src/base/EncDec.cpp.s
+.PHONY : home/nary/servegg/src/base/EncDec.s
 
 # target to generate assembly for a file
-home/benben/code/servegg/src/base/pb/protocol/IM.Login.pb.cc.s:
-	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/benben/code/servegg/src/base/pb/protocol/IM.Login.pb.cc.s
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Login.pb.cc.s
+home/nary/servegg/src/base/EncDec.cpp.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/EncDec.cpp.s
+.PHONY : home/nary/servegg/src/base/EncDec.cpp.s
 
-home/benben/code/servegg/src/base/pb/protocol/IM.Message.pb.o: home/benben/code/servegg/src/base/pb/protocol/IM.Message.pb.cc.o
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Message.pb.o
+home/nary/servegg/src/base/EventDispatch.o: home/nary/servegg/src/base/EventDispatch.cpp.o
+.PHONY : home/nary/servegg/src/base/EventDispatch.o
 
 # target to build an object file
-home/benben/code/servegg/src/base/pb/protocol/IM.Message.pb.cc.o:
-	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/benben/code/servegg/src/base/pb/protocol/IM.Message.pb.cc.o
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Message.pb.cc.o
+home/nary/servegg/src/base/EventDispatch.cpp.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/EventDispatch.cpp.o
+.PHONY : home/nary/servegg/src/base/EventDispatch.cpp.o
 
-home/benben/code/servegg/src/base/pb/protocol/IM.Message.pb.i: home/benben/code/servegg/src/base/pb/protocol/IM.Message.pb.cc.i
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Message.pb.i
+home/nary/servegg/src/base/EventDispatch.i: home/nary/servegg/src/base/EventDispatch.cpp.i
+.PHONY : home/nary/servegg/src/base/EventDispatch.i
 
 # target to preprocess a source file
-home/benben/code/servegg/src/base/pb/protocol/IM.Message.pb.cc.i:
-	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/benben/code/servegg/src/base/pb/protocol/IM.Message.pb.cc.i
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Message.pb.cc.i
+home/nary/servegg/src/base/EventDispatch.cpp.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/EventDispatch.cpp.i
+.PHONY : home/nary/servegg/src/base/EventDispatch.cpp.i
 
-home/benben/code/servegg/src/base/pb/protocol/IM.Message.pb.s: home/benben/code/servegg/src/base/pb/protocol/IM.Message.pb.cc.s
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Message.pb.s
+home/nary/servegg/src/base/EventDispatch.s: home/nary/servegg/src/base/EventDispatch.cpp.s
+.PHONY : home/nary/servegg/src/base/EventDispatch.s
 
 # target to generate assembly for a file
-home/benben/code/servegg/src/base/pb/protocol/IM.Message.pb.cc.s:
-	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/benben/code/servegg/src/base/pb/protocol/IM.Message.pb.cc.s
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Message.pb.cc.s
+home/nary/servegg/src/base/EventDispatch.cpp.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/EventDispatch.cpp.s
+.PHONY : home/nary/servegg/src/base/EventDispatch.cpp.s
 
-home/benben/code/servegg/src/base/pb/protocol/IM.Other.pb.o: home/benben/code/servegg/src/base/pb/protocol/IM.Other.pb.cc.o
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Other.pb.o
+home/nary/servegg/src/base/HttpClient.o: home/nary/servegg/src/base/HttpClient.cpp.o
+.PHONY : home/nary/servegg/src/base/HttpClient.o
 
 # target to build an object file
-home/benben/code/servegg/src/base/pb/protocol/IM.Other.pb.cc.o:
-	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/benben/code/servegg/src/base/pb/protocol/IM.Other.pb.cc.o
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Other.pb.cc.o
+home/nary/servegg/src/base/HttpClient.cpp.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/HttpClient.cpp.o
+.PHONY : home/nary/servegg/src/base/HttpClient.cpp.o
 
-home/benben/code/servegg/src/base/pb/protocol/IM.Other.pb.i: home/benben/code/servegg/src/base/pb/protocol/IM.Other.pb.cc.i
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Other.pb.i
+home/nary/servegg/src/base/HttpClient.i: home/nary/servegg/src/base/HttpClient.cpp.i
+.PHONY : home/nary/servegg/src/base/HttpClient.i
 
 # target to preprocess a source file
-home/benben/code/servegg/src/base/pb/protocol/IM.Other.pb.cc.i:
-	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/benben/code/servegg/src/base/pb/protocol/IM.Other.pb.cc.i
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Other.pb.cc.i
+home/nary/servegg/src/base/HttpClient.cpp.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/HttpClient.cpp.i
+.PHONY : home/nary/servegg/src/base/HttpClient.cpp.i
 
-home/benben/code/servegg/src/base/pb/protocol/IM.Other.pb.s: home/benben/code/servegg/src/base/pb/protocol/IM.Other.pb.cc.s
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Other.pb.s
+home/nary/servegg/src/base/HttpClient.s: home/nary/servegg/src/base/HttpClient.cpp.s
+.PHONY : home/nary/servegg/src/base/HttpClient.s
 
 # target to generate assembly for a file
-home/benben/code/servegg/src/base/pb/protocol/IM.Other.pb.cc.s:
-	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/benben/code/servegg/src/base/pb/protocol/IM.Other.pb.cc.s
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Other.pb.cc.s
+home/nary/servegg/src/base/HttpClient.cpp.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/HttpClient.cpp.s
+.PHONY : home/nary/servegg/src/base/HttpClient.cpp.s
 
-home/benben/code/servegg/src/base/pb/protocol/IM.Server.pb.o: home/benben/code/servegg/src/base/pb/protocol/IM.Server.pb.cc.o
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Server.pb.o
+home/nary/servegg/src/base/HttpParserWrapper.o: home/nary/servegg/src/base/HttpParserWrapper.cpp.o
+.PHONY : home/nary/servegg/src/base/HttpParserWrapper.o
 
 # target to build an object file
-home/benben/code/servegg/src/base/pb/protocol/IM.Server.pb.cc.o:
-	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/benben/code/servegg/src/base/pb/protocol/IM.Server.pb.cc.o
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Server.pb.cc.o
+home/nary/servegg/src/base/HttpParserWrapper.cpp.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/HttpParserWrapper.cpp.o
+.PHONY : home/nary/servegg/src/base/HttpParserWrapper.cpp.o
 
-home/benben/code/servegg/src/base/pb/protocol/IM.Server.pb.i: home/benben/code/servegg/src/base/pb/protocol/IM.Server.pb.cc.i
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Server.pb.i
+home/nary/servegg/src/base/HttpParserWrapper.i: home/nary/servegg/src/base/HttpParserWrapper.cpp.i
+.PHONY : home/nary/servegg/src/base/HttpParserWrapper.i
 
 # target to preprocess a source file
-home/benben/code/servegg/src/base/pb/protocol/IM.Server.pb.cc.i:
-	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/benben/code/servegg/src/base/pb/protocol/IM.Server.pb.cc.i
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Server.pb.cc.i
+home/nary/servegg/src/base/HttpParserWrapper.cpp.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/HttpParserWrapper.cpp.i
+.PHONY : home/nary/servegg/src/base/HttpParserWrapper.cpp.i
 
-home/benben/code/servegg/src/base/pb/protocol/IM.Server.pb.s: home/benben/code/servegg/src/base/pb/protocol/IM.Server.pb.cc.s
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Server.pb.s
+home/nary/servegg/src/base/HttpParserWrapper.s: home/nary/servegg/src/base/HttpParserWrapper.cpp.s
+.PHONY : home/nary/servegg/src/base/HttpParserWrapper.s
 
 # target to generate assembly for a file
-home/benben/code/servegg/src/base/pb/protocol/IM.Server.pb.cc.s:
-	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/benben/code/servegg/src/base/pb/protocol/IM.Server.pb.cc.s
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.Server.pb.cc.s
+home/nary/servegg/src/base/HttpParserWrapper.cpp.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/HttpParserWrapper.cpp.s
+.PHONY : home/nary/servegg/src/base/HttpParserWrapper.cpp.s
 
-home/benben/code/servegg/src/base/pb/protocol/IM.SwitchService.pb.o: home/benben/code/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.o
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.SwitchService.pb.o
+home/nary/servegg/src/base/ImPduBase.o: home/nary/servegg/src/base/ImPduBase.cpp.o
+.PHONY : home/nary/servegg/src/base/ImPduBase.o
 
 # target to build an object file
-home/benben/code/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.o:
-	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/benben/code/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.o
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.o
+home/nary/servegg/src/base/ImPduBase.cpp.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/ImPduBase.cpp.o
+.PHONY : home/nary/servegg/src/base/ImPduBase.cpp.o
 
-home/benben/code/servegg/src/base/pb/protocol/IM.SwitchService.pb.i: home/benben/code/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.i
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.SwitchService.pb.i
+home/nary/servegg/src/base/ImPduBase.i: home/nary/servegg/src/base/ImPduBase.cpp.i
+.PHONY : home/nary/servegg/src/base/ImPduBase.i
 
 # target to preprocess a source file
-home/benben/code/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.i:
-	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/benben/code/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.i
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.i
+home/nary/servegg/src/base/ImPduBase.cpp.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/ImPduBase.cpp.i
+.PHONY : home/nary/servegg/src/base/ImPduBase.cpp.i
 
-home/benben/code/servegg/src/base/pb/protocol/IM.SwitchService.pb.s: home/benben/code/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.s
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.SwitchService.pb.s
+home/nary/servegg/src/base/ImPduBase.s: home/nary/servegg/src/base/ImPduBase.cpp.s
+.PHONY : home/nary/servegg/src/base/ImPduBase.s
 
 # target to generate assembly for a file
-home/benben/code/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.s:
-	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/benben/code/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.s
-.PHONY : home/benben/code/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.s
+home/nary/servegg/src/base/ImPduBase.cpp.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/ImPduBase.cpp.s
+.PHONY : home/nary/servegg/src/base/ImPduBase.cpp.s
+
+home/nary/servegg/src/base/Lock.o: home/nary/servegg/src/base/Lock.cpp.o
+.PHONY : home/nary/servegg/src/base/Lock.o
+
+# target to build an object file
+home/nary/servegg/src/base/Lock.cpp.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/Lock.cpp.o
+.PHONY : home/nary/servegg/src/base/Lock.cpp.o
+
+home/nary/servegg/src/base/Lock.i: home/nary/servegg/src/base/Lock.cpp.i
+.PHONY : home/nary/servegg/src/base/Lock.i
+
+# target to preprocess a source file
+home/nary/servegg/src/base/Lock.cpp.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/Lock.cpp.i
+.PHONY : home/nary/servegg/src/base/Lock.cpp.i
+
+home/nary/servegg/src/base/Lock.s: home/nary/servegg/src/base/Lock.cpp.s
+.PHONY : home/nary/servegg/src/base/Lock.s
+
+# target to generate assembly for a file
+home/nary/servegg/src/base/Lock.cpp.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/Lock.cpp.s
+.PHONY : home/nary/servegg/src/base/Lock.cpp.s
+
+home/nary/servegg/src/base/SeqAlloctor.o: home/nary/servegg/src/base/SeqAlloctor.cpp.o
+.PHONY : home/nary/servegg/src/base/SeqAlloctor.o
+
+# target to build an object file
+home/nary/servegg/src/base/SeqAlloctor.cpp.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/SeqAlloctor.cpp.o
+.PHONY : home/nary/servegg/src/base/SeqAlloctor.cpp.o
+
+home/nary/servegg/src/base/SeqAlloctor.i: home/nary/servegg/src/base/SeqAlloctor.cpp.i
+.PHONY : home/nary/servegg/src/base/SeqAlloctor.i
+
+# target to preprocess a source file
+home/nary/servegg/src/base/SeqAlloctor.cpp.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/SeqAlloctor.cpp.i
+.PHONY : home/nary/servegg/src/base/SeqAlloctor.cpp.i
+
+home/nary/servegg/src/base/SeqAlloctor.s: home/nary/servegg/src/base/SeqAlloctor.cpp.s
+.PHONY : home/nary/servegg/src/base/SeqAlloctor.s
+
+# target to generate assembly for a file
+home/nary/servegg/src/base/SeqAlloctor.cpp.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/SeqAlloctor.cpp.s
+.PHONY : home/nary/servegg/src/base/SeqAlloctor.cpp.s
+
+home/nary/servegg/src/base/ServInfo.o: home/nary/servegg/src/base/ServInfo.cpp.o
+.PHONY : home/nary/servegg/src/base/ServInfo.o
+
+# target to build an object file
+home/nary/servegg/src/base/ServInfo.cpp.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/ServInfo.cpp.o
+.PHONY : home/nary/servegg/src/base/ServInfo.cpp.o
+
+home/nary/servegg/src/base/ServInfo.i: home/nary/servegg/src/base/ServInfo.cpp.i
+.PHONY : home/nary/servegg/src/base/ServInfo.i
+
+# target to preprocess a source file
+home/nary/servegg/src/base/ServInfo.cpp.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/ServInfo.cpp.i
+.PHONY : home/nary/servegg/src/base/ServInfo.cpp.i
+
+home/nary/servegg/src/base/ServInfo.s: home/nary/servegg/src/base/ServInfo.cpp.s
+.PHONY : home/nary/servegg/src/base/ServInfo.s
+
+# target to generate assembly for a file
+home/nary/servegg/src/base/ServInfo.cpp.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/ServInfo.cpp.s
+.PHONY : home/nary/servegg/src/base/ServInfo.cpp.s
+
+home/nary/servegg/src/base/Thread.o: home/nary/servegg/src/base/Thread.cpp.o
+.PHONY : home/nary/servegg/src/base/Thread.o
+
+# target to build an object file
+home/nary/servegg/src/base/Thread.cpp.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/Thread.cpp.o
+.PHONY : home/nary/servegg/src/base/Thread.cpp.o
+
+home/nary/servegg/src/base/Thread.i: home/nary/servegg/src/base/Thread.cpp.i
+.PHONY : home/nary/servegg/src/base/Thread.i
+
+# target to preprocess a source file
+home/nary/servegg/src/base/Thread.cpp.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/Thread.cpp.i
+.PHONY : home/nary/servegg/src/base/Thread.cpp.i
+
+home/nary/servegg/src/base/Thread.s: home/nary/servegg/src/base/Thread.cpp.s
+.PHONY : home/nary/servegg/src/base/Thread.s
+
+# target to generate assembly for a file
+home/nary/servegg/src/base/Thread.cpp.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/Thread.cpp.s
+.PHONY : home/nary/servegg/src/base/Thread.cpp.s
+
+home/nary/servegg/src/base/ThreadPool.o: home/nary/servegg/src/base/ThreadPool.cpp.o
+.PHONY : home/nary/servegg/src/base/ThreadPool.o
+
+# target to build an object file
+home/nary/servegg/src/base/ThreadPool.cpp.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/ThreadPool.cpp.o
+.PHONY : home/nary/servegg/src/base/ThreadPool.cpp.o
+
+home/nary/servegg/src/base/ThreadPool.i: home/nary/servegg/src/base/ThreadPool.cpp.i
+.PHONY : home/nary/servegg/src/base/ThreadPool.i
+
+# target to preprocess a source file
+home/nary/servegg/src/base/ThreadPool.cpp.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/ThreadPool.cpp.i
+.PHONY : home/nary/servegg/src/base/ThreadPool.cpp.i
+
+home/nary/servegg/src/base/ThreadPool.s: home/nary/servegg/src/base/ThreadPool.cpp.s
+.PHONY : home/nary/servegg/src/base/ThreadPool.s
+
+# target to generate assembly for a file
+home/nary/servegg/src/base/ThreadPool.cpp.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/ThreadPool.cpp.s
+.PHONY : home/nary/servegg/src/base/ThreadPool.cpp.s
+
+home/nary/servegg/src/base/TokenValidator.o: home/nary/servegg/src/base/TokenValidator.cpp.o
+.PHONY : home/nary/servegg/src/base/TokenValidator.o
+
+# target to build an object file
+home/nary/servegg/src/base/TokenValidator.cpp.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/TokenValidator.cpp.o
+.PHONY : home/nary/servegg/src/base/TokenValidator.cpp.o
+
+home/nary/servegg/src/base/TokenValidator.i: home/nary/servegg/src/base/TokenValidator.cpp.i
+.PHONY : home/nary/servegg/src/base/TokenValidator.i
+
+# target to preprocess a source file
+home/nary/servegg/src/base/TokenValidator.cpp.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/TokenValidator.cpp.i
+.PHONY : home/nary/servegg/src/base/TokenValidator.cpp.i
+
+home/nary/servegg/src/base/TokenValidator.s: home/nary/servegg/src/base/TokenValidator.cpp.s
+.PHONY : home/nary/servegg/src/base/TokenValidator.s
+
+# target to generate assembly for a file
+home/nary/servegg/src/base/TokenValidator.cpp.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/TokenValidator.cpp.s
+.PHONY : home/nary/servegg/src/base/TokenValidator.cpp.s
+
+home/nary/servegg/src/base/UtilPdu.o: home/nary/servegg/src/base/UtilPdu.cpp.o
+.PHONY : home/nary/servegg/src/base/UtilPdu.o
+
+# target to build an object file
+home/nary/servegg/src/base/UtilPdu.cpp.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/UtilPdu.cpp.o
+.PHONY : home/nary/servegg/src/base/UtilPdu.cpp.o
+
+home/nary/servegg/src/base/UtilPdu.i: home/nary/servegg/src/base/UtilPdu.cpp.i
+.PHONY : home/nary/servegg/src/base/UtilPdu.i
+
+# target to preprocess a source file
+home/nary/servegg/src/base/UtilPdu.cpp.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/UtilPdu.cpp.i
+.PHONY : home/nary/servegg/src/base/UtilPdu.cpp.i
+
+home/nary/servegg/src/base/UtilPdu.s: home/nary/servegg/src/base/UtilPdu.cpp.s
+.PHONY : home/nary/servegg/src/base/UtilPdu.s
+
+# target to generate assembly for a file
+home/nary/servegg/src/base/UtilPdu.cpp.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/UtilPdu.cpp.s
+.PHONY : home/nary/servegg/src/base/UtilPdu.cpp.s
+
+home/nary/servegg/src/base/http_parser.o: home/nary/servegg/src/base/http_parser.cpp.o
+.PHONY : home/nary/servegg/src/base/http_parser.o
+
+# target to build an object file
+home/nary/servegg/src/base/http_parser.cpp.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/http_parser.cpp.o
+.PHONY : home/nary/servegg/src/base/http_parser.cpp.o
+
+home/nary/servegg/src/base/http_parser.i: home/nary/servegg/src/base/http_parser.cpp.i
+.PHONY : home/nary/servegg/src/base/http_parser.i
+
+# target to preprocess a source file
+home/nary/servegg/src/base/http_parser.cpp.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/http_parser.cpp.i
+.PHONY : home/nary/servegg/src/base/http_parser.cpp.i
+
+home/nary/servegg/src/base/http_parser.s: home/nary/servegg/src/base/http_parser.cpp.s
+.PHONY : home/nary/servegg/src/base/http_parser.s
+
+# target to generate assembly for a file
+home/nary/servegg/src/base/http_parser.cpp.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/http_parser.cpp.s
+.PHONY : home/nary/servegg/src/base/http_parser.cpp.s
+
+home/nary/servegg/src/base/imconn.o: home/nary/servegg/src/base/imconn.cpp.o
+.PHONY : home/nary/servegg/src/base/imconn.o
+
+# target to build an object file
+home/nary/servegg/src/base/imconn.cpp.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/imconn.cpp.o
+.PHONY : home/nary/servegg/src/base/imconn.cpp.o
+
+home/nary/servegg/src/base/imconn.i: home/nary/servegg/src/base/imconn.cpp.i
+.PHONY : home/nary/servegg/src/base/imconn.i
+
+# target to preprocess a source file
+home/nary/servegg/src/base/imconn.cpp.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/imconn.cpp.i
+.PHONY : home/nary/servegg/src/base/imconn.cpp.i
+
+home/nary/servegg/src/base/imconn.s: home/nary/servegg/src/base/imconn.cpp.s
+.PHONY : home/nary/servegg/src/base/imconn.s
+
+# target to generate assembly for a file
+home/nary/servegg/src/base/imconn.cpp.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/imconn.cpp.s
+.PHONY : home/nary/servegg/src/base/imconn.cpp.s
+
+home/nary/servegg/src/base/jsoncpp/json_reader.o: home/nary/servegg/src/base/jsoncpp/json_reader.cpp.o
+.PHONY : home/nary/servegg/src/base/jsoncpp/json_reader.o
+
+# target to build an object file
+home/nary/servegg/src/base/jsoncpp/json_reader.cpp.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/jsoncpp/json_reader.cpp.o
+.PHONY : home/nary/servegg/src/base/jsoncpp/json_reader.cpp.o
+
+home/nary/servegg/src/base/jsoncpp/json_reader.i: home/nary/servegg/src/base/jsoncpp/json_reader.cpp.i
+.PHONY : home/nary/servegg/src/base/jsoncpp/json_reader.i
+
+# target to preprocess a source file
+home/nary/servegg/src/base/jsoncpp/json_reader.cpp.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/jsoncpp/json_reader.cpp.i
+.PHONY : home/nary/servegg/src/base/jsoncpp/json_reader.cpp.i
+
+home/nary/servegg/src/base/jsoncpp/json_reader.s: home/nary/servegg/src/base/jsoncpp/json_reader.cpp.s
+.PHONY : home/nary/servegg/src/base/jsoncpp/json_reader.s
+
+# target to generate assembly for a file
+home/nary/servegg/src/base/jsoncpp/json_reader.cpp.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/jsoncpp/json_reader.cpp.s
+.PHONY : home/nary/servegg/src/base/jsoncpp/json_reader.cpp.s
+
+home/nary/servegg/src/base/jsoncpp/json_value.o: home/nary/servegg/src/base/jsoncpp/json_value.cpp.o
+.PHONY : home/nary/servegg/src/base/jsoncpp/json_value.o
+
+# target to build an object file
+home/nary/servegg/src/base/jsoncpp/json_value.cpp.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/jsoncpp/json_value.cpp.o
+.PHONY : home/nary/servegg/src/base/jsoncpp/json_value.cpp.o
+
+home/nary/servegg/src/base/jsoncpp/json_value.i: home/nary/servegg/src/base/jsoncpp/json_value.cpp.i
+.PHONY : home/nary/servegg/src/base/jsoncpp/json_value.i
+
+# target to preprocess a source file
+home/nary/servegg/src/base/jsoncpp/json_value.cpp.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/jsoncpp/json_value.cpp.i
+.PHONY : home/nary/servegg/src/base/jsoncpp/json_value.cpp.i
+
+home/nary/servegg/src/base/jsoncpp/json_value.s: home/nary/servegg/src/base/jsoncpp/json_value.cpp.s
+.PHONY : home/nary/servegg/src/base/jsoncpp/json_value.s
+
+# target to generate assembly for a file
+home/nary/servegg/src/base/jsoncpp/json_value.cpp.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/jsoncpp/json_value.cpp.s
+.PHONY : home/nary/servegg/src/base/jsoncpp/json_value.cpp.s
+
+home/nary/servegg/src/base/jsoncpp/json_writer.o: home/nary/servegg/src/base/jsoncpp/json_writer.cpp.o
+.PHONY : home/nary/servegg/src/base/jsoncpp/json_writer.o
+
+# target to build an object file
+home/nary/servegg/src/base/jsoncpp/json_writer.cpp.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/jsoncpp/json_writer.cpp.o
+.PHONY : home/nary/servegg/src/base/jsoncpp/json_writer.cpp.o
+
+home/nary/servegg/src/base/jsoncpp/json_writer.i: home/nary/servegg/src/base/jsoncpp/json_writer.cpp.i
+.PHONY : home/nary/servegg/src/base/jsoncpp/json_writer.i
+
+# target to preprocess a source file
+home/nary/servegg/src/base/jsoncpp/json_writer.cpp.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/jsoncpp/json_writer.cpp.i
+.PHONY : home/nary/servegg/src/base/jsoncpp/json_writer.cpp.i
+
+home/nary/servegg/src/base/jsoncpp/json_writer.s: home/nary/servegg/src/base/jsoncpp/json_writer.cpp.s
+.PHONY : home/nary/servegg/src/base/jsoncpp/json_writer.s
+
+# target to generate assembly for a file
+home/nary/servegg/src/base/jsoncpp/json_writer.cpp.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/jsoncpp/json_writer.cpp.s
+.PHONY : home/nary/servegg/src/base/jsoncpp/json_writer.cpp.s
+
+home/nary/servegg/src/base/log4z.o: home/nary/servegg/src/base/log4z.cpp.o
+.PHONY : home/nary/servegg/src/base/log4z.o
+
+# target to build an object file
+home/nary/servegg/src/base/log4z.cpp.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/log4z.cpp.o
+.PHONY : home/nary/servegg/src/base/log4z.cpp.o
+
+home/nary/servegg/src/base/log4z.i: home/nary/servegg/src/base/log4z.cpp.i
+.PHONY : home/nary/servegg/src/base/log4z.i
+
+# target to preprocess a source file
+home/nary/servegg/src/base/log4z.cpp.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/log4z.cpp.i
+.PHONY : home/nary/servegg/src/base/log4z.cpp.i
+
+home/nary/servegg/src/base/log4z.s: home/nary/servegg/src/base/log4z.cpp.s
+.PHONY : home/nary/servegg/src/base/log4z.s
+
+# target to generate assembly for a file
+home/nary/servegg/src/base/log4z.cpp.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/log4z.cpp.s
+.PHONY : home/nary/servegg/src/base/log4z.cpp.s
+
+home/nary/servegg/src/base/netlib.o: home/nary/servegg/src/base/netlib.cpp.o
+.PHONY : home/nary/servegg/src/base/netlib.o
+
+# target to build an object file
+home/nary/servegg/src/base/netlib.cpp.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/netlib.cpp.o
+.PHONY : home/nary/servegg/src/base/netlib.cpp.o
+
+home/nary/servegg/src/base/netlib.i: home/nary/servegg/src/base/netlib.cpp.i
+.PHONY : home/nary/servegg/src/base/netlib.i
+
+# target to preprocess a source file
+home/nary/servegg/src/base/netlib.cpp.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/netlib.cpp.i
+.PHONY : home/nary/servegg/src/base/netlib.cpp.i
+
+home/nary/servegg/src/base/netlib.s: home/nary/servegg/src/base/netlib.cpp.s
+.PHONY : home/nary/servegg/src/base/netlib.s
+
+# target to generate assembly for a file
+home/nary/servegg/src/base/netlib.cpp.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/netlib.cpp.s
+.PHONY : home/nary/servegg/src/base/netlib.cpp.s
+
+home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.o: home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.o
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.o
+
+# target to build an object file
+home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.o
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.o
+
+home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.i: home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.i
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.i
+
+# target to preprocess a source file
+home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.i
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.i
+
+home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.s: home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.s
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.s
+
+# target to generate assembly for a file
+home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.s
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.s
+
+home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.o: home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.o
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.o
+
+# target to build an object file
+home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.o
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.o
+
+home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.i: home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.i
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.i
+
+# target to preprocess a source file
+home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.i
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.i
+
+home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.s: home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.s
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.s
+
+# target to generate assembly for a file
+home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.s
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.s
+
+home/nary/servegg/src/base/pb/protocol/IM.File.pb.o: home/nary/servegg/src/base/pb/protocol/IM.File.pb.cc.o
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.File.pb.o
+
+# target to build an object file
+home/nary/servegg/src/base/pb/protocol/IM.File.pb.cc.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/pb/protocol/IM.File.pb.cc.o
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.File.pb.cc.o
+
+home/nary/servegg/src/base/pb/protocol/IM.File.pb.i: home/nary/servegg/src/base/pb/protocol/IM.File.pb.cc.i
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.File.pb.i
+
+# target to preprocess a source file
+home/nary/servegg/src/base/pb/protocol/IM.File.pb.cc.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/pb/protocol/IM.File.pb.cc.i
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.File.pb.cc.i
+
+home/nary/servegg/src/base/pb/protocol/IM.File.pb.s: home/nary/servegg/src/base/pb/protocol/IM.File.pb.cc.s
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.File.pb.s
+
+# target to generate assembly for a file
+home/nary/servegg/src/base/pb/protocol/IM.File.pb.cc.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/pb/protocol/IM.File.pb.cc.s
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.File.pb.cc.s
+
+home/nary/servegg/src/base/pb/protocol/IM.Group.pb.o: home/nary/servegg/src/base/pb/protocol/IM.Group.pb.cc.o
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Group.pb.o
+
+# target to build an object file
+home/nary/servegg/src/base/pb/protocol/IM.Group.pb.cc.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Group.pb.cc.o
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Group.pb.cc.o
+
+home/nary/servegg/src/base/pb/protocol/IM.Group.pb.i: home/nary/servegg/src/base/pb/protocol/IM.Group.pb.cc.i
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Group.pb.i
+
+# target to preprocess a source file
+home/nary/servegg/src/base/pb/protocol/IM.Group.pb.cc.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Group.pb.cc.i
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Group.pb.cc.i
+
+home/nary/servegg/src/base/pb/protocol/IM.Group.pb.s: home/nary/servegg/src/base/pb/protocol/IM.Group.pb.cc.s
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Group.pb.s
+
+# target to generate assembly for a file
+home/nary/servegg/src/base/pb/protocol/IM.Group.pb.cc.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Group.pb.cc.s
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Group.pb.cc.s
+
+home/nary/servegg/src/base/pb/protocol/IM.Login.pb.o: home/nary/servegg/src/base/pb/protocol/IM.Login.pb.cc.o
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Login.pb.o
+
+# target to build an object file
+home/nary/servegg/src/base/pb/protocol/IM.Login.pb.cc.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Login.pb.cc.o
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Login.pb.cc.o
+
+home/nary/servegg/src/base/pb/protocol/IM.Login.pb.i: home/nary/servegg/src/base/pb/protocol/IM.Login.pb.cc.i
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Login.pb.i
+
+# target to preprocess a source file
+home/nary/servegg/src/base/pb/protocol/IM.Login.pb.cc.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Login.pb.cc.i
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Login.pb.cc.i
+
+home/nary/servegg/src/base/pb/protocol/IM.Login.pb.s: home/nary/servegg/src/base/pb/protocol/IM.Login.pb.cc.s
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Login.pb.s
+
+# target to generate assembly for a file
+home/nary/servegg/src/base/pb/protocol/IM.Login.pb.cc.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Login.pb.cc.s
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Login.pb.cc.s
+
+home/nary/servegg/src/base/pb/protocol/IM.Message.pb.o: home/nary/servegg/src/base/pb/protocol/IM.Message.pb.cc.o
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Message.pb.o
+
+# target to build an object file
+home/nary/servegg/src/base/pb/protocol/IM.Message.pb.cc.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Message.pb.cc.o
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Message.pb.cc.o
+
+home/nary/servegg/src/base/pb/protocol/IM.Message.pb.i: home/nary/servegg/src/base/pb/protocol/IM.Message.pb.cc.i
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Message.pb.i
+
+# target to preprocess a source file
+home/nary/servegg/src/base/pb/protocol/IM.Message.pb.cc.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Message.pb.cc.i
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Message.pb.cc.i
+
+home/nary/servegg/src/base/pb/protocol/IM.Message.pb.s: home/nary/servegg/src/base/pb/protocol/IM.Message.pb.cc.s
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Message.pb.s
+
+# target to generate assembly for a file
+home/nary/servegg/src/base/pb/protocol/IM.Message.pb.cc.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Message.pb.cc.s
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Message.pb.cc.s
+
+home/nary/servegg/src/base/pb/protocol/IM.Other.pb.o: home/nary/servegg/src/base/pb/protocol/IM.Other.pb.cc.o
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Other.pb.o
+
+# target to build an object file
+home/nary/servegg/src/base/pb/protocol/IM.Other.pb.cc.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Other.pb.cc.o
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Other.pb.cc.o
+
+home/nary/servegg/src/base/pb/protocol/IM.Other.pb.i: home/nary/servegg/src/base/pb/protocol/IM.Other.pb.cc.i
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Other.pb.i
+
+# target to preprocess a source file
+home/nary/servegg/src/base/pb/protocol/IM.Other.pb.cc.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Other.pb.cc.i
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Other.pb.cc.i
+
+home/nary/servegg/src/base/pb/protocol/IM.Other.pb.s: home/nary/servegg/src/base/pb/protocol/IM.Other.pb.cc.s
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Other.pb.s
+
+# target to generate assembly for a file
+home/nary/servegg/src/base/pb/protocol/IM.Other.pb.cc.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Other.pb.cc.s
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Other.pb.cc.s
+
+home/nary/servegg/src/base/pb/protocol/IM.Server.pb.o: home/nary/servegg/src/base/pb/protocol/IM.Server.pb.cc.o
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Server.pb.o
+
+# target to build an object file
+home/nary/servegg/src/base/pb/protocol/IM.Server.pb.cc.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Server.pb.cc.o
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Server.pb.cc.o
+
+home/nary/servegg/src/base/pb/protocol/IM.Server.pb.i: home/nary/servegg/src/base/pb/protocol/IM.Server.pb.cc.i
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Server.pb.i
+
+# target to preprocess a source file
+home/nary/servegg/src/base/pb/protocol/IM.Server.pb.cc.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Server.pb.cc.i
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Server.pb.cc.i
+
+home/nary/servegg/src/base/pb/protocol/IM.Server.pb.s: home/nary/servegg/src/base/pb/protocol/IM.Server.pb.cc.s
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Server.pb.s
+
+# target to generate assembly for a file
+home/nary/servegg/src/base/pb/protocol/IM.Server.pb.cc.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Server.pb.cc.s
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.Server.pb.cc.s
+
+home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.o: home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.o
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.o
+
+# target to build an object file
+home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.o
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.o
+
+home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.i: home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.i
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.i
+
+# target to preprocess a source file
+home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.i
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.i
+
+home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.s: home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.s
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.s
+
+# target to generate assembly for a file
+home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.s
+.PHONY : home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.s
+
+home/nary/servegg/src/base/util.o: home/nary/servegg/src/base/util.cpp.o
+.PHONY : home/nary/servegg/src/base/util.o
+
+# target to build an object file
+home/nary/servegg/src/base/util.cpp.o:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/util.cpp.o
+.PHONY : home/nary/servegg/src/base/util.cpp.o
+
+home/nary/servegg/src/base/util.i: home/nary/servegg/src/base/util.cpp.i
+.PHONY : home/nary/servegg/src/base/util.i
+
+# target to preprocess a source file
+home/nary/servegg/src/base/util.cpp.i:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/util.cpp.i
+.PHONY : home/nary/servegg/src/base/util.cpp.i
+
+home/nary/servegg/src/base/util.s: home/nary/servegg/src/base/util.cpp.s
+.PHONY : home/nary/servegg/src/base/util.s
+
+# target to generate assembly for a file
+home/nary/servegg/src/base/util.cpp.s:
+	$(MAKE) -f CMakeFiles/file_server.dir/build.make CMakeFiles/file_server.dir/home/nary/servegg/src/base/util.cpp.s
+.PHONY : home/nary/servegg/src/base/util.cpp.s
 
 # Help Target
 help:
@@ -387,33 +966,105 @@ help:
 	@echo "... file_server.o"
 	@echo "... file_server.i"
 	@echo "... file_server.s"
-	@echo "... home/benben/code/servegg/src/base/pb/protocol/IM.BaseDefine.pb.o"
-	@echo "... home/benben/code/servegg/src/base/pb/protocol/IM.BaseDefine.pb.i"
-	@echo "... home/benben/code/servegg/src/base/pb/protocol/IM.BaseDefine.pb.s"
-	@echo "... home/benben/code/servegg/src/base/pb/protocol/IM.Buddy.pb.o"
-	@echo "... home/benben/code/servegg/src/base/pb/protocol/IM.Buddy.pb.i"
-	@echo "... home/benben/code/servegg/src/base/pb/protocol/IM.Buddy.pb.s"
-	@echo "... home/benben/code/servegg/src/base/pb/protocol/IM.File.pb.o"
-	@echo "... home/benben/code/servegg/src/base/pb/protocol/IM.File.pb.i"
-	@echo "... home/benben/code/servegg/src/base/pb/protocol/IM.File.pb.s"
-	@echo "... home/benben/code/servegg/src/base/pb/protocol/IM.Group.pb.o"
-	@echo "... home/benben/code/servegg/src/base/pb/protocol/IM.Group.pb.i"
-	@echo "... home/benben/code/servegg/src/base/pb/protocol/IM.Group.pb.s"
-	@echo "... home/benben/code/servegg/src/base/pb/protocol/IM.Login.pb.o"
-	@echo "... home/benben/code/servegg/src/base/pb/protocol/IM.Login.pb.i"
-	@echo "... home/benben/code/servegg/src/base/pb/protocol/IM.Login.pb.s"
-	@echo "... home/benben/code/servegg/src/base/pb/protocol/IM.Message.pb.o"
-	@echo "... home/benben/code/servegg/src/base/pb/protocol/IM.Message.pb.i"
-	@echo "... home/benben/code/servegg/src/base/pb/protocol/IM.Message.pb.s"
-	@echo "... home/benben/code/servegg/src/base/pb/protocol/IM.Other.pb.o"
-	@echo "... home/benben/code/servegg/src/base/pb/protocol/IM.Other.pb.i"
-	@echo "... home/benben/code/servegg/src/base/pb/protocol/IM.Other.pb.s"
-	@echo "... home/benben/code/servegg/src/base/pb/protocol/IM.Server.pb.o"
-	@echo "... home/benben/code/servegg/src/base/pb/protocol/IM.Server.pb.i"
-	@echo "... home/benben/code/servegg/src/base/pb/protocol/IM.Server.pb.s"
-	@echo "... home/benben/code/servegg/src/base/pb/protocol/IM.SwitchService.pb.o"
-	@echo "... home/benben/code/servegg/src/base/pb/protocol/IM.SwitchService.pb.i"
-	@echo "... home/benben/code/servegg/src/base/pb/protocol/IM.SwitchService.pb.s"
+	@echo "... home/nary/servegg/src/base/Base64.o"
+	@echo "... home/nary/servegg/src/base/Base64.i"
+	@echo "... home/nary/servegg/src/base/Base64.s"
+	@echo "... home/nary/servegg/src/base/BaseSocket.o"
+	@echo "... home/nary/servegg/src/base/BaseSocket.i"
+	@echo "... home/nary/servegg/src/base/BaseSocket.s"
+	@echo "... home/nary/servegg/src/base/Condition.o"
+	@echo "... home/nary/servegg/src/base/Condition.i"
+	@echo "... home/nary/servegg/src/base/Condition.s"
+	@echo "... home/nary/servegg/src/base/ConfigFileReader.o"
+	@echo "... home/nary/servegg/src/base/ConfigFileReader.i"
+	@echo "... home/nary/servegg/src/base/ConfigFileReader.s"
+	@echo "... home/nary/servegg/src/base/EncDec.o"
+	@echo "... home/nary/servegg/src/base/EncDec.i"
+	@echo "... home/nary/servegg/src/base/EncDec.s"
+	@echo "... home/nary/servegg/src/base/EventDispatch.o"
+	@echo "... home/nary/servegg/src/base/EventDispatch.i"
+	@echo "... home/nary/servegg/src/base/EventDispatch.s"
+	@echo "... home/nary/servegg/src/base/HttpClient.o"
+	@echo "... home/nary/servegg/src/base/HttpClient.i"
+	@echo "... home/nary/servegg/src/base/HttpClient.s"
+	@echo "... home/nary/servegg/src/base/HttpParserWrapper.o"
+	@echo "... home/nary/servegg/src/base/HttpParserWrapper.i"
+	@echo "... home/nary/servegg/src/base/HttpParserWrapper.s"
+	@echo "... home/nary/servegg/src/base/ImPduBase.o"
+	@echo "... home/nary/servegg/src/base/ImPduBase.i"
+	@echo "... home/nary/servegg/src/base/ImPduBase.s"
+	@echo "... home/nary/servegg/src/base/Lock.o"
+	@echo "... home/nary/servegg/src/base/Lock.i"
+	@echo "... home/nary/servegg/src/base/Lock.s"
+	@echo "... home/nary/servegg/src/base/SeqAlloctor.o"
+	@echo "... home/nary/servegg/src/base/SeqAlloctor.i"
+	@echo "... home/nary/servegg/src/base/SeqAlloctor.s"
+	@echo "... home/nary/servegg/src/base/ServInfo.o"
+	@echo "... home/nary/servegg/src/base/ServInfo.i"
+	@echo "... home/nary/servegg/src/base/ServInfo.s"
+	@echo "... home/nary/servegg/src/base/Thread.o"
+	@echo "... home/nary/servegg/src/base/Thread.i"
+	@echo "... home/nary/servegg/src/base/Thread.s"
+	@echo "... home/nary/servegg/src/base/ThreadPool.o"
+	@echo "... home/nary/servegg/src/base/ThreadPool.i"
+	@echo "... home/nary/servegg/src/base/ThreadPool.s"
+	@echo "... home/nary/servegg/src/base/TokenValidator.o"
+	@echo "... home/nary/servegg/src/base/TokenValidator.i"
+	@echo "... home/nary/servegg/src/base/TokenValidator.s"
+	@echo "... home/nary/servegg/src/base/UtilPdu.o"
+	@echo "... home/nary/servegg/src/base/UtilPdu.i"
+	@echo "... home/nary/servegg/src/base/UtilPdu.s"
+	@echo "... home/nary/servegg/src/base/http_parser.o"
+	@echo "... home/nary/servegg/src/base/http_parser.i"
+	@echo "... home/nary/servegg/src/base/http_parser.s"
+	@echo "... home/nary/servegg/src/base/imconn.o"
+	@echo "... home/nary/servegg/src/base/imconn.i"
+	@echo "... home/nary/servegg/src/base/imconn.s"
+	@echo "... home/nary/servegg/src/base/jsoncpp/json_reader.o"
+	@echo "... home/nary/servegg/src/base/jsoncpp/json_reader.i"
+	@echo "... home/nary/servegg/src/base/jsoncpp/json_reader.s"
+	@echo "... home/nary/servegg/src/base/jsoncpp/json_value.o"
+	@echo "... home/nary/servegg/src/base/jsoncpp/json_value.i"
+	@echo "... home/nary/servegg/src/base/jsoncpp/json_value.s"
+	@echo "... home/nary/servegg/src/base/jsoncpp/json_writer.o"
+	@echo "... home/nary/servegg/src/base/jsoncpp/json_writer.i"
+	@echo "... home/nary/servegg/src/base/jsoncpp/json_writer.s"
+	@echo "... home/nary/servegg/src/base/log4z.o"
+	@echo "... home/nary/servegg/src/base/log4z.i"
+	@echo "... home/nary/servegg/src/base/log4z.s"
+	@echo "... home/nary/servegg/src/base/netlib.o"
+	@echo "... home/nary/servegg/src/base/netlib.i"
+	@echo "... home/nary/servegg/src/base/netlib.s"
+	@echo "... home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.o"
+	@echo "... home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.i"
+	@echo "... home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.s"
+	@echo "... home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.o"
+	@echo "... home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.i"
+	@echo "... home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.s"
+	@echo "... home/nary/servegg/src/base/pb/protocol/IM.File.pb.o"
+	@echo "... home/nary/servegg/src/base/pb/protocol/IM.File.pb.i"
+	@echo "... home/nary/servegg/src/base/pb/protocol/IM.File.pb.s"
+	@echo "... home/nary/servegg/src/base/pb/protocol/IM.Group.pb.o"
+	@echo "... home/nary/servegg/src/base/pb/protocol/IM.Group.pb.i"
+	@echo "... home/nary/servegg/src/base/pb/protocol/IM.Group.pb.s"
+	@echo "... home/nary/servegg/src/base/pb/protocol/IM.Login.pb.o"
+	@echo "... home/nary/servegg/src/base/pb/protocol/IM.Login.pb.i"
+	@echo "... home/nary/servegg/src/base/pb/protocol/IM.Login.pb.s"
+	@echo "... home/nary/servegg/src/base/pb/protocol/IM.Message.pb.o"
+	@echo "... home/nary/servegg/src/base/pb/protocol/IM.Message.pb.i"
+	@echo "... home/nary/servegg/src/base/pb/protocol/IM.Message.pb.s"
+	@echo "... home/nary/servegg/src/base/pb/protocol/IM.Other.pb.o"
+	@echo "... home/nary/servegg/src/base/pb/protocol/IM.Other.pb.i"
+	@echo "... home/nary/servegg/src/base/pb/protocol/IM.Other.pb.s"
+	@echo "... home/nary/servegg/src/base/pb/protocol/IM.Server.pb.o"
+	@echo "... home/nary/servegg/src/base/pb/protocol/IM.Server.pb.i"
+	@echo "... home/nary/servegg/src/base/pb/protocol/IM.Server.pb.s"
+	@echo "... home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.o"
+	@echo "... home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.i"
+	@echo "... home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.s"
+	@echo "... home/nary/servegg/src/base/util.o"
+	@echo "... home/nary/servegg/src/base/util.i"
+	@echo "... home/nary/servegg/src/base/util.s"
 .PHONY : help
 
 
