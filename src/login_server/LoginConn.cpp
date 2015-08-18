@@ -26,8 +26,12 @@ void login_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle
 	// 	CLoginConn* pConn = (CLoginConn*)it_old->second;
 	// 	pConn->OnTimer(cur_time);
 	// }
-	for (auto& e : g_client_conn_map)
-		e.second->OnTimer(get_tick_count());
+	for (auto it = g_client_conn_map.begin(); it != g_client_conn_map.end();) {
+		auto it_old = it;
+		it++;
+		it_old->second->OnTimer(get_tick_count());
+	}
+		
 
 	// for (ConnMap_t::iterator it = g_msg_serv_conn_map.begin(); it != g_msg_serv_conn_map.end(); ) {
 	// 	ConnMap_t::iterator it_old = it;
@@ -36,8 +40,11 @@ void login_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle
 	// 	CLoginConn* pConn = (CLoginConn*)it_old->second;
 	// 	pConn->OnTimer(cur_time);
 	// }
-	for (auto& e : g_msg_serv_conn_map) 
-		e.second->OnTimer(get_tick_count());
+	for (auto it = g_msg_serv_conn_map.begin(); it != g_msg_serv_conn_map.end();) {
+		auto it_old = it;
+		it++;
+		it_old->second->OnTimer(get_tick_count());
+	}
 	
 }
 

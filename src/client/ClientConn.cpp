@@ -39,8 +39,10 @@ void client_shell_cmds_add(string cmd)
 void client_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
 {
     uint64_t cur_time = get_tick_count();
-    for (auto& e : s_client_conn_map) {
-        e.second->OnTimer(cur_time);
+    for (auto it = s_client_conn_map.begin(); it != s_client_conn_map.end(); ) {
+        auto it_old = it;
+        it++;
+        it_old->second->OnTimer(cur_time);
     }
 }
 

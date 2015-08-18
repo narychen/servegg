@@ -55,8 +55,11 @@ static void db_server_conn_timer_callback(void* callback_data, uint8_t msg, uint
 // 			pConn->OnTimer(cur_time);
 // 		}
 // 	}
-    for (auto& e : g_db_server_conn_map) 
-        e.second->OnTimer(get_tick_count());
+    for (auto it = g_db_server_conn_map.begin(); it != g_db_server_conn_map.end();) {
+        auto it_old = it;
+        it++;
+        it->second->OnTimer(get_tick_count());
+    }
 
 	// reconnect DB Storage Server
 	// will reconnect in 4s, 8s, 16s, 32s, 64s, 4s 8s ...

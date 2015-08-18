@@ -59,8 +59,12 @@ void msg_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, 
 // 		pConn = (CMsgConn*)it_old->second;
 // 		pConn->OnTimer(cur_time);
 // 	}
-    for (auto e : g_msg_conn_map)
-        e.second->OnTimer(cur_time);
+    for (auto it = g_msg_conn_map.begin(); it != g_msg_conn_map.end();) {
+        auto it_old = it;
+        it++;
+        it->second->OnTimer(cur_time);
+    }
+        
 
 	if (cur_time > g_last_stat_tick + LOG_MSG_STAT_INTERVAL) {
 		g_last_stat_tick = cur_time;

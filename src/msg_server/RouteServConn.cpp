@@ -48,8 +48,10 @@ void route_server_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t
 // 		pConn->OnTimer(cur_time);
 // 	}
 
-	for (auto& e : g_route_server_conn_map) {
-	    e.second->OnTimer(cur_time);
+	for (auto it = g_route_server_conn_map.begin(); it != g_route_server_conn_map.end();) {
+	    auto it_old = it;
+	    it++;
+	    it_old->second->OnTimer(cur_time);
 	}
 
 	// reconnect RouteServer

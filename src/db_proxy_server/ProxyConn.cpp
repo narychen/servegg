@@ -36,8 +36,10 @@ void proxy_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, voi
 	// 	CProxyConn* pConn = (CProxyConn*)it_old->second;
 	// 	pConn->OnTimer(cur_time);
 	// }
-	for (auto& e : g_proxy_conn_map) {
-		auto p = static_pointer_cast<CProxyConn>(e.second);
+	for (auto it = g_proxy_conn_map.begin(); it != g_proxy_conn_map.end();) {
+		auto it_old = it;
+		it++;
+		auto p = static_pointer_cast<CProxyConn>(it_old->second);
 		p->OnTimer(get_tick_count());
 	}
 }

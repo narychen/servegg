@@ -40,9 +40,11 @@ void login_server_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t
 	// 	pConn->OnTimer(cur_time);
 	// }
 	
-	for (auto& e : g_login_server_conn_map) 
-		e.second->OnTimer(cur_time);
-
+	for (auto it = g_login_server_conn_map.begin(); it != g_login_server_conn_map.end();) {
+		auto it_old = it;
+		it++;
+		it_old->second->OnTimer(cur_time);
+	}
 	// reconnect LoginServer
 	// serv_check_reconnect<CLoginServConn>(g_login_server_list, g_login_server_count);
 	CServInfo<CLoginServConn>::CheckReconnect(g_login_server_list, g_login_server_count);
@@ -112,7 +114,10 @@ void CLoginServConn::Connect(const char* server_ip, uint16_t server_port, uint32
 	m_handle = netlib_connect(server_ip, server_port, imconn_callback_sp, (void*)&g_login_server_conn_map);
 
 	if (m_handle != NETLIB_INVALID_HANDLE) {
+		logd("insert hd=%d", m_handle);
+		for(auto& e : g_login_server_conn_map) logd("e.first=", e.first);
 		g_login_server_conn_map.insert(make_pair(m_handle, shared_from_this()));
+		for(auto& e : g_login_server_conn_map) logd("e.first=", e.first);
 	}
 }
 
@@ -120,7 +125,7 @@ void CLoginServConn::Close()
 {
 	CServInfo<CLoginServConn>::Reset(g_login_server_list, g_login_server_count, m_serv_idx);
 	// serv_reset<CLoginServConn>(g_login_server_list, g_login_server_count, m_serv_idx);
-
+	
 	if (m_handle != NETLIB_INVALID_HANDLE) {
 		netlib_close(m_handle);
 		g_login_server_conn_map.erase(m_handle);
