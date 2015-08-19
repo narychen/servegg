@@ -62,9 +62,9 @@ void msg_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, 
     for (auto it = g_msg_conn_map.begin(); it != g_msg_conn_map.end();) {
         auto it_old = it;
         it++;
-        it->second->OnTimer(cur_time);
+        auto conn = it_old->second;
+        conn->OnTimer(cur_time);
     }
-        
 
 	if (cur_time > g_last_stat_tick + LOG_MSG_STAT_INTERVAL) {
 		g_last_stat_tick = cur_time;
@@ -125,7 +125,7 @@ CMsgConn::CMsgConn()
 
 CMsgConn::~CMsgConn()
 {
-
+    log("CMsgConn destruct..........");
 }
 
 void CMsgConn::SendUserStatusUpdate(uint32_t user_status)
@@ -189,12 +189,10 @@ void CMsgConn::Close(bool kick_user)
         netlib_close(m_handle);
         g_msg_conn_map.erase(m_handle);
     }
-    
     CImUser *pImUser = CImUserManager::GetInstance()->GetImUserById(GetUserId());
     if (pImUser) {
         pImUser->DelMsgConn(GetHandle());
         pImUser->DelUnValidateMsgConn(SELF);
-        
         SendUserStatusUpdate(::IM::BaseDefine::USER_STATUS_OFFLINE);
         if (pImUser->IsMsgConnEmpty()) {
             CImUserManager::GetInstance()->RemoveImUser(pImUser);
@@ -208,7 +206,6 @@ void CMsgConn::Close(bool kick_user)
             CImUserManager::GetInstance()->RemoveImUser(pImUser);
         }
     }
-
     
     // ReleaseRef();
 }
@@ -246,7 +243,7 @@ void CMsgConn::OnTimer(uint64_t curr_tick)
     }
     else
     {
-        if (curr_tick > m_last_recv_tick + CLIENT_TIMEOUT) {
+        if (curr_tick > m_last_recv_tick + MOBILE_CLIENT_TIMEOUT) {
             log("client timeout, handle=%d, uid=%u ", m_handle, GetUserId());
             Close();
             return;

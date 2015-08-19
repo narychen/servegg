@@ -38,9 +38,15 @@ static void push_server_conn_timer_callback(void* callback_data, uint8_t msg, ui
 // 		}
 // 	}
 
-    for (auto& e : g_push_server_conn_map)
-        e.second->OnTimer(cur_time);
-    
+    // for (auto& e : g_push_server_conn_map)
+    //     e.second->OnTimer(cur_time);
+        
+	for (auto it = g_push_server_conn_map.begin(); it != g_push_server_conn_map.end();) {
+		auto it_old = it;
+		it++;
+	    auto conn = it_old->second;
+        conn->OnTimer(cur_time);
+	}
 	// reconnect Push Server
 	// will reconnect in 4s, 8s, 16s, 32s, 64s, 4s 8s ...
 	CServInfo<CPushServConn>::CheckReconnect(g_push_server_list, g_push_server_count);

@@ -49,7 +49,8 @@ void route_serv_timer_callback(void* callback_data, uint8_t msg, uint32_t handle
 	for (auto it = g_route_conn_map.begin(); it != g_route_conn_map.end();) {
 	    auto it_old = it;
 	    it++;
-	    it_old->second->OnTimer(cur_time);
+	    auto conn = it_old->second;
+        conn->OnTimer(cur_time);
 	}
 }
 

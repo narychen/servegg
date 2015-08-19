@@ -472,3 +472,25 @@ void backup_core_file()
 		rename("core", s);
 	}
 }
+
+
+void become_daemon()
+{
+    int i, fd;  
+  
+    auto pid = fork(); //第一步 创建子进程，父进程退出  
+  
+    if (pid != 0) exit(0);
+
+    setsid();//第二步 在子进程中创建新会话  
+    //chdir("/");//第三步 改变当前目录为根目录  
+    umask(0);//第四步 重设文件权限掩码  
+    
+    // pid = fork();
+    // if (pid != 0) exit(0);
+    
+    // auto n = getdtablesize();
+    // log("----%d----", n);
+    // for(i = 0; i < 3; i++) //第五步 关闭文件描述符  
+    //     close(i); 
+}

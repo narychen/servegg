@@ -68,7 +68,7 @@ void http_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle,
 {
 // 	CHttpConn* pConn = NULL;
 // 	HttpConnMap_t::iterator it, it_old;
-// 	uint64_t cur_time = get_tick_count();
+	uint64_t cur_time = get_tick_count();
 
 // 	for (it = g_http_conn_map.begin(); it != g_http_conn_map.end(); ) {
 // 		it_old = it;
@@ -81,7 +81,8 @@ void http_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle,
 	for (auto it = g_http_conn_map.begin(); it!= g_http_conn_map.end();) {
 	    auto it_old = it;
 	    it++;
-	    it_old->second->OnTimer(get_tick_count());
+	    auto conn = it_old->second;
+        conn->OnTimer(cur_time);
 	}
 	    
 }

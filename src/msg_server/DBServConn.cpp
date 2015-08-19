@@ -44,7 +44,7 @@ static void db_server_conn_timer_callback(void* callback_data, uint8_t msg, uint
 {
 // 	ConnMap_t::iterator it_old;
 // 	CDBServConn* pConn = NULL;
-// 	uint64_t cur_time = get_tick_count();
+	uint64_t cur_time = get_tick_count();
 
 // 	for (ConnMap_t::iterator it = g_db_server_conn_map.begin(); it != g_db_server_conn_map.end(); ) {
 // 		it_old = it;
@@ -58,7 +58,8 @@ static void db_server_conn_timer_callback(void* callback_data, uint8_t msg, uint
     for (auto it = g_db_server_conn_map.begin(); it != g_db_server_conn_map.end();) {
         auto it_old = it;
         it++;
-        it->second->OnTimer(get_tick_count());
+        auto conn = it_old->second;
+        conn->OnTimer(cur_time);
     }
 
 	// reconnect DB Storage Server

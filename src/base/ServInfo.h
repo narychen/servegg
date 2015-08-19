@@ -95,7 +95,8 @@ struct CServInfo {
 			auto pConn = server_list[i].serv_conn;
 			if (!pConn) {
 				server_list[i].idle_cnt++;
-				if (server_list[i].idle_cnt >= server_list[i].reconnect_cnt) {
+				// if (server_list[i].idle_cnt >= server_list[i].reconnect_cnt) {
+				if (1) {
 					pConn = std::shared_ptr<T>(new T());
 					pConn->Connect(server_list[i].server_ip.c_str(), server_list[i].server_port, i);
 					server_list[i].serv_conn = pConn;

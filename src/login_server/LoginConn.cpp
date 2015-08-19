@@ -18,7 +18,7 @@ map<uint32_t, msg_serv_info_t*> g_msg_serv_info;
 
 void login_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
 {
-	// uint64_t cur_time = get_tick_count();
+	uint64_t cur_time = get_tick_count();
 	// for (ConnMap_t::iterator it = g_client_conn_map.begin(); it != g_client_conn_map.end(); ) {
 	// 	ConnMap_t::iterator it_old = it;
 	// 	it++;
@@ -29,7 +29,8 @@ void login_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle
 	for (auto it = g_client_conn_map.begin(); it != g_client_conn_map.end();) {
 		auto it_old = it;
 		it++;
-		it_old->second->OnTimer(get_tick_count());
+	    auto conn = it_old->second;
+        conn->OnTimer(cur_time);
 	}
 		
 

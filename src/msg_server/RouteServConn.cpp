@@ -51,7 +51,8 @@ void route_server_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t
 	for (auto it = g_route_server_conn_map.begin(); it != g_route_server_conn_map.end();) {
 	    auto it_old = it;
 	    it++;
-	    it_old->second->OnTimer(cur_time);
+	    auto conn = it_old->second;
+        conn->OnTimer(cur_time);
 	}
 
 	// reconnect RouteServer
@@ -214,7 +215,6 @@ void CRouteServConn::OnClose()
 
 void CRouteServConn::OnTimer(uint64_t curr_tick)
 {
-    RUNTIME_TRACE;
 	if (curr_tick > m_last_send_tick + SERVER_HEARTBEAT_INTERVAL) {
         IM::Other::IMHeartBeat msg;
         CImPdu pdu;

@@ -23,13 +23,13 @@ void file_serv_callback(void* callback_data, uint8_t msg, uint32_t handle, void*
 
 int main(int argc, char* argv[])
 {
-    pid_t pid = fork();
-    if (pid < 0) {
-        exit(-1);
-    } else if (pid > 0) {
-        exit(0);
-    }
-    setsid();
+    // pid_t pid = fork();
+    // if (pid < 0) {
+    //     exit(-1);
+    // } else if (pid > 0) {
+    //     exit(0);
+    // }
+    // setsid();
 
 	if ((argc == 2) && (strcmp(argv[1], "-v") == 0)) {
 		printf("Server Version: FileServer/%s\n", VERSION);

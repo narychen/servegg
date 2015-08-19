@@ -20,6 +20,7 @@
 #define CLIENT_HEARTBEAT_INTERVAL	28000
 #define CLIENT_TIMEOUT				120000
 #define MOBILE_CLIENT_TIMEOUT       60000 * 5
+// #define MOBILE_CLIENT_TIMEOUT       60 * 1
 #define READ_BUF_SIZE	2048
 
 class CImConn : public CRefObject, public enable_shared_from_this<CImConn>

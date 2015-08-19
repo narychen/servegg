@@ -66,6 +66,7 @@ void cxx_handler(int sig)
 
 int main(int argc, char* argv[])
 {
+
 	backup_core_file();
 	
 	if ((argc == 2) && (strcmp(argv[1], "-v") == 0)) {

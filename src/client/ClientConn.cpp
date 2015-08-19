@@ -42,7 +42,8 @@ void client_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handl
     for (auto it = s_client_conn_map.begin(); it != s_client_conn_map.end(); ) {
         auto it_old = it;
         it++;
-        it_old->second->OnTimer(cur_time);
+        auto conn = it_old->second;
+        conn->OnTimer(cur_time);
     }
 }
 
