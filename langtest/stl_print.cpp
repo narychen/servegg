@@ -24,5 +24,8 @@ int main()
 {
     vector<int> v = {1, 3, 5};
     map<string, string> m = { {"xx", "oo"}, {"oo", "xx"} };
+    auto i = 100;
+    while(i--)
+        v.push_back(i);
     return 1;
 }

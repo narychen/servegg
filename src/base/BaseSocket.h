@@ -9,7 +9,7 @@
 #include "ostype.h"
 #include "util.h"
 
-enum
+typedef enum SOCKET_STATE
 {
 	SOCKET_STATE_IDLE,
 	SOCKET_STATE_LISTENING,
