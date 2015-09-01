@@ -9,14 +9,14 @@
 #include "ostype.h"
 #include "util.h"
 
-typedef enum SOCKET_STATE
+typedef enum 
 {
 	SOCKET_STATE_IDLE,
 	SOCKET_STATE_LISTENING,
 	SOCKET_STATE_CONNECTING,
 	SOCKET_STATE_CONNECTED,
 	SOCKET_STATE_CLOSING
-};
+} SOCKET_STATE;
 
 class CBaseSocket : public CRefObject, public std::enable_shared_from_this<CBaseSocket>
 {

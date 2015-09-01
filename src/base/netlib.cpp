@@ -2,7 +2,7 @@
 #include "BaseSocket.h"
 #include "EventDispatch.h"
 
-// #define __LIBEVENT__
+#define __LIBEVENT__
 
 #ifndef __LIBEVENT__
 
@@ -198,13 +198,22 @@ static void _SetReuseAddr(SOCKET fd);
 static void _SetNoDelay(SOCKET fd);
 static void _SetAddr(const char* ip, const uint16_t port, sockaddr_in* pAddr);
 
+void netlib_onconfirm(evutil_socket_t fd, short what, void *arg);
+void netlib_onread(evutil_socket_t fd, short what, void *arg);
+void netlib_onwrite(evutil_socket_t fd, short what, void *arg);
+void netlib_onaccept(evutil_socket_t fd, short what, void *arg);
+void netlib_ontimer(evutil_socket_t fd, short what, void* arg);
+
+void netlib_check_write_error(net_handle_t fd, int* error, socklen_t* len);
+void netlib_set_onconnect_event(net_handle_t handle, callback_t callback, void* cbdata);
+
 struct EvtArg {
 	callback_t callback;
 	void* cbdata;
 	
 	EvtArg(callback_t c, void* d) : callback(c), cbdata(d) {}
 	~EvtArg() {}
-}
+};
 
 struct EvtArg2 {
 	callback_t callback;
@@ -213,7 +222,7 @@ struct EvtArg2 {
 	
 	EvtArg2(callback_t c, void* d, struct event* e) : callback(c), cbdata(d), evt(e) {}
 	~EvtArg2() {}
-}
+};
 
 static int _GetErrorCode()
 {
@@ -330,16 +339,16 @@ net_handle_t netlib_connect(
 	sockaddr_in serv_addr;
 	_SetAddr(server_ip, port, &serv_addr);
 	int ret = connect(sock, (sockaddr*)&serv_addr, sizeof(serv_addr));
-	if ( (ret == SOCKET_ERROR) && (!_IsBlock(_GetErrorCode())) {
+	if ( (ret == SOCKET_ERROR) && (!_IsBlock(_GetErrorCode())) ) {
 		loge("connect failed, err_code=%d", _GetErrorCode());
 		closesocket(sock);
 		return NETLIB_INVALID_HANDLE;
 	}
 	
 	auto evtArg2 = new EvtArg2(callback, callback_data, NULL);
-	event_assign(evtArg2->evt, g_libevent_base, sock, EV_WRITE,	netlib_onconfirm, evtArg2);
+	evtArg2->evt = event_new(g_libevent_base, sock, EV_WRITE, netlib_onconfirm, evtArg2);
 	event_add(evtArg2->evt, NULL);
-	g_event_map[sock] = evtArg2->evt;
+
 	return sock;
 }
 
@@ -347,15 +356,15 @@ int netlib_close(net_handle_t handle)
 {
 	auto it = g_read_event_map.find(handle);
 	if (it != g_read_event_map.end()) {
-		auto ev = it-second;
+		auto ev = it->second;
 		g_read_event_map.erase(it);
 		event_free(ev);
 	}
 	
-	auto it = g_write_event_map.find(handle);
-	if (it != g_write_event_map.end()) {
-		auto ev = it-second;
-		g_write_event_map.erase(it);
+	auto it2 = g_write_event_map.find(handle);
+	if (it2 != g_write_event_map.end()) {
+		auto ev = it2->second;
+		g_write_event_map.erase(it2);
 		event_free(ev);
 	}
 	
@@ -410,13 +419,13 @@ void netlib_onaccept(evutil_socket_t fd, short what, void *arg)
 	socklen_t addr_len = sizeof(sockaddr_in);
 	char ip_str[64];
 
-	while ( (fd = accept(m_socket, (sockaddr*)&peer_addr, &addr_len)) != INVALID_SOCKET )
+	while ( (fd = accept(fd, (sockaddr*)&peer_addr, &addr_len)) != INVALID_SOCKET )
 	{
 		_SetNoDelay(fd);
 		_SetNonblock(fd);
 		
 		auto evtArg = (EvtArg*)arg;
-		evtArg->callback(evtArg->callback_data, NETLIB_MSG_CONNECT, (net_handle_t)fd, NULL);
+		evtArg->callback(evtArg->cbdata, NETLIB_MSG_CONNECT, (net_handle_t)fd, NULL);
 	}	
 }
 
@@ -436,17 +445,17 @@ void netlib_onconfirm(evutil_socket_t fd, short what, void *arg)
 	socklen_t len = sizeof(error);
 	netlib_check_write_error((net_handle_t)fd, &error, &len);
 	if (error) {
-		evtArg2->callback(evtArg->cbdata, NETLIB_MSG_CLOSE, (net_handle_t)fd, NULL);
+		evtArg2->callback(evtArg2->cbdata, NETLIB_MSG_CLOSE, (net_handle_t)fd, NULL);
 	} else {
 		event_free(evtArg2->evt);
 		auto arg = new EvtArg(evtArg2->callback, evtArg2->cbdata);
-		struct event* evread = event_new(g_libevent_base, handle, EV_READ|EV_PERSIST, netlib_onread, arg);
-		struct event* evwrite = event_new(g_libevent_base, handle, EV_WRITE|EV_PERSIST, netlib_onwrite, arg);
+		struct event* evread = event_new(g_libevent_base, fd, EV_READ|EV_PERSIST|EV_ET, netlib_onread, arg);
+		struct event* evwrite = event_new(g_libevent_base, fd, EV_WRITE|EV_PERSIST|EV_ET, netlib_onwrite, arg);
 		event_add(evread, NULL);
 		event_add(evwrite, NULL);
-		g_read_event_map[handle] = evread;
-		g_write_event_map[handle] = evwrite;
-		evtArg2->callback(evtArg->cbdata, NETLIB_MSG_CONFIRM, (net_handle_t)fd, NULL);
+		g_read_event_map[fd] = evread;
+		g_write_event_map[fd] = evwrite;
+		evtArg2->callback(evtArg2->cbdata, NETLIB_MSG_CONFIRM, (net_handle_t)fd, NULL);
 	}
 }
 
@@ -455,9 +464,9 @@ void netlib_onread(evutil_socket_t fd, short what, void *arg)
 	auto evtArg = (EvtArg*)arg;
 	unsigned long long avail = 0;
 	if ( (ioctlsocket(fd, FIONREAD, &avail) == SOCKET_ERROR) || (avail == 0) ) {
-		arg->callback(arg->cbdata, NETLIB_MSG_CLOSE, (net_handle_t)fd, NULL);
+		evtArg->callback(evtArg->cbdata, NETLIB_MSG_CLOSE, (net_handle_t)fd, NULL);
 	} else {
-		arg->callback(arg->cbdata, NETLIB_MSG_READ, (net_handle_t)fd, NULL);
+		evtArg->callback(evtArg->cbdata, NETLIB_MSG_READ, (net_handle_t)fd, NULL);
 	}
 }
 
@@ -474,11 +483,11 @@ void netlib_onwrite(evutil_socket_t fd, short what, void *arg)
 	}
 }
 
-int netlib_set_onconnect_event(net_handle_t handle, callback_t callback, void* cbdata)
+void netlib_set_onconnect_event(net_handle_t handle, callback_t callback, void* cbdata)
 {
 	auto arg = new EvtArg(callback, cbdata);
-	struct event* evread = event_new(g_libevent_base, handle, EV_READ|EV_PERSIST, netlib_onread, arg);
-	struct event* evwrite = event_new(g_libevent_base, handle, EV_WRITE|EV_PERSIST, netlib_onwrite, arg);
+	struct event* evread = event_new(g_libevent_base, handle, EV_READ|EV_PERSIST|EV_ET, netlib_onread, arg);
+	struct event* evwrite = event_new(g_libevent_base, handle, EV_WRITE|EV_PERSIST|EV_ET, netlib_onwrite, arg);
 	event_add(evread, NULL);
 	event_add(evwrite, NULL);
 	g_read_event_map[handle] = evread;
@@ -488,7 +497,7 @@ int netlib_set_onconnect_event(net_handle_t handle, callback_t callback, void* c
 string _GetRemoteIP(net_handle_t hd)
 {
 	struct sockaddr_in sa;
-	int len = sizeof(sa);
+	socklen_t len = sizeof(sa);
 	if (!getpeername(hd, (struct sockaddr*)&sa, &len)) {
 		return inet_ntoa(sa.sin_addr);
 	} else {
@@ -499,9 +508,9 @@ string _GetRemoteIP(net_handle_t hd)
 uint16_t _GetRemotePort(net_handle_t hd)
 {
 	struct sockaddr_in sa;
-	int len = sizeof(sa);
+	socklen_t len = sizeof(sa);
 	if (!getsockname(hd, (struct sockaddr*)&sa, &len)) {
-		return inet_ntohs(sa.sin_port);
+		return ntohs(sa.sin_port);
 	} else {
 		return 0;
 	}	
@@ -510,7 +519,7 @@ uint16_t _GetRemotePort(net_handle_t hd)
 string _GetLocalIP(net_handle_t hd)
 {
 	struct sockaddr_in sa;
-	int len = sizeof(sa);
+	socklen_t len = sizeof(sa);
 	if (!getsockname(hd, (struct sockaddr*)&sa, &len)) {
 		return inet_ntoa(sa.sin_addr);
 	} else {
@@ -521,9 +530,9 @@ string _GetLocalIP(net_handle_t hd)
 uint16_t _GetLocalPort(net_handle_t hd)
 {
 	struct sockaddr_in sa;
-	int len = sizeof(sa);
+	socklen_t len = sizeof(sa);
 	if (!getsockname(hd, (struct sockaddr*)&sa, &len)) {
-		return inet_ntohs(sa.sin_port);
+		return ntohs(sa.sin_port);
 	} else {
 		return 0;
 	}	
@@ -606,8 +615,8 @@ int netlib_recv(net_handle_t handle, void* buf, int len)
 
 int netlib_register_timer(callback_t callback, void* user_data, uint64_t interval)
 {
-	uint64_t sec = interval/1000L;
-	uint64_t usec = integer%1000L;
+	long int sec = interval/1000L;
+	long int usec = interval%1000L;
 	struct timeval t = {sec, usec};
 	auto arg = new EvtArg(callback, user_data);
 	struct event* ev = event_new(g_libevent_base, -1, EV_PERSIST, netlib_ontimer, arg);
@@ -629,7 +638,7 @@ int netlib_delete_timer(callback_t callback, void* user_data)
 
 void netlib_ontimer(evutil_socket_t fd, short what, void* arg)
 {
-	EvtArg* evtArg = arg;
+	EvtArg* evtArg = (EvtArg*)arg;
 	evtArg->callback(evtArg->cbdata, NETLIB_MSG_TIMER, 0, NULL);
 }
 

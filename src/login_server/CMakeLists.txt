@@ -28,4 +28,4 @@ LINK_DIRECTORIES(${_} ${_}/../lib)
 #ADD_LIBRARY(${PROJECTNAME} SHARED/STATIC ${SRC_LIST})
 ADD_EXECUTABLE(login_server ${SRC_LIST} ${SRC_BASE} ${SRC_PB} ${SRC_JSON})
 
-TARGET_LINK_LIBRARIES(login_server crypto log4cxx protobuf-lite pthread curl)
+TARGET_LINK_LIBRARIES(login_server crypto log4cxx protobuf-lite pthread curl event)
