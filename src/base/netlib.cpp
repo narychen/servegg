@@ -462,25 +462,13 @@ void netlib_onconfirm(evutil_socket_t fd, short what, void *arg)
 void netlib_onread(evutil_socket_t fd, short what, void *arg)
 {
 	auto evtArg = (EvtArg*)arg;
-	unsigned long long avail = 0;
-	if ( (ioctlsocket(fd, FIONREAD, &avail) == SOCKET_ERROR) || (avail == 0) ) {
-		evtArg->callback(evtArg->cbdata, NETLIB_MSG_CLOSE, (net_handle_t)fd, NULL);
-	} else {
-		evtArg->callback(evtArg->cbdata, NETLIB_MSG_READ, (net_handle_t)fd, NULL);
-	}
+	evtArg->callback(evtArg->cbdata, NETLIB_MSG_READ, (net_handle_t)fd, NULL);
 }
 
 void netlib_onwrite(evutil_socket_t fd, short what, void *arg)
 {
 	auto evtArg = (EvtArg*)arg;
-	int error = 0;
-	socklen_t len = sizeof(error);
-	netlib_check_write_error((net_handle_t)fd, &error, &len);
-	if (error) {
-		evtArg->callback(evtArg->cbdata, NETLIB_MSG_CLOSE, (net_handle_t)fd, NULL);
-	} else {
-		evtArg->callback(evtArg->cbdata, NETLIB_MSG_WRITE, (net_handle_t)fd, NULL);
-	}
+	evtArg->callback(evtArg->cbdata, NETLIB_MSG_WRITE, (net_handle_t)fd, NULL);
 }
 
 void netlib_set_onconnect_event(net_handle_t handle, callback_t callback, void* cbdata)

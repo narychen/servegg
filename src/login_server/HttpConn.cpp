@@ -124,8 +124,15 @@ int CHttpConn::Send(void* data, int len)
 	}
 
 	int ret = netlib_send(m_sock_handle, data, len);
-	if (ret < 0)
-		ret = 0;
+	if (ret <= 0) {
+		if (errno == EAGAIN || errno == EWOULDBLOCK) {
+			ret = 0;
+		} else {
+			log("close on error=%d", errno);
+			OnClose();
+			return -1;
+		}
+	}
 
 	if (ret < len)
 	{
@@ -172,9 +179,20 @@ void CHttpConn::OnRead()
 			m_in_buf.Extend(READ_BUF_SIZE + 1);
 
 		int ret = netlib_recv(m_sock_handle, m_in_buf.GetBuffer() + m_in_buf.GetWriteOffset(), READ_BUF_SIZE);
-		if (ret <= 0)
-			break;
 
+		if (ret == 0) {
+			log("close on netlib_recv=0");
+			OnClose();
+			return;
+		} else if (ret < 0) {
+			if (errno == EAGAIN || errno == EWOULDBLOCK) {
+				break;
+			} else {
+				log("close on error=%d", errno);
+				OnClose();
+				return;
+			}
+		}
 		m_in_buf.IncWriteOffset(ret);
 
 		m_last_recv_tick = get_tick_count();
@@ -218,9 +236,16 @@ void CHttpConn::OnWrite()
 		return;
 
 	int ret = netlib_send(m_sock_handle, m_out_buf.GetBuffer(), m_out_buf.GetWriteOffset());
-	if (ret < 0)
-		ret = 0;
-
+	if (ret <= 0) {
+		if (errno == EAGAIN || errno == EWOULDBLOCK) {
+			ret = 0;
+		} else {
+			log("close on error=%d", errno);
+			OnClose();
+			return;
+		}
+	}
+	
 	int out_buf_size = (int)m_out_buf.GetWriteOffset();
 
 	m_out_buf.Read(NULL, ret);

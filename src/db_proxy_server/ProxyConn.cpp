@@ -159,9 +159,20 @@ void CProxyConn::OnRead()
 			m_in_buf.Extend(READ_BUF_SIZE);
 
 		int ret = netlib_recv(m_handle, m_in_buf.GetBuffer() + m_in_buf.GetWriteOffset(), READ_BUF_SIZE);
-		if (ret <= 0)
-			break;
 
+		if (ret == 0) {
+			log("close on netlib_recv=0");
+			OnClose();
+			return;
+		} else if (ret < 0) {
+			if (errno == EAGAIN || errno == EWOULDBLOCK) {
+				break;
+			} else {
+				log("close on error=%d", errno);
+				OnClose();
+				return;
+			}
+		}
 		m_recv_bytes += ret;
 		m_in_buf.IncWriteOffset(ret);
 		m_last_recv_tick = get_tick_count();

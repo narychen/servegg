@@ -146,8 +146,13 @@ int CImConn::Send(void* data, int len)
 
 		int ret = netlib_send(m_handle, (char*)data + offset , send_size);
 		if (ret <= 0) {
-			ret = 0;
-			break;
+			if (errno == EAGAIN || errno == EWOULDBLOCK) {
+				ret = 0;
+			} else {
+				log("close on error=%d", errno);
+				OnClose();
+				return -1;
+			}
 		}
 
 		offset += ret;
@@ -177,8 +182,19 @@ void CImConn::OnRead()
 			m_in_buf.Extend(READ_BUF_SIZE);
 
 		int ret = netlib_recv(m_handle, m_in_buf.GetBuffer() + m_in_buf.GetWriteOffset(), READ_BUF_SIZE);
-		if (ret <= 0)
-			break;
+		if (ret == 0) {
+			log("close on netlib_recv=0");
+			OnClose();
+			return;
+		} else if (ret < 0) {
+			if (errno == EAGAIN || errno == EWOULDBLOCK) {
+				break;
+			} else {
+				log("close on error=%d", errno);
+				OnClose();
+				return;
+			}
+		}
 
 		m_recv_bytes += ret;
 		m_in_buf.IncWriteOffset(ret);
@@ -225,8 +241,13 @@ void CImConn::OnWrite()
 
 		int ret = netlib_send(m_handle, m_out_buf.GetBuffer(), send_size);
 		if (ret <= 0) {
-			ret = 0;
-			break;
+			if (errno == EAGAIN || errno == EWOULDBLOCK) {
+				break;
+			} else {
+				log("close on error=%d", errno);
+				OnClose();
+				return;
+			}
 		}
 
 		m_out_buf.Read(NULL, ret);

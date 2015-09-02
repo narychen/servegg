@@ -32,5 +32,5 @@ LINK_DIRECTORIES(${_} ${PB_LIB_DIR} ${MYSQL_LIB} ${_}/../lib)
 #ADD_LIBRARY(${PROJECTNAME} SHARED/STATIC ${SRC_LIST})
 ADD_EXECUTABLE(db_proxy_server ${SRC_LIST} ${SRC_BASE} ${SRC_PB} ${SRC_JSON})
 
-TARGET_LINK_LIBRARIES(db_proxy_server pthread protobuf-lite mysqlclient_r hiredis curl log4cxx crypto)
+TARGET_LINK_LIBRARIES(db_proxy_server pthread protobuf-lite mysqlclient_r hiredis curl log4cxx crypto event)
  

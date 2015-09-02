@@ -20,5 +20,5 @@ LINK_DIRECTORIES(${_} ${_}/../lib)
 #ADD_LIBRARY(${PROJECTNAME} SHARED/STATIC ${SRC_LIST})
 ADD_EXECUTABLE(msfs ${SRC_LIST} ${SRC_BASE} ${SRC_PB} ${SRC_JSON})
 
-TARGET_LINK_LIBRARIES(msfs pthread log4cxx protobuf-lite curl crypto)
+TARGET_LINK_LIBRARIES(msfs pthread log4cxx protobuf-lite curl crypto event)
  

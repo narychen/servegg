@@ -74,7 +74,6 @@ void CClientConn::Register(string name, string passwd)
 
 void CClientConn::Login(string name, string passwd)
 {
-    RUNTIME_TRACE;
     m_username = name;
     m_passwd = passwd;
     m_state = CONN_STATE_LOGIN;
@@ -128,7 +127,7 @@ void CClientConn::OnClose()
 
 void CClientConn::OnWrite()
 {
-    log("in conn on write");
+    // log("in conn on write");
 }
 
 void CClientConn::OnTimer(uint64_t curr_tick)

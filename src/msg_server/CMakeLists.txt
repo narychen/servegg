@@ -29,5 +29,5 @@ LINK_DIRECTORIES(${_} ${_}/../lib ${SECURITY_LIB_DIR})
 #ADD_LIBRARY(${PROJECTNAME} SHARED/STATIC ${SRC_LIST})
 ADD_EXECUTABLE(msg_server ${SRC_LIST} ${SRC_BASE} ${SRC_PB} ${SRC_JSON})
 
-TARGET_LINK_LIBRARIES(msg_server log4cxx protobuf-lite crypto pthread curl)
+TARGET_LINK_LIBRARIES(msg_server log4cxx protobuf-lite crypto pthread curl event)
  
