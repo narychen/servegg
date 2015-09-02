@@ -21,11 +21,11 @@ ADD_DEFINITIONS( -g -O0 -W -Wall -Wno-deprecated -Wno-unused-parameter -Wno-unus
 -DAC_HAS_WARNING -DAC_HAS_ERROR -DAC_HAS_CRITICAL -DTIXML_USE_STL
 -DAC_HAS_DEBUG -DLINUX_DAEMON -std=c++11)
 
-INCLUDE_DIRECTORIES(${_} ${_}/../base ${_}/../base/pb/protocol ${_}/../base/jsoncpp/ ${_}/../include)
+INCLUDE_DIRECTORIES(${_} ${_}/../base ${_}/../base/pb/protocol ${_}/../base/jsoncpp/ ${_}/../include ${_}/../include/event2)
 LINK_DIRECTORIES(${_} ${_}/../lib)
 
 #ADD_XXXX必须在TARGET_LINK_LIBRARIES前面，否则会报错
 #ADD_LIBRARY(${PROJECTNAME} SHARED/STATIC ${SRC_LIST})
 ADD_EXECUTABLE(login_server ${SRC_LIST} ${SRC_BASE} ${SRC_PB} ${SRC_JSON})
 
-TARGET_LINK_LIBRARIES(login_server crypto log4cxx protobuf-lite pthread curl event)
+TARGET_LINK_LIBRARIES(login_server crypto log4cxx protobuf-lite pthread curl event hiredis)

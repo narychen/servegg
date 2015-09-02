@@ -17,24 +17,6 @@ using namespace std;
 
 static ConnMap_sp_t s_client_conn_map;
 static CServInfo<CClientConn>* s_serv_info_list;
-static list<string> s_shell_cmds;
-static CLock s_cmds_lock;
-
-void client_conn_loop_callback(void* cbdata, uint8_t msg, uint32_t handle, void* pParam)
-{
-    CAutoLock autoLock(&s_cmds_lock);
-    for (auto& e : s_shell_cmds) {
-        CClientWorker worker(e);
-    }
-    s_shell_cmds.clear();
-}
-
-void client_shell_cmds_add(string cmd)
-{
-    CAutoLock autoLock(&s_cmds_lock);
-    s_shell_cmds.push_back(cmd);
-}
-
 
 void client_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam)
 {

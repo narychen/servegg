@@ -3,6 +3,15 @@
 
 #include "ostype.h"
 
+#include <unordered_map>
+
+#include "event2/event.h"
+
+#include "hiredis/async.h"
+#include "hiredis/adapters/libevent.h"
+
+
+
 #define NETLIB_OPT_SET_CALLBACK			1	
 #define NETLIB_OPT_SET_CALLBACK_DATA	2
 #define NETLIB_OPT_GET_REMOTE_IP		3
@@ -53,6 +62,8 @@ void netlib_eventloop(uint32_t wait_timeout = 100);
 void netlib_stop_event();
 
 bool netlib_is_running();
+
+int netlib_redis_attach(redisAsyncContext *context);
 
 #ifdef __cplusplus
 }

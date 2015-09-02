@@ -1,10 +1,12 @@
 #include "netlib.h"
-#include "BaseSocket.h"
-#include "EventDispatch.h"
+#include "util.h"
 
 #define __LIBEVENT__
 
 #ifndef __LIBEVENT__
+
+#include "BaseSocket.h"
+#include "EventDispatch.h"
 
 int netlib_init()
 {
@@ -176,8 +178,7 @@ bool netlib_is_running()
 
 #else
 
-#include <unordered_map>
-#include <event2/event.h>
+using namespace std;
 
 static unordered_map<net_handle_t, struct event*> g_read_event_map;
 static unordered_map<net_handle_t, struct event*> g_write_event_map;
@@ -497,7 +498,7 @@ uint16_t _GetRemotePort(net_handle_t hd)
 {
 	struct sockaddr_in sa;
 	socklen_t len = sizeof(sa);
-	if (!getsockname(hd, (struct sockaddr*)&sa, &len)) {
+	if (!getpeername(hd, (struct sockaddr*)&sa, &len)) {
 		return ntohs(sa.sin_port);
 	} else {
 		return 0;
@@ -656,6 +657,9 @@ bool netlib_is_running()
     return ret;
 }
 
-
+int netlib_redis_attach(redisAsyncContext *context)
+{
+	redisLibeventAttach(context, g_libevent_base);
+}
 
 #endif

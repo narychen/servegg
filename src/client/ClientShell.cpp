@@ -20,7 +20,28 @@
 
 #include "ClientConn.h"
 #include "util.h"
+#include "ClientWorker.h"
 using namespace std;
+
+redisAsyncContext* g_redis_ctx;
+static list<string> s_shell_cmds;
+static CLock s_cmds_lock;
+
+void client_loop_callback(void* cbdata, uint8_t msg, uint32_t handle, void* pParam)
+{
+    CAutoLock autoLock(&s_cmds_lock);
+    for (auto& e : s_shell_cmds) {
+        CClientWorker worker(e);
+    }
+    s_shell_cmds.clear();
+}
+
+void client_shell_cmds_add(string cmd)
+{
+    CAutoLock autoLock(&s_cmds_lock);
+    s_shell_cmds.push_back(cmd);
+}
+
 
 class CClientShell : public CThread
 {
@@ -39,13 +60,45 @@ public:
             client_shell_cmds_add(line);
 		}
 	}
+
+
+	redisAsyncContext* RedisSetup() {
+	    redisAsyncContext *c = redisAsyncConnect("127.0.0.1", 6379);
+        if (c->err) {
+            /* Let *c leak for now... */
+            loge("Error: %s\n", c->errstr);
+            return NULL;
+        }
+    
+        netlib_redis_attach(c);
+        redisAsyncSetConnectCallback(c, [](const redisAsyncContext *c, int status) {
+            if (status != REDIS_OK) {
+                printf("Error: %s\n", c->errstr);
+                return;
+            }
+            printf("Redis Connected...\n");
+        });
+        
+        redisAsyncSetDisconnectCallback(c, [](const redisAsyncContext *c, int status) {
+            if (status != REDIS_OK) {
+                printf("Error: %s\n", c->errstr);
+                return;
+            }
+            printf("Redis Disconnected...\n");
+        });
+        
+        return c;
+	}
     
     void Run() {
         signal(SIGPIPE, SIG_IGN);
         StartThread();
         netlib_init();
         cout << "Start event loop..." << endl;
-        netlib_add_loop(client_conn_loop_callback, nullptr);
+        
+        g_redis_ctx = RedisSetup();
+
+        netlib_add_loop(client_loop_callback, NULL);
         netlib_register_timer(client_conn_timer_callback, NULL, 1000);
         netlib_eventloop();
     }

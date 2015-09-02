@@ -15,7 +15,9 @@ CClientWorker::CClientWorker(string cmd) {
 }
 
 void CClientWorker::ExecCmd(vector<string>& cmds) {
-	if (cmds.size() == 3) {
+	if (cmds[0] == "redis") {
+	    RedisCmd(cmds);
+	} else if (cmds.size() == 3) {
 	    if (cmds[0] == "login") {
 	        Login(cmds[1], cmds[2]);
 	    } else if (cmds[0] == "reg") {
@@ -25,6 +27,19 @@ void CClientWorker::ExecCmd(vector<string>& cmds) {
 	    cout << "command error" << endl;
 	}
     
+}
+
+void CClientWorker::RedisCmd(std::vector<string>& cmds) {
+    int i = 0;
+    string s = "";
+    for (auto& cmd : cmds) {
+        if (i != 0) {
+            s += cmd;
+            s += " ";
+        }
+        i++;
+    }
+    log("redis -%s-", s.c_str());
 }
 
 void CClientWorker::Login(string username, string passwd) {

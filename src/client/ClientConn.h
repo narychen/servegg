@@ -27,8 +27,6 @@
 #include "IM.Group.pb.h"
 
 void client_conn_register(string username, string passwd);
-void client_shell_cmds_add(string cmd);
-void client_conn_loop_callback(void* cbdata, uint8_t msg, uint32_t handle, void* pParam);
 void client_conn_timer_callback(void* callback_data, uint8_t msg, uint32_t handle, void* pParam);
 
 

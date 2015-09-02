@@ -28,6 +28,8 @@ public:
     void Register(std::string username, std::string passwd);
     void GetMsgServerAddr(std::string login_url, std::string& ip, uint16_t& port);
     void ConnectMsgServer(on_confirm_data_t& data);
+    
+    void RedisCmd(std::vector<string>& cmds);
 };
 
 
