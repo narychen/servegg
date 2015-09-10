@@ -7,6 +7,7 @@
 #include "util.h"
 
 using namespace std;
+extern redisAsyncContext* g_redis_ctx;
 
 CClientWorker::CClientWorker(string cmd) {
     vector<string> cmds;
@@ -39,7 +40,16 @@ void CClientWorker::RedisCmd(std::vector<string>& cmds) {
         }
         i++;
     }
-    log("redis -%s-", s.c_str());
+    // log("redis -%s-", s.c_str());
+    redisAsyncCommand(g_redis_ctx, [](redisAsyncContext *c, void *r, void *privdata) {
+        redisReply *reply = (redisReply*)r;
+        if (reply == NULL) return;
+        if (reply->str) {
+            printf("%s\n", reply->str);
+        } else {
+            printf("nil\n");
+        }
+    }, NULL, s.c_str());
 }
 
 void CClientWorker::Login(string username, string passwd) {
