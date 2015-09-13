@@ -25,6 +25,7 @@ message IMRegisterReq{
 	optional IM.BaseDefine.UserStatType online_status = 3;
 	optional IM.BaseDefine.ClientType client_type = 4;
 	optional string client_version = 5;
+	optional IM.BaseDefine.UserInfo user_info = 6;
 	optional bytes attach_data = 20;
 }
 

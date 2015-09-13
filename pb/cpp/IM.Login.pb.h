@@ -373,6 +373,15 @@ class IMRegisterReq : public ::google::protobuf::MessageLite {
   inline ::std::string* release_client_version();
   inline void set_allocated_client_version(::std::string* client_version);
 
+  // optional .IM.BaseDefine.UserInfo user_info = 6;
+  inline bool has_user_info() const;
+  inline void clear_user_info();
+  static const int kUserInfoFieldNumber = 6;
+  inline const ::IM::BaseDefine::UserInfo& user_info() const;
+  inline ::IM::BaseDefine::UserInfo* mutable_user_info();
+  inline ::IM::BaseDefine::UserInfo* release_user_info();
+  inline void set_allocated_user_info(::IM::BaseDefine::UserInfo* user_info);
+
   // optional bytes attach_data = 20;
   inline bool has_attach_data() const;
   inline void clear_attach_data();
@@ -397,6 +406,8 @@ class IMRegisterReq : public ::google::protobuf::MessageLite {
   inline void clear_has_client_type();
   inline void set_has_client_version();
   inline void clear_has_client_version();
+  inline void set_has_user_info();
+  inline void clear_has_user_info();
   inline void set_has_attach_data();
   inline void clear_has_attach_data();
 
@@ -409,6 +420,7 @@ class IMRegisterReq : public ::google::protobuf::MessageLite {
   int online_status_;
   int client_type_;
   ::std::string* client_version_;
+  ::IM::BaseDefine::UserInfo* user_info_;
   ::std::string* attach_data_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_IM_2eLogin_2eproto_impl();
@@ -2054,15 +2066,60 @@ inline void IMRegisterReq::set_allocated_client_version(::std::string* client_ve
   // @@protoc_insertion_point(field_set_allocated:IM.Login.IMRegisterReq.client_version)
 }
 
-// optional bytes attach_data = 20;
-inline bool IMRegisterReq::has_attach_data() const {
+// optional .IM.BaseDefine.UserInfo user_info = 6;
+inline bool IMRegisterReq::has_user_info() const {
   return (_has_bits_[0] & 0x00000020u) != 0;
 }
-inline void IMRegisterReq::set_has_attach_data() {
+inline void IMRegisterReq::set_has_user_info() {
   _has_bits_[0] |= 0x00000020u;
 }
-inline void IMRegisterReq::clear_has_attach_data() {
+inline void IMRegisterReq::clear_has_user_info() {
   _has_bits_[0] &= ~0x00000020u;
+}
+inline void IMRegisterReq::clear_user_info() {
+  if (user_info_ != NULL) user_info_->::IM::BaseDefine::UserInfo::Clear();
+  clear_has_user_info();
+}
+inline const ::IM::BaseDefine::UserInfo& IMRegisterReq::user_info() const {
+  // @@protoc_insertion_point(field_get:IM.Login.IMRegisterReq.user_info)
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  return user_info_ != NULL ? *user_info_ : *default_instance().user_info_;
+#else
+  return user_info_ != NULL ? *user_info_ : *default_instance_->user_info_;
+#endif
+}
+inline ::IM::BaseDefine::UserInfo* IMRegisterReq::mutable_user_info() {
+  set_has_user_info();
+  if (user_info_ == NULL) user_info_ = new ::IM::BaseDefine::UserInfo;
+  // @@protoc_insertion_point(field_mutable:IM.Login.IMRegisterReq.user_info)
+  return user_info_;
+}
+inline ::IM::BaseDefine::UserInfo* IMRegisterReq::release_user_info() {
+  clear_has_user_info();
+  ::IM::BaseDefine::UserInfo* temp = user_info_;
+  user_info_ = NULL;
+  return temp;
+}
+inline void IMRegisterReq::set_allocated_user_info(::IM::BaseDefine::UserInfo* user_info) {
+  delete user_info_;
+  user_info_ = user_info;
+  if (user_info) {
+    set_has_user_info();
+  } else {
+    clear_has_user_info();
+  }
+  // @@protoc_insertion_point(field_set_allocated:IM.Login.IMRegisterReq.user_info)
+}
+
+// optional bytes attach_data = 20;
+inline bool IMRegisterReq::has_attach_data() const {
+  return (_has_bits_[0] & 0x00000040u) != 0;
+}
+inline void IMRegisterReq::set_has_attach_data() {
+  _has_bits_[0] |= 0x00000040u;
+}
+inline void IMRegisterReq::clear_has_attach_data() {
+  _has_bits_[0] &= ~0x00000040u;
 }
 inline void IMRegisterReq::clear_attach_data() {
   if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {

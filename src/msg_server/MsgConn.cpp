@@ -411,6 +411,10 @@ void CMsgConn::_HandleRegisterRequest(CImPdu* pPdu)
     m_login_name = msg.user_name();
     string password = msg.password();
     uint32_t online_status = msg.online_status();
+    
+    auto pUser = msg.user_info();
+    
+    
     if (online_status < IM::BaseDefine::USER_STATUS_ONLINE || online_status > IM::BaseDefine::USER_STATUS_LEAVE) {
         loge("online status wrong: %u ", online_status);
         online_status = IM::BaseDefine::USER_STATUS_ONLINE;
@@ -434,6 +438,19 @@ void CMsgConn::_HandleRegisterRequest(CImPdu* pPdu)
     msg2.set_user_name(msg.user_name());
     msg2.set_password(password);
     msg2.set_attach_data(attach_data.GetBuffer(), attach_data.GetLength());
+    
+    IM::BaseDefine::UserInfo* pUser2 = msg2.mutable_user_info();
+    pUser2->set_user_gender(pUser.user_gender());
+    pUser2->set_department_id(pUser.department_id());
+    pUser2->set_user_nick_name(pUser.user_nick_name());
+    pUser2->set_user_domain(pUser.user_domain());
+    pUser2->set_avatar_url(pUser.avatar_url());
+    pUser2->set_email(pUser.email());
+    pUser2->set_user_tel(pUser.user_tel());
+    pUser2->set_user_real_name(pUser.user_real_name());
+    pUser2->set_status(pUser.status());
+    
+    
     CImPdu pdu;
     pdu.SetPBMsg(&msg2);
     pdu.SetServiceId(SID_OTHER);

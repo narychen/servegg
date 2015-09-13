@@ -63,7 +63,7 @@ void netlib_stop_event();
 
 bool netlib_is_running();
 
-int netlib_redis_attach(redisAsyncContext *context);
+void netlib_redis_attach(redisAsyncContext *context);
 
 #ifdef __cplusplus
 }

@@ -594,6 +594,7 @@ void IMValidateReq::Swap(IMValidateReq* other) {
 #ifndef _MSC_VER
 const int IMDbRegReq::kUserNameFieldNumber;
 const int IMDbRegReq::kPasswordFieldNumber;
+const int IMDbRegReq::kUserInfoFieldNumber;
 const int IMDbRegReq::kAttachDataFieldNumber;
 #endif  // !_MSC_VER
 
@@ -604,6 +605,12 @@ IMDbRegReq::IMDbRegReq()
 }
 
 void IMDbRegReq::InitAsDefaultInstance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  user_info_ = const_cast< ::IM::BaseDefine::UserInfo*>(
+      ::IM::BaseDefine::UserInfo::internal_default_instance());
+#else
+  user_info_ = const_cast< ::IM::BaseDefine::UserInfo*>(&::IM::BaseDefine::UserInfo::default_instance());
+#endif
 }
 
 IMDbRegReq::IMDbRegReq(const IMDbRegReq& from)
@@ -618,6 +625,7 @@ void IMDbRegReq::SharedCtor() {
   _cached_size_ = 0;
   user_name_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   password_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  user_info_ = NULL;
   attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -642,6 +650,7 @@ void IMDbRegReq::SharedDtor() {
   #else
   if (this != default_instance_) {
   #endif
+    delete user_info_;
   }
 }
 
@@ -666,7 +675,7 @@ IMDbRegReq* IMDbRegReq::New() const {
 }
 
 void IMDbRegReq::Clear() {
-  if (_has_bits_[0 / 32] & 7) {
+  if (_has_bits_[0 / 32] & 15) {
     if (has_user_name()) {
       if (user_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         user_name_->clear();
@@ -676,6 +685,9 @@ void IMDbRegReq::Clear() {
       if (password_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         password_->clear();
       }
+    }
+    if (has_user_info()) {
+      if (user_info_ != NULL) user_info_->::IM::BaseDefine::UserInfo::Clear();
     }
     if (has_attach_data()) {
       if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
@@ -719,6 +731,19 @@ bool IMDbRegReq::MergePartialFromCodedStream(
          parse_password:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_password()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_user_info;
+        break;
+      }
+
+      // optional .IM.BaseDefine.UserInfo user_info = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_user_info:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_user_info()));
         } else {
           goto handle_unusual;
         }
@@ -776,6 +801,12 @@ void IMDbRegReq::SerializeWithCachedSizes(
       2, this->password(), output);
   }
 
+  // optional .IM.BaseDefine.UserInfo user_info = 3;
+  if (has_user_info()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+      3, this->user_info(), output);
+  }
+
   // optional bytes attach_data = 20;
   if (has_attach_data()) {
     ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
@@ -803,6 +834,13 @@ int IMDbRegReq::ByteSize() const {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->password());
+    }
+
+    // optional .IM.BaseDefine.UserInfo user_info = 3;
+    if (has_user_info()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->user_info());
     }
 
     // optional bytes attach_data = 20;
@@ -835,6 +873,9 @@ void IMDbRegReq::MergeFrom(const IMDbRegReq& from) {
     if (from.has_password()) {
       set_password(from.password());
     }
+    if (from.has_user_info()) {
+      mutable_user_info()->::IM::BaseDefine::UserInfo::MergeFrom(from.user_info());
+    }
     if (from.has_attach_data()) {
       set_attach_data(from.attach_data());
     }
@@ -857,6 +898,7 @@ void IMDbRegReq::Swap(IMDbRegReq* other) {
   if (other != this) {
     std::swap(user_name_, other->user_name_);
     std::swap(password_, other->password_);
+    std::swap(user_info_, other->user_info_);
     std::swap(attach_data_, other->attach_data_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);
@@ -1204,9 +1246,6 @@ void IMDbRegRes::CopyFrom(const IMDbRegRes& from) {
 
 bool IMDbRegRes::IsInitialized() const {
 
-  if (has_user_info()) {
-    if (!this->user_info().IsInitialized()) return false;
-  }
   return true;
 }
 
@@ -1564,9 +1603,6 @@ void IMValidateRsp::CopyFrom(const IMValidateRsp& from) {
 bool IMValidateRsp::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
 
-  if (has_user_info()) {
-    if (!this->user_info().IsInitialized()) return false;
-  }
   return true;
 }
 

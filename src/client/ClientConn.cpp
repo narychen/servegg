@@ -79,6 +79,18 @@ uint32_t CClientConn::OnRegister()
     msg.set_online_status(IM::BaseDefine::USER_STATUS_ONLINE);
     msg.set_client_type(IM::BaseDefine::CLIENT_TYPE_WINDOWS);
     msg.set_client_version("1.0");
+    
+    IM::BaseDefine::UserInfo* pUser = msg.mutable_user_info();
+    pUser->set_user_gender(0);
+    pUser->set_department_id(1);
+    pUser->set_user_nick_name(m_username);
+    pUser->set_user_domain(m_username);
+    pUser->set_avatar_url("xxx/ooo");
+    pUser->set_email("test@test.com");
+    pUser->set_user_tel("110");
+    pUser->set_user_real_name(m_username);
+    pUser->set_status(0);
+    
     pdu.SetPBMsg(&msg);
     pdu.SetServiceId(IM::BaseDefine::SID_LOGIN);
     pdu.SetCommandId(IM::BaseDefine::CID_LOGIN_REQ_USERREG);

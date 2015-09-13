@@ -1376,7 +1376,6 @@ void IMUsersInfoRsp::CopyFrom(const IMUsersInfoRsp& from) {
 bool IMUsersInfoRsp::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
 
-  if (!::google::protobuf::internal::AllAreInitialized(this->user_info_list())) return false;
   return true;
 }
 
@@ -2637,7 +2636,6 @@ void IMAllUserRsp::CopyFrom(const IMAllUserRsp& from) {
 bool IMAllUserRsp::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
 
-  if (!::google::protobuf::internal::AllAreInitialized(this->user_list())) return false;
   return true;
 }
 

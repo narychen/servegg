@@ -241,16 +241,16 @@ message IpAddr{
 }
 
 message UserInfo{
-	required uint32 user_id = 1;
-	required uint32 user_gender = 2; 	//// 用户性别,男：1 女：2 人妖/外星人：0
-	required string user_nick_name = 3;	//绰号
-	required string avatar_url = 4;
-	required uint32 department_id = 5;
-	required string email = 6;
-	required string user_real_name = 7;	//真名
-	required string user_tel = 8;
-	required string user_domain = 9;	//用户名拼音
-    required uint32 status = 10;        //0:在职  1. 试用期 2. 正式 3. 离职 4.实习,  client端需要对“离职”进行不展示
+	optional uint32 user_id = 1;
+	optional uint32 user_gender = 2; 	//// 用户性别,男：1 女：2 人妖/外星人：0
+	optional string user_nick_name = 3;	//绰号
+	optional string avatar_url = 4;
+	optional uint32 department_id = 5;
+	optional string email = 6;
+	optional string user_real_name = 7;	//真名
+	optional string user_tel = 8;
+	optional string user_domain = 9;	//用户名拼音
+    optional uint32 status = 10;        //0:在职  1. 试用期 2. 正式 3. 离职 4.实习,  client端需要对“离职”进行不展示
 }
 
 message ContactSessionInfo{

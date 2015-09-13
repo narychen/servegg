@@ -657,7 +657,7 @@ bool netlib_is_running()
     return ret;
 }
 
-int netlib_redis_attach(redisAsyncContext *context)
+void netlib_redis_attach(redisAsyncContext *context)
 {
 	redisLibeventAttach(context, g_libevent_base);
 }

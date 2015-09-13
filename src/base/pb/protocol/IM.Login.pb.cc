@@ -573,6 +573,7 @@ const int IMRegisterReq::kPasswordFieldNumber;
 const int IMRegisterReq::kOnlineStatusFieldNumber;
 const int IMRegisterReq::kClientTypeFieldNumber;
 const int IMRegisterReq::kClientVersionFieldNumber;
+const int IMRegisterReq::kUserInfoFieldNumber;
 const int IMRegisterReq::kAttachDataFieldNumber;
 #endif  // !_MSC_VER
 
@@ -583,6 +584,12 @@ IMRegisterReq::IMRegisterReq()
 }
 
 void IMRegisterReq::InitAsDefaultInstance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  user_info_ = const_cast< ::IM::BaseDefine::UserInfo*>(
+      ::IM::BaseDefine::UserInfo::internal_default_instance());
+#else
+  user_info_ = const_cast< ::IM::BaseDefine::UserInfo*>(&::IM::BaseDefine::UserInfo::default_instance());
+#endif
 }
 
 IMRegisterReq::IMRegisterReq(const IMRegisterReq& from)
@@ -600,6 +607,7 @@ void IMRegisterReq::SharedCtor() {
   online_status_ = 1;
   client_type_ = 1;
   client_version_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  user_info_ = NULL;
   attach_data_ = const_cast< ::std::string*>(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
@@ -627,6 +635,7 @@ void IMRegisterReq::SharedDtor() {
   #else
   if (this != default_instance_) {
   #endif
+    delete user_info_;
   }
 }
 
@@ -651,7 +660,7 @@ IMRegisterReq* IMRegisterReq::New() const {
 }
 
 void IMRegisterReq::Clear() {
-  if (_has_bits_[0 / 32] & 63) {
+  if (_has_bits_[0 / 32] & 127) {
     if (has_user_name()) {
       if (user_name_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         user_name_->clear();
@@ -668,6 +677,9 @@ void IMRegisterReq::Clear() {
       if (client_version_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
         client_version_->clear();
       }
+    }
+    if (has_user_info()) {
+      if (user_info_ != NULL) user_info_->::IM::BaseDefine::UserInfo::Clear();
     }
     if (has_attach_data()) {
       if (attach_data_ != &::google::protobuf::internal::GetEmptyStringAlreadyInited()) {
@@ -769,6 +781,19 @@ bool IMRegisterReq::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(50)) goto parse_user_info;
+        break;
+      }
+
+      // optional .IM.BaseDefine.UserInfo user_info = 6;
+      case 6: {
+        if (tag == 50) {
+         parse_user_info:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtual(
+               input, mutable_user_info()));
+        } else {
+          goto handle_unusual;
+        }
         if (input->ExpectTag(162)) goto parse_attach_data;
         break;
       }
@@ -841,6 +866,12 @@ void IMRegisterReq::SerializeWithCachedSizes(
       5, this->client_version(), output);
   }
 
+  // optional .IM.BaseDefine.UserInfo user_info = 6;
+  if (has_user_info()) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+      6, this->user_info(), output);
+  }
+
   // optional bytes attach_data = 20;
   if (has_attach_data()) {
     ::google::protobuf::internal::WireFormatLite::WriteBytesMaybeAliased(
@@ -889,6 +920,13 @@ int IMRegisterReq::ByteSize() const {
           this->client_version());
     }
 
+    // optional .IM.BaseDefine.UserInfo user_info = 6;
+    if (has_user_info()) {
+      total_size += 1 +
+        ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+          this->user_info());
+    }
+
     // optional bytes attach_data = 20;
     if (has_attach_data()) {
       total_size += 2 +
@@ -928,6 +966,9 @@ void IMRegisterReq::MergeFrom(const IMRegisterReq& from) {
     if (from.has_client_version()) {
       set_client_version(from.client_version());
     }
+    if (from.has_user_info()) {
+      mutable_user_info()->::IM::BaseDefine::UserInfo::MergeFrom(from.user_info());
+    }
     if (from.has_attach_data()) {
       set_attach_data(from.attach_data());
     }
@@ -953,6 +994,7 @@ void IMRegisterReq::Swap(IMRegisterReq* other) {
     std::swap(online_status_, other->online_status_);
     std::swap(client_type_, other->client_type_);
     std::swap(client_version_, other->client_version_);
+    std::swap(user_info_, other->user_info_);
     std::swap(attach_data_, other->attach_data_);
     std::swap(_has_bits_[0], other->_has_bits_[0]);
     _unknown_fields_.swap(other->_unknown_fields_);
@@ -1713,9 +1755,6 @@ void IMRegisterRes::CopyFrom(const IMRegisterRes& from) {
 
 bool IMRegisterRes::IsInitialized() const {
 
-  if (has_user_info()) {
-    if (!this->user_info().IsInitialized()) return false;
-  }
   return true;
 }
 
@@ -2087,9 +2126,6 @@ void IMLoginRes::CopyFrom(const IMLoginRes& from) {
 bool IMLoginRes::IsInitialized() const {
   if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
 
-  if (has_user_info()) {
-    if (!this->user_info().IsInitialized()) return false;
-  }
   return true;
 }
 

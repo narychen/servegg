@@ -833,7 +833,7 @@ bool UserInfo::MergePartialFromCodedStream(
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required uint32 user_id = 1;
+      // optional uint32 user_id = 1;
       case 1: {
         if (tag == 8) {
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
@@ -847,7 +847,7 @@ bool UserInfo::MergePartialFromCodedStream(
         break;
       }
 
-      // required uint32 user_gender = 2;
+      // optional uint32 user_gender = 2;
       case 2: {
         if (tag == 16) {
          parse_user_gender:
@@ -862,7 +862,7 @@ bool UserInfo::MergePartialFromCodedStream(
         break;
       }
 
-      // required string user_nick_name = 3;
+      // optional string user_nick_name = 3;
       case 3: {
         if (tag == 26) {
          parse_user_nick_name:
@@ -875,7 +875,7 @@ bool UserInfo::MergePartialFromCodedStream(
         break;
       }
 
-      // required string avatar_url = 4;
+      // optional string avatar_url = 4;
       case 4: {
         if (tag == 34) {
          parse_avatar_url:
@@ -888,7 +888,7 @@ bool UserInfo::MergePartialFromCodedStream(
         break;
       }
 
-      // required uint32 department_id = 5;
+      // optional uint32 department_id = 5;
       case 5: {
         if (tag == 40) {
          parse_department_id:
@@ -903,7 +903,7 @@ bool UserInfo::MergePartialFromCodedStream(
         break;
       }
 
-      // required string email = 6;
+      // optional string email = 6;
       case 6: {
         if (tag == 50) {
          parse_email:
@@ -916,7 +916,7 @@ bool UserInfo::MergePartialFromCodedStream(
         break;
       }
 
-      // required string user_real_name = 7;
+      // optional string user_real_name = 7;
       case 7: {
         if (tag == 58) {
          parse_user_real_name:
@@ -929,7 +929,7 @@ bool UserInfo::MergePartialFromCodedStream(
         break;
       }
 
-      // required string user_tel = 8;
+      // optional string user_tel = 8;
       case 8: {
         if (tag == 66) {
          parse_user_tel:
@@ -942,7 +942,7 @@ bool UserInfo::MergePartialFromCodedStream(
         break;
       }
 
-      // required string user_domain = 9;
+      // optional string user_domain = 9;
       case 9: {
         if (tag == 74) {
          parse_user_domain:
@@ -955,7 +955,7 @@ bool UserInfo::MergePartialFromCodedStream(
         break;
       }
 
-      // required uint32 status = 10;
+      // optional uint32 status = 10;
       case 10: {
         if (tag == 80) {
          parse_status:
@@ -995,58 +995,58 @@ failure:
 void UserInfo::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
   // @@protoc_insertion_point(serialize_start:IM.BaseDefine.UserInfo)
-  // required uint32 user_id = 1;
+  // optional uint32 user_id = 1;
   if (has_user_id()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(1, this->user_id(), output);
   }
 
-  // required uint32 user_gender = 2;
+  // optional uint32 user_gender = 2;
   if (has_user_gender()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(2, this->user_gender(), output);
   }
 
-  // required string user_nick_name = 3;
+  // optional string user_nick_name = 3;
   if (has_user_nick_name()) {
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       3, this->user_nick_name(), output);
   }
 
-  // required string avatar_url = 4;
+  // optional string avatar_url = 4;
   if (has_avatar_url()) {
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       4, this->avatar_url(), output);
   }
 
-  // required uint32 department_id = 5;
+  // optional uint32 department_id = 5;
   if (has_department_id()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(5, this->department_id(), output);
   }
 
-  // required string email = 6;
+  // optional string email = 6;
   if (has_email()) {
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       6, this->email(), output);
   }
 
-  // required string user_real_name = 7;
+  // optional string user_real_name = 7;
   if (has_user_real_name()) {
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       7, this->user_real_name(), output);
   }
 
-  // required string user_tel = 8;
+  // optional string user_tel = 8;
   if (has_user_tel()) {
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       8, this->user_tel(), output);
   }
 
-  // required string user_domain = 9;
+  // optional string user_domain = 9;
   if (has_user_domain()) {
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
       9, this->user_domain(), output);
   }
 
-  // required uint32 status = 10;
+  // optional uint32 status = 10;
   if (has_status()) {
     ::google::protobuf::internal::WireFormatLite::WriteUInt32(10, this->status(), output);
   }
@@ -1060,56 +1060,56 @@ int UserInfo::ByteSize() const {
   int total_size = 0;
 
   if (_has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    // required uint32 user_id = 1;
+    // optional uint32 user_id = 1;
     if (has_user_id()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->user_id());
     }
 
-    // required uint32 user_gender = 2;
+    // optional uint32 user_gender = 2;
     if (has_user_gender()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->user_gender());
     }
 
-    // required string user_nick_name = 3;
+    // optional string user_nick_name = 3;
     if (has_user_nick_name()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->user_nick_name());
     }
 
-    // required string avatar_url = 4;
+    // optional string avatar_url = 4;
     if (has_avatar_url()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->avatar_url());
     }
 
-    // required uint32 department_id = 5;
+    // optional uint32 department_id = 5;
     if (has_department_id()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
           this->department_id());
     }
 
-    // required string email = 6;
+    // optional string email = 6;
     if (has_email()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->email());
     }
 
-    // required string user_real_name = 7;
+    // optional string user_real_name = 7;
     if (has_user_real_name()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->user_real_name());
     }
 
-    // required string user_tel = 8;
+    // optional string user_tel = 8;
     if (has_user_tel()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
@@ -1118,14 +1118,14 @@ int UserInfo::ByteSize() const {
 
   }
   if (_has_bits_[8 / 32] & (0xffu << (8 % 32))) {
-    // required string user_domain = 9;
+    // optional string user_domain = 9;
     if (has_user_domain()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::StringSize(
           this->user_domain());
     }
 
-    // required uint32 status = 10;
+    // optional uint32 status = 10;
     if (has_status()) {
       total_size += 1 +
         ::google::protobuf::internal::WireFormatLite::UInt32Size(
@@ -1192,7 +1192,6 @@ void UserInfo::CopyFrom(const UserInfo& from) {
 }
 
 bool UserInfo::IsInitialized() const {
-  if ((_has_bits_[0] & 0x000003ff) != 0x000003ff) return false;
 
   return true;
 }

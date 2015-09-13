@@ -532,21 +532,21 @@ class UserInfo : public ::google::protobuf::MessageLite {
 
   // accessors -------------------------------------------------------
 
-  // required uint32 user_id = 1;
+  // optional uint32 user_id = 1;
   inline bool has_user_id() const;
   inline void clear_user_id();
   static const int kUserIdFieldNumber = 1;
   inline ::google::protobuf::uint32 user_id() const;
   inline void set_user_id(::google::protobuf::uint32 value);
 
-  // required uint32 user_gender = 2;
+  // optional uint32 user_gender = 2;
   inline bool has_user_gender() const;
   inline void clear_user_gender();
   static const int kUserGenderFieldNumber = 2;
   inline ::google::protobuf::uint32 user_gender() const;
   inline void set_user_gender(::google::protobuf::uint32 value);
 
-  // required string user_nick_name = 3;
+  // optional string user_nick_name = 3;
   inline bool has_user_nick_name() const;
   inline void clear_user_nick_name();
   static const int kUserNickNameFieldNumber = 3;
@@ -558,7 +558,7 @@ class UserInfo : public ::google::protobuf::MessageLite {
   inline ::std::string* release_user_nick_name();
   inline void set_allocated_user_nick_name(::std::string* user_nick_name);
 
-  // required string avatar_url = 4;
+  // optional string avatar_url = 4;
   inline bool has_avatar_url() const;
   inline void clear_avatar_url();
   static const int kAvatarUrlFieldNumber = 4;
@@ -570,14 +570,14 @@ class UserInfo : public ::google::protobuf::MessageLite {
   inline ::std::string* release_avatar_url();
   inline void set_allocated_avatar_url(::std::string* avatar_url);
 
-  // required uint32 department_id = 5;
+  // optional uint32 department_id = 5;
   inline bool has_department_id() const;
   inline void clear_department_id();
   static const int kDepartmentIdFieldNumber = 5;
   inline ::google::protobuf::uint32 department_id() const;
   inline void set_department_id(::google::protobuf::uint32 value);
 
-  // required string email = 6;
+  // optional string email = 6;
   inline bool has_email() const;
   inline void clear_email();
   static const int kEmailFieldNumber = 6;
@@ -589,7 +589,7 @@ class UserInfo : public ::google::protobuf::MessageLite {
   inline ::std::string* release_email();
   inline void set_allocated_email(::std::string* email);
 
-  // required string user_real_name = 7;
+  // optional string user_real_name = 7;
   inline bool has_user_real_name() const;
   inline void clear_user_real_name();
   static const int kUserRealNameFieldNumber = 7;
@@ -601,7 +601,7 @@ class UserInfo : public ::google::protobuf::MessageLite {
   inline ::std::string* release_user_real_name();
   inline void set_allocated_user_real_name(::std::string* user_real_name);
 
-  // required string user_tel = 8;
+  // optional string user_tel = 8;
   inline bool has_user_tel() const;
   inline void clear_user_tel();
   static const int kUserTelFieldNumber = 8;
@@ -613,7 +613,7 @@ class UserInfo : public ::google::protobuf::MessageLite {
   inline ::std::string* release_user_tel();
   inline void set_allocated_user_tel(::std::string* user_tel);
 
-  // required string user_domain = 9;
+  // optional string user_domain = 9;
   inline bool has_user_domain() const;
   inline void clear_user_domain();
   static const int kUserDomainFieldNumber = 9;
@@ -625,7 +625,7 @@ class UserInfo : public ::google::protobuf::MessageLite {
   inline ::std::string* release_user_domain();
   inline void set_allocated_user_domain(::std::string* user_domain);
 
-  // required uint32 status = 10;
+  // optional uint32 status = 10;
   inline bool has_status() const;
   inline void clear_status();
   static const int kStatusFieldNumber = 10;
@@ -2356,7 +2356,7 @@ inline void IpAddr::set_port(::google::protobuf::uint32 value) {
 
 // UserInfo
 
-// required uint32 user_id = 1;
+// optional uint32 user_id = 1;
 inline bool UserInfo::has_user_id() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -2380,7 +2380,7 @@ inline void UserInfo::set_user_id(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:IM.BaseDefine.UserInfo.user_id)
 }
 
-// required uint32 user_gender = 2;
+// optional uint32 user_gender = 2;
 inline bool UserInfo::has_user_gender() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -2404,7 +2404,7 @@ inline void UserInfo::set_user_gender(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:IM.BaseDefine.UserInfo.user_gender)
 }
 
-// required string user_nick_name = 3;
+// optional string user_nick_name = 3;
 inline bool UserInfo::has_user_nick_name() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
@@ -2480,7 +2480,7 @@ inline void UserInfo::set_allocated_user_nick_name(::std::string* user_nick_name
   // @@protoc_insertion_point(field_set_allocated:IM.BaseDefine.UserInfo.user_nick_name)
 }
 
-// required string avatar_url = 4;
+// optional string avatar_url = 4;
 inline bool UserInfo::has_avatar_url() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
@@ -2556,7 +2556,7 @@ inline void UserInfo::set_allocated_avatar_url(::std::string* avatar_url) {
   // @@protoc_insertion_point(field_set_allocated:IM.BaseDefine.UserInfo.avatar_url)
 }
 
-// required uint32 department_id = 5;
+// optional uint32 department_id = 5;
 inline bool UserInfo::has_department_id() const {
   return (_has_bits_[0] & 0x00000010u) != 0;
 }
@@ -2580,7 +2580,7 @@ inline void UserInfo::set_department_id(::google::protobuf::uint32 value) {
   // @@protoc_insertion_point(field_set:IM.BaseDefine.UserInfo.department_id)
 }
 
-// required string email = 6;
+// optional string email = 6;
 inline bool UserInfo::has_email() const {
   return (_has_bits_[0] & 0x00000020u) != 0;
 }
@@ -2656,7 +2656,7 @@ inline void UserInfo::set_allocated_email(::std::string* email) {
   // @@protoc_insertion_point(field_set_allocated:IM.BaseDefine.UserInfo.email)
 }
 
-// required string user_real_name = 7;
+// optional string user_real_name = 7;
 inline bool UserInfo::has_user_real_name() const {
   return (_has_bits_[0] & 0x00000040u) != 0;
 }
@@ -2732,7 +2732,7 @@ inline void UserInfo::set_allocated_user_real_name(::std::string* user_real_name
   // @@protoc_insertion_point(field_set_allocated:IM.BaseDefine.UserInfo.user_real_name)
 }
 
-// required string user_tel = 8;
+// optional string user_tel = 8;
 inline bool UserInfo::has_user_tel() const {
   return (_has_bits_[0] & 0x00000080u) != 0;
 }
@@ -2808,7 +2808,7 @@ inline void UserInfo::set_allocated_user_tel(::std::string* user_tel) {
   // @@protoc_insertion_point(field_set_allocated:IM.BaseDefine.UserInfo.user_tel)
 }
 
-// required string user_domain = 9;
+// optional string user_domain = 9;
 inline bool UserInfo::has_user_domain() const {
   return (_has_bits_[0] & 0x00000100u) != 0;
 }
@@ -2884,7 +2884,7 @@ inline void UserInfo::set_allocated_user_domain(::std::string* user_domain) {
   // @@protoc_insertion_point(field_set_allocated:IM.BaseDefine.UserInfo.user_domain)
 }
 
-// required uint32 status = 10;
+// optional uint32 status = 10;
 inline bool UserInfo::has_status() const {
   return (_has_bits_[0] & 0x00000200u) != 0;
 }
