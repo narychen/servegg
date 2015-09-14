@@ -42,6 +42,7 @@ void msg_serv_callback(void* callback_data, uint8_t msg, uint32_t handle, void* 
 	{
 		log("!!!error msg: %d ", msg);
 	}
+
 }
 
 
@@ -66,8 +67,9 @@ void cxx_handler(int sig)
 
 int main(int argc, char* argv[])
 {
-
 	backup_core_file();
+	will_be_daemon(argc, argv);
+	// will_have_stacktrace();
 	
 	if ((argc == 2) && (strcmp(argv[1], "-v") == 0)) {
 		printf("Server Version: LoginServer/%s\n", VERSION);

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.6)
-PROJECT(msfs)
+PROJECT(msfs_server)
 SET(_ ${PROJECT_SOURCE_DIR})
 AUX_SOURCE_DIRECTORY(${_} SRC_LIST)
 AUX_SOURCE_DIRECTORY(${_}/../base SRC_BASE)
@@ -18,7 +18,7 @@ LINK_DIRECTORIES(${_} ${_}/../lib)
 
 #ADD_XXXX必须在TARGET_LINK_LIBRARIES前面，否则会报错
 #ADD_LIBRARY(${PROJECTNAME} SHARED/STATIC ${SRC_LIST})
-ADD_EXECUTABLE(msfs ${SRC_LIST} ${SRC_BASE} ${SRC_PB} ${SRC_JSON})
+ADD_EXECUTABLE(msfs_server ${SRC_LIST} ${SRC_BASE} ${SRC_PB} ${SRC_JSON})
 
-TARGET_LINK_LIBRARIES(msfs pthread log4cxx protobuf-lite curl crypto event hiredis)
+TARGET_LINK_LIBRARIES(msfs_server pthread log4cxx protobuf-lite curl crypto event hiredis)
  

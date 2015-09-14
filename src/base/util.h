@@ -104,6 +104,9 @@ const char*  memfind(const char *src_str,size_t src_len, const char *sub_str, si
 void print_stacktrace(FILE *out = stderr, unsigned int max_frames = 63);
 
 void backup_core_file();
-void become_daemon();
+void daemon();
+int daemon(int nochdir, int noclose, int asroot);
+void will_be_daemon(int argc, char* argv[]);
+void will_have_stacktrace();
 
 #endif

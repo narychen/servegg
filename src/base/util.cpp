@@ -474,7 +474,7 @@ void backup_core_file()
 }
 
 
-void become_daemon()
+void daemon()
 {
     int i, fd;  
   
@@ -493,4 +493,66 @@ void become_daemon()
     // log("----%d----", n);
     // for(i = 0; i < 3; i++) //第五步 关闭文件描述符  
     //     close(i); 
+}
+
+int daemon(int nochdir, int noclose, int asroot)
+{
+    switch (fork())
+    {
+        case 0:  break;
+        case -1: return -1;
+        default: _exit(0);          /* exit the original process */
+    }
+
+    if (setsid() < 0)               /* shoudn't fail */
+        return -1;
+
+    if ( !asroot && (setuid(1) < 0) )              /* shoudn't fail */
+        return -1;
+
+    /* dyke out this switch if you want to acquire a control tty in */
+    /* the future -- not normally advisable for daemons */
+
+    switch (fork())
+    {
+        case 0:  break;
+        case -1: return -1;
+        default: _exit(0);
+    }
+
+    if (!nochdir)
+        chdir("/");
+
+    if (!noclose)
+    {
+        [](int fd){
+            int fdlimit = sysconf(_SC_OPEN_MAX);
+            while (fd < fdlimit)
+                close(fd++);
+        }(0);
+        dup(0); dup(0);
+    }
+
+    return 0;
+}
+
+void will_be_daemon(int argc, char* argv[])
+{
+    for(int i = 0; i < argc; i++) {
+        if(strncmp(argv[i], "-d", 2) == 0) {
+           if(daemon(1, 0, 1) < 0) {
+               cout << "daemon error" << endl;
+               _exit(-1);
+           }
+           break;
+       }
+    }
+}
+
+void will_have_stacktrace()
+{
+    signal(SIGSEGV, [](int sig){
+        print_stacktrace();
+        _exit(-1);
+    });
 }

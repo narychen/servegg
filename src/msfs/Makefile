@@ -99,24 +99,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named msfs
+# Target rules for targets named msfs_server
 
 # Build rule for target.
-msfs: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 msfs
-.PHONY : msfs
+msfs_server: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 msfs_server
+.PHONY : msfs_server
 
 # fast build rule for target.
-msfs/fast:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/build
-.PHONY : msfs/fast
+msfs_server/fast:
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/build
+.PHONY : msfs_server/fast
 
 FileLin.o: FileLin.cpp.o
 .PHONY : FileLin.o
 
 # target to build an object file
 FileLin.cpp.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/FileLin.cpp.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/FileLin.cpp.o
 .PHONY : FileLin.cpp.o
 
 FileLin.i: FileLin.cpp.i
@@ -124,7 +124,7 @@ FileLin.i: FileLin.cpp.i
 
 # target to preprocess a source file
 FileLin.cpp.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/FileLin.cpp.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/FileLin.cpp.i
 .PHONY : FileLin.cpp.i
 
 FileLin.s: FileLin.cpp.s
@@ -132,7 +132,7 @@ FileLin.s: FileLin.cpp.s
 
 # target to generate assembly for a file
 FileLin.cpp.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/FileLin.cpp.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/FileLin.cpp.s
 .PHONY : FileLin.cpp.s
 
 FileManager.o: FileManager.cpp.o
@@ -140,7 +140,7 @@ FileManager.o: FileManager.cpp.o
 
 # target to build an object file
 FileManager.cpp.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/FileManager.cpp.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/FileManager.cpp.o
 .PHONY : FileManager.cpp.o
 
 FileManager.i: FileManager.cpp.i
@@ -148,7 +148,7 @@ FileManager.i: FileManager.cpp.i
 
 # target to preprocess a source file
 FileManager.cpp.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/FileManager.cpp.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/FileManager.cpp.i
 .PHONY : FileManager.cpp.i
 
 FileManager.s: FileManager.cpp.s
@@ -156,7 +156,7 @@ FileManager.s: FileManager.cpp.s
 
 # target to generate assembly for a file
 FileManager.cpp.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/FileManager.cpp.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/FileManager.cpp.s
 .PHONY : FileManager.cpp.s
 
 HttpConn.o: HttpConn.cpp.o
@@ -164,7 +164,7 @@ HttpConn.o: HttpConn.cpp.o
 
 # target to build an object file
 HttpConn.cpp.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/HttpConn.cpp.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/HttpConn.cpp.o
 .PHONY : HttpConn.cpp.o
 
 HttpConn.i: HttpConn.cpp.i
@@ -172,7 +172,7 @@ HttpConn.i: HttpConn.cpp.i
 
 # target to preprocess a source file
 HttpConn.cpp.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/HttpConn.cpp.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/HttpConn.cpp.i
 .PHONY : HttpConn.cpp.i
 
 HttpConn.s: HttpConn.cpp.s
@@ -180,7 +180,7 @@ HttpConn.s: HttpConn.cpp.s
 
 # target to generate assembly for a file
 HttpConn.cpp.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/HttpConn.cpp.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/HttpConn.cpp.s
 .PHONY : HttpConn.cpp.s
 
 StringUtils.o: StringUtils.cpp.o
@@ -188,7 +188,7 @@ StringUtils.o: StringUtils.cpp.o
 
 # target to build an object file
 StringUtils.cpp.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/StringUtils.cpp.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/StringUtils.cpp.o
 .PHONY : StringUtils.cpp.o
 
 StringUtils.i: StringUtils.cpp.i
@@ -196,7 +196,7 @@ StringUtils.i: StringUtils.cpp.i
 
 # target to preprocess a source file
 StringUtils.cpp.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/StringUtils.cpp.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/StringUtils.cpp.i
 .PHONY : StringUtils.cpp.i
 
 StringUtils.s: StringUtils.cpp.s
@@ -204,7 +204,7 @@ StringUtils.s: StringUtils.cpp.s
 
 # target to generate assembly for a file
 StringUtils.cpp.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/StringUtils.cpp.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/StringUtils.cpp.s
 .PHONY : StringUtils.cpp.s
 
 home/nary/servegg/src/base/Base64.o: home/nary/servegg/src/base/Base64.cpp.o
@@ -212,7 +212,7 @@ home/nary/servegg/src/base/Base64.o: home/nary/servegg/src/base/Base64.cpp.o
 
 # target to build an object file
 home/nary/servegg/src/base/Base64.cpp.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/Base64.cpp.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/Base64.cpp.o
 .PHONY : home/nary/servegg/src/base/Base64.cpp.o
 
 home/nary/servegg/src/base/Base64.i: home/nary/servegg/src/base/Base64.cpp.i
@@ -220,7 +220,7 @@ home/nary/servegg/src/base/Base64.i: home/nary/servegg/src/base/Base64.cpp.i
 
 # target to preprocess a source file
 home/nary/servegg/src/base/Base64.cpp.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/Base64.cpp.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/Base64.cpp.i
 .PHONY : home/nary/servegg/src/base/Base64.cpp.i
 
 home/nary/servegg/src/base/Base64.s: home/nary/servegg/src/base/Base64.cpp.s
@@ -228,7 +228,7 @@ home/nary/servegg/src/base/Base64.s: home/nary/servegg/src/base/Base64.cpp.s
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/Base64.cpp.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/Base64.cpp.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/Base64.cpp.s
 .PHONY : home/nary/servegg/src/base/Base64.cpp.s
 
 home/nary/servegg/src/base/BaseSocket.o: home/nary/servegg/src/base/BaseSocket.cpp.o
@@ -236,7 +236,7 @@ home/nary/servegg/src/base/BaseSocket.o: home/nary/servegg/src/base/BaseSocket.c
 
 # target to build an object file
 home/nary/servegg/src/base/BaseSocket.cpp.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/BaseSocket.cpp.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/BaseSocket.cpp.o
 .PHONY : home/nary/servegg/src/base/BaseSocket.cpp.o
 
 home/nary/servegg/src/base/BaseSocket.i: home/nary/servegg/src/base/BaseSocket.cpp.i
@@ -244,7 +244,7 @@ home/nary/servegg/src/base/BaseSocket.i: home/nary/servegg/src/base/BaseSocket.c
 
 # target to preprocess a source file
 home/nary/servegg/src/base/BaseSocket.cpp.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/BaseSocket.cpp.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/BaseSocket.cpp.i
 .PHONY : home/nary/servegg/src/base/BaseSocket.cpp.i
 
 home/nary/servegg/src/base/BaseSocket.s: home/nary/servegg/src/base/BaseSocket.cpp.s
@@ -252,7 +252,7 @@ home/nary/servegg/src/base/BaseSocket.s: home/nary/servegg/src/base/BaseSocket.c
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/BaseSocket.cpp.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/BaseSocket.cpp.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/BaseSocket.cpp.s
 .PHONY : home/nary/servegg/src/base/BaseSocket.cpp.s
 
 home/nary/servegg/src/base/Condition.o: home/nary/servegg/src/base/Condition.cpp.o
@@ -260,7 +260,7 @@ home/nary/servegg/src/base/Condition.o: home/nary/servegg/src/base/Condition.cpp
 
 # target to build an object file
 home/nary/servegg/src/base/Condition.cpp.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/Condition.cpp.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/Condition.cpp.o
 .PHONY : home/nary/servegg/src/base/Condition.cpp.o
 
 home/nary/servegg/src/base/Condition.i: home/nary/servegg/src/base/Condition.cpp.i
@@ -268,7 +268,7 @@ home/nary/servegg/src/base/Condition.i: home/nary/servegg/src/base/Condition.cpp
 
 # target to preprocess a source file
 home/nary/servegg/src/base/Condition.cpp.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/Condition.cpp.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/Condition.cpp.i
 .PHONY : home/nary/servegg/src/base/Condition.cpp.i
 
 home/nary/servegg/src/base/Condition.s: home/nary/servegg/src/base/Condition.cpp.s
@@ -276,7 +276,7 @@ home/nary/servegg/src/base/Condition.s: home/nary/servegg/src/base/Condition.cpp
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/Condition.cpp.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/Condition.cpp.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/Condition.cpp.s
 .PHONY : home/nary/servegg/src/base/Condition.cpp.s
 
 home/nary/servegg/src/base/ConfigFileReader.o: home/nary/servegg/src/base/ConfigFileReader.cpp.o
@@ -284,7 +284,7 @@ home/nary/servegg/src/base/ConfigFileReader.o: home/nary/servegg/src/base/Config
 
 # target to build an object file
 home/nary/servegg/src/base/ConfigFileReader.cpp.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/ConfigFileReader.cpp.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/ConfigFileReader.cpp.o
 .PHONY : home/nary/servegg/src/base/ConfigFileReader.cpp.o
 
 home/nary/servegg/src/base/ConfigFileReader.i: home/nary/servegg/src/base/ConfigFileReader.cpp.i
@@ -292,7 +292,7 @@ home/nary/servegg/src/base/ConfigFileReader.i: home/nary/servegg/src/base/Config
 
 # target to preprocess a source file
 home/nary/servegg/src/base/ConfigFileReader.cpp.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/ConfigFileReader.cpp.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/ConfigFileReader.cpp.i
 .PHONY : home/nary/servegg/src/base/ConfigFileReader.cpp.i
 
 home/nary/servegg/src/base/ConfigFileReader.s: home/nary/servegg/src/base/ConfigFileReader.cpp.s
@@ -300,7 +300,7 @@ home/nary/servegg/src/base/ConfigFileReader.s: home/nary/servegg/src/base/Config
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/ConfigFileReader.cpp.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/ConfigFileReader.cpp.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/ConfigFileReader.cpp.s
 .PHONY : home/nary/servegg/src/base/ConfigFileReader.cpp.s
 
 home/nary/servegg/src/base/EncDec.o: home/nary/servegg/src/base/EncDec.cpp.o
@@ -308,7 +308,7 @@ home/nary/servegg/src/base/EncDec.o: home/nary/servegg/src/base/EncDec.cpp.o
 
 # target to build an object file
 home/nary/servegg/src/base/EncDec.cpp.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/EncDec.cpp.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/EncDec.cpp.o
 .PHONY : home/nary/servegg/src/base/EncDec.cpp.o
 
 home/nary/servegg/src/base/EncDec.i: home/nary/servegg/src/base/EncDec.cpp.i
@@ -316,7 +316,7 @@ home/nary/servegg/src/base/EncDec.i: home/nary/servegg/src/base/EncDec.cpp.i
 
 # target to preprocess a source file
 home/nary/servegg/src/base/EncDec.cpp.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/EncDec.cpp.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/EncDec.cpp.i
 .PHONY : home/nary/servegg/src/base/EncDec.cpp.i
 
 home/nary/servegg/src/base/EncDec.s: home/nary/servegg/src/base/EncDec.cpp.s
@@ -324,7 +324,7 @@ home/nary/servegg/src/base/EncDec.s: home/nary/servegg/src/base/EncDec.cpp.s
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/EncDec.cpp.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/EncDec.cpp.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/EncDec.cpp.s
 .PHONY : home/nary/servegg/src/base/EncDec.cpp.s
 
 home/nary/servegg/src/base/EventDispatch.o: home/nary/servegg/src/base/EventDispatch.cpp.o
@@ -332,7 +332,7 @@ home/nary/servegg/src/base/EventDispatch.o: home/nary/servegg/src/base/EventDisp
 
 # target to build an object file
 home/nary/servegg/src/base/EventDispatch.cpp.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/EventDispatch.cpp.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/EventDispatch.cpp.o
 .PHONY : home/nary/servegg/src/base/EventDispatch.cpp.o
 
 home/nary/servegg/src/base/EventDispatch.i: home/nary/servegg/src/base/EventDispatch.cpp.i
@@ -340,7 +340,7 @@ home/nary/servegg/src/base/EventDispatch.i: home/nary/servegg/src/base/EventDisp
 
 # target to preprocess a source file
 home/nary/servegg/src/base/EventDispatch.cpp.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/EventDispatch.cpp.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/EventDispatch.cpp.i
 .PHONY : home/nary/servegg/src/base/EventDispatch.cpp.i
 
 home/nary/servegg/src/base/EventDispatch.s: home/nary/servegg/src/base/EventDispatch.cpp.s
@@ -348,7 +348,7 @@ home/nary/servegg/src/base/EventDispatch.s: home/nary/servegg/src/base/EventDisp
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/EventDispatch.cpp.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/EventDispatch.cpp.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/EventDispatch.cpp.s
 .PHONY : home/nary/servegg/src/base/EventDispatch.cpp.s
 
 home/nary/servegg/src/base/HttpClient.o: home/nary/servegg/src/base/HttpClient.cpp.o
@@ -356,7 +356,7 @@ home/nary/servegg/src/base/HttpClient.o: home/nary/servegg/src/base/HttpClient.c
 
 # target to build an object file
 home/nary/servegg/src/base/HttpClient.cpp.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/HttpClient.cpp.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/HttpClient.cpp.o
 .PHONY : home/nary/servegg/src/base/HttpClient.cpp.o
 
 home/nary/servegg/src/base/HttpClient.i: home/nary/servegg/src/base/HttpClient.cpp.i
@@ -364,7 +364,7 @@ home/nary/servegg/src/base/HttpClient.i: home/nary/servegg/src/base/HttpClient.c
 
 # target to preprocess a source file
 home/nary/servegg/src/base/HttpClient.cpp.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/HttpClient.cpp.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/HttpClient.cpp.i
 .PHONY : home/nary/servegg/src/base/HttpClient.cpp.i
 
 home/nary/servegg/src/base/HttpClient.s: home/nary/servegg/src/base/HttpClient.cpp.s
@@ -372,7 +372,7 @@ home/nary/servegg/src/base/HttpClient.s: home/nary/servegg/src/base/HttpClient.c
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/HttpClient.cpp.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/HttpClient.cpp.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/HttpClient.cpp.s
 .PHONY : home/nary/servegg/src/base/HttpClient.cpp.s
 
 home/nary/servegg/src/base/HttpParserWrapper.o: home/nary/servegg/src/base/HttpParserWrapper.cpp.o
@@ -380,7 +380,7 @@ home/nary/servegg/src/base/HttpParserWrapper.o: home/nary/servegg/src/base/HttpP
 
 # target to build an object file
 home/nary/servegg/src/base/HttpParserWrapper.cpp.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/HttpParserWrapper.cpp.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/HttpParserWrapper.cpp.o
 .PHONY : home/nary/servegg/src/base/HttpParserWrapper.cpp.o
 
 home/nary/servegg/src/base/HttpParserWrapper.i: home/nary/servegg/src/base/HttpParserWrapper.cpp.i
@@ -388,7 +388,7 @@ home/nary/servegg/src/base/HttpParserWrapper.i: home/nary/servegg/src/base/HttpP
 
 # target to preprocess a source file
 home/nary/servegg/src/base/HttpParserWrapper.cpp.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/HttpParserWrapper.cpp.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/HttpParserWrapper.cpp.i
 .PHONY : home/nary/servegg/src/base/HttpParserWrapper.cpp.i
 
 home/nary/servegg/src/base/HttpParserWrapper.s: home/nary/servegg/src/base/HttpParserWrapper.cpp.s
@@ -396,7 +396,7 @@ home/nary/servegg/src/base/HttpParserWrapper.s: home/nary/servegg/src/base/HttpP
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/HttpParserWrapper.cpp.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/HttpParserWrapper.cpp.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/HttpParserWrapper.cpp.s
 .PHONY : home/nary/servegg/src/base/HttpParserWrapper.cpp.s
 
 home/nary/servegg/src/base/ImPduBase.o: home/nary/servegg/src/base/ImPduBase.cpp.o
@@ -404,7 +404,7 @@ home/nary/servegg/src/base/ImPduBase.o: home/nary/servegg/src/base/ImPduBase.cpp
 
 # target to build an object file
 home/nary/servegg/src/base/ImPduBase.cpp.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/ImPduBase.cpp.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/ImPduBase.cpp.o
 .PHONY : home/nary/servegg/src/base/ImPduBase.cpp.o
 
 home/nary/servegg/src/base/ImPduBase.i: home/nary/servegg/src/base/ImPduBase.cpp.i
@@ -412,7 +412,7 @@ home/nary/servegg/src/base/ImPduBase.i: home/nary/servegg/src/base/ImPduBase.cpp
 
 # target to preprocess a source file
 home/nary/servegg/src/base/ImPduBase.cpp.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/ImPduBase.cpp.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/ImPduBase.cpp.i
 .PHONY : home/nary/servegg/src/base/ImPduBase.cpp.i
 
 home/nary/servegg/src/base/ImPduBase.s: home/nary/servegg/src/base/ImPduBase.cpp.s
@@ -420,7 +420,7 @@ home/nary/servegg/src/base/ImPduBase.s: home/nary/servegg/src/base/ImPduBase.cpp
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/ImPduBase.cpp.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/ImPduBase.cpp.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/ImPduBase.cpp.s
 .PHONY : home/nary/servegg/src/base/ImPduBase.cpp.s
 
 home/nary/servegg/src/base/Lock.o: home/nary/servegg/src/base/Lock.cpp.o
@@ -428,7 +428,7 @@ home/nary/servegg/src/base/Lock.o: home/nary/servegg/src/base/Lock.cpp.o
 
 # target to build an object file
 home/nary/servegg/src/base/Lock.cpp.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/Lock.cpp.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/Lock.cpp.o
 .PHONY : home/nary/servegg/src/base/Lock.cpp.o
 
 home/nary/servegg/src/base/Lock.i: home/nary/servegg/src/base/Lock.cpp.i
@@ -436,7 +436,7 @@ home/nary/servegg/src/base/Lock.i: home/nary/servegg/src/base/Lock.cpp.i
 
 # target to preprocess a source file
 home/nary/servegg/src/base/Lock.cpp.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/Lock.cpp.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/Lock.cpp.i
 .PHONY : home/nary/servegg/src/base/Lock.cpp.i
 
 home/nary/servegg/src/base/Lock.s: home/nary/servegg/src/base/Lock.cpp.s
@@ -444,7 +444,7 @@ home/nary/servegg/src/base/Lock.s: home/nary/servegg/src/base/Lock.cpp.s
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/Lock.cpp.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/Lock.cpp.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/Lock.cpp.s
 .PHONY : home/nary/servegg/src/base/Lock.cpp.s
 
 home/nary/servegg/src/base/SeqAlloctor.o: home/nary/servegg/src/base/SeqAlloctor.cpp.o
@@ -452,7 +452,7 @@ home/nary/servegg/src/base/SeqAlloctor.o: home/nary/servegg/src/base/SeqAlloctor
 
 # target to build an object file
 home/nary/servegg/src/base/SeqAlloctor.cpp.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/SeqAlloctor.cpp.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/SeqAlloctor.cpp.o
 .PHONY : home/nary/servegg/src/base/SeqAlloctor.cpp.o
 
 home/nary/servegg/src/base/SeqAlloctor.i: home/nary/servegg/src/base/SeqAlloctor.cpp.i
@@ -460,7 +460,7 @@ home/nary/servegg/src/base/SeqAlloctor.i: home/nary/servegg/src/base/SeqAlloctor
 
 # target to preprocess a source file
 home/nary/servegg/src/base/SeqAlloctor.cpp.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/SeqAlloctor.cpp.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/SeqAlloctor.cpp.i
 .PHONY : home/nary/servegg/src/base/SeqAlloctor.cpp.i
 
 home/nary/servegg/src/base/SeqAlloctor.s: home/nary/servegg/src/base/SeqAlloctor.cpp.s
@@ -468,7 +468,7 @@ home/nary/servegg/src/base/SeqAlloctor.s: home/nary/servegg/src/base/SeqAlloctor
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/SeqAlloctor.cpp.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/SeqAlloctor.cpp.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/SeqAlloctor.cpp.s
 .PHONY : home/nary/servegg/src/base/SeqAlloctor.cpp.s
 
 home/nary/servegg/src/base/ServInfo.o: home/nary/servegg/src/base/ServInfo.cpp.o
@@ -476,7 +476,7 @@ home/nary/servegg/src/base/ServInfo.o: home/nary/servegg/src/base/ServInfo.cpp.o
 
 # target to build an object file
 home/nary/servegg/src/base/ServInfo.cpp.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/ServInfo.cpp.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/ServInfo.cpp.o
 .PHONY : home/nary/servegg/src/base/ServInfo.cpp.o
 
 home/nary/servegg/src/base/ServInfo.i: home/nary/servegg/src/base/ServInfo.cpp.i
@@ -484,7 +484,7 @@ home/nary/servegg/src/base/ServInfo.i: home/nary/servegg/src/base/ServInfo.cpp.i
 
 # target to preprocess a source file
 home/nary/servegg/src/base/ServInfo.cpp.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/ServInfo.cpp.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/ServInfo.cpp.i
 .PHONY : home/nary/servegg/src/base/ServInfo.cpp.i
 
 home/nary/servegg/src/base/ServInfo.s: home/nary/servegg/src/base/ServInfo.cpp.s
@@ -492,7 +492,7 @@ home/nary/servegg/src/base/ServInfo.s: home/nary/servegg/src/base/ServInfo.cpp.s
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/ServInfo.cpp.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/ServInfo.cpp.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/ServInfo.cpp.s
 .PHONY : home/nary/servegg/src/base/ServInfo.cpp.s
 
 home/nary/servegg/src/base/Thread.o: home/nary/servegg/src/base/Thread.cpp.o
@@ -500,7 +500,7 @@ home/nary/servegg/src/base/Thread.o: home/nary/servegg/src/base/Thread.cpp.o
 
 # target to build an object file
 home/nary/servegg/src/base/Thread.cpp.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/Thread.cpp.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/Thread.cpp.o
 .PHONY : home/nary/servegg/src/base/Thread.cpp.o
 
 home/nary/servegg/src/base/Thread.i: home/nary/servegg/src/base/Thread.cpp.i
@@ -508,7 +508,7 @@ home/nary/servegg/src/base/Thread.i: home/nary/servegg/src/base/Thread.cpp.i
 
 # target to preprocess a source file
 home/nary/servegg/src/base/Thread.cpp.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/Thread.cpp.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/Thread.cpp.i
 .PHONY : home/nary/servegg/src/base/Thread.cpp.i
 
 home/nary/servegg/src/base/Thread.s: home/nary/servegg/src/base/Thread.cpp.s
@@ -516,7 +516,7 @@ home/nary/servegg/src/base/Thread.s: home/nary/servegg/src/base/Thread.cpp.s
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/Thread.cpp.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/Thread.cpp.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/Thread.cpp.s
 .PHONY : home/nary/servegg/src/base/Thread.cpp.s
 
 home/nary/servegg/src/base/ThreadPool.o: home/nary/servegg/src/base/ThreadPool.cpp.o
@@ -524,7 +524,7 @@ home/nary/servegg/src/base/ThreadPool.o: home/nary/servegg/src/base/ThreadPool.c
 
 # target to build an object file
 home/nary/servegg/src/base/ThreadPool.cpp.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/ThreadPool.cpp.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/ThreadPool.cpp.o
 .PHONY : home/nary/servegg/src/base/ThreadPool.cpp.o
 
 home/nary/servegg/src/base/ThreadPool.i: home/nary/servegg/src/base/ThreadPool.cpp.i
@@ -532,7 +532,7 @@ home/nary/servegg/src/base/ThreadPool.i: home/nary/servegg/src/base/ThreadPool.c
 
 # target to preprocess a source file
 home/nary/servegg/src/base/ThreadPool.cpp.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/ThreadPool.cpp.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/ThreadPool.cpp.i
 .PHONY : home/nary/servegg/src/base/ThreadPool.cpp.i
 
 home/nary/servegg/src/base/ThreadPool.s: home/nary/servegg/src/base/ThreadPool.cpp.s
@@ -540,7 +540,7 @@ home/nary/servegg/src/base/ThreadPool.s: home/nary/servegg/src/base/ThreadPool.c
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/ThreadPool.cpp.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/ThreadPool.cpp.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/ThreadPool.cpp.s
 .PHONY : home/nary/servegg/src/base/ThreadPool.cpp.s
 
 home/nary/servegg/src/base/TokenValidator.o: home/nary/servegg/src/base/TokenValidator.cpp.o
@@ -548,7 +548,7 @@ home/nary/servegg/src/base/TokenValidator.o: home/nary/servegg/src/base/TokenVal
 
 # target to build an object file
 home/nary/servegg/src/base/TokenValidator.cpp.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/TokenValidator.cpp.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/TokenValidator.cpp.o
 .PHONY : home/nary/servegg/src/base/TokenValidator.cpp.o
 
 home/nary/servegg/src/base/TokenValidator.i: home/nary/servegg/src/base/TokenValidator.cpp.i
@@ -556,7 +556,7 @@ home/nary/servegg/src/base/TokenValidator.i: home/nary/servegg/src/base/TokenVal
 
 # target to preprocess a source file
 home/nary/servegg/src/base/TokenValidator.cpp.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/TokenValidator.cpp.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/TokenValidator.cpp.i
 .PHONY : home/nary/servegg/src/base/TokenValidator.cpp.i
 
 home/nary/servegg/src/base/TokenValidator.s: home/nary/servegg/src/base/TokenValidator.cpp.s
@@ -564,7 +564,7 @@ home/nary/servegg/src/base/TokenValidator.s: home/nary/servegg/src/base/TokenVal
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/TokenValidator.cpp.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/TokenValidator.cpp.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/TokenValidator.cpp.s
 .PHONY : home/nary/servegg/src/base/TokenValidator.cpp.s
 
 home/nary/servegg/src/base/UtilPdu.o: home/nary/servegg/src/base/UtilPdu.cpp.o
@@ -572,7 +572,7 @@ home/nary/servegg/src/base/UtilPdu.o: home/nary/servegg/src/base/UtilPdu.cpp.o
 
 # target to build an object file
 home/nary/servegg/src/base/UtilPdu.cpp.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/UtilPdu.cpp.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/UtilPdu.cpp.o
 .PHONY : home/nary/servegg/src/base/UtilPdu.cpp.o
 
 home/nary/servegg/src/base/UtilPdu.i: home/nary/servegg/src/base/UtilPdu.cpp.i
@@ -580,7 +580,7 @@ home/nary/servegg/src/base/UtilPdu.i: home/nary/servegg/src/base/UtilPdu.cpp.i
 
 # target to preprocess a source file
 home/nary/servegg/src/base/UtilPdu.cpp.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/UtilPdu.cpp.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/UtilPdu.cpp.i
 .PHONY : home/nary/servegg/src/base/UtilPdu.cpp.i
 
 home/nary/servegg/src/base/UtilPdu.s: home/nary/servegg/src/base/UtilPdu.cpp.s
@@ -588,7 +588,7 @@ home/nary/servegg/src/base/UtilPdu.s: home/nary/servegg/src/base/UtilPdu.cpp.s
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/UtilPdu.cpp.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/UtilPdu.cpp.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/UtilPdu.cpp.s
 .PHONY : home/nary/servegg/src/base/UtilPdu.cpp.s
 
 home/nary/servegg/src/base/http_parser.o: home/nary/servegg/src/base/http_parser.cpp.o
@@ -596,7 +596,7 @@ home/nary/servegg/src/base/http_parser.o: home/nary/servegg/src/base/http_parser
 
 # target to build an object file
 home/nary/servegg/src/base/http_parser.cpp.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/http_parser.cpp.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/http_parser.cpp.o
 .PHONY : home/nary/servegg/src/base/http_parser.cpp.o
 
 home/nary/servegg/src/base/http_parser.i: home/nary/servegg/src/base/http_parser.cpp.i
@@ -604,7 +604,7 @@ home/nary/servegg/src/base/http_parser.i: home/nary/servegg/src/base/http_parser
 
 # target to preprocess a source file
 home/nary/servegg/src/base/http_parser.cpp.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/http_parser.cpp.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/http_parser.cpp.i
 .PHONY : home/nary/servegg/src/base/http_parser.cpp.i
 
 home/nary/servegg/src/base/http_parser.s: home/nary/servegg/src/base/http_parser.cpp.s
@@ -612,7 +612,7 @@ home/nary/servegg/src/base/http_parser.s: home/nary/servegg/src/base/http_parser
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/http_parser.cpp.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/http_parser.cpp.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/http_parser.cpp.s
 .PHONY : home/nary/servegg/src/base/http_parser.cpp.s
 
 home/nary/servegg/src/base/imconn.o: home/nary/servegg/src/base/imconn.cpp.o
@@ -620,7 +620,7 @@ home/nary/servegg/src/base/imconn.o: home/nary/servegg/src/base/imconn.cpp.o
 
 # target to build an object file
 home/nary/servegg/src/base/imconn.cpp.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/imconn.cpp.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/imconn.cpp.o
 .PHONY : home/nary/servegg/src/base/imconn.cpp.o
 
 home/nary/servegg/src/base/imconn.i: home/nary/servegg/src/base/imconn.cpp.i
@@ -628,7 +628,7 @@ home/nary/servegg/src/base/imconn.i: home/nary/servegg/src/base/imconn.cpp.i
 
 # target to preprocess a source file
 home/nary/servegg/src/base/imconn.cpp.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/imconn.cpp.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/imconn.cpp.i
 .PHONY : home/nary/servegg/src/base/imconn.cpp.i
 
 home/nary/servegg/src/base/imconn.s: home/nary/servegg/src/base/imconn.cpp.s
@@ -636,7 +636,7 @@ home/nary/servegg/src/base/imconn.s: home/nary/servegg/src/base/imconn.cpp.s
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/imconn.cpp.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/imconn.cpp.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/imconn.cpp.s
 .PHONY : home/nary/servegg/src/base/imconn.cpp.s
 
 home/nary/servegg/src/base/jsoncpp/json_reader.o: home/nary/servegg/src/base/jsoncpp/json_reader.cpp.o
@@ -644,7 +644,7 @@ home/nary/servegg/src/base/jsoncpp/json_reader.o: home/nary/servegg/src/base/jso
 
 # target to build an object file
 home/nary/servegg/src/base/jsoncpp/json_reader.cpp.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/jsoncpp/json_reader.cpp.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/jsoncpp/json_reader.cpp.o
 .PHONY : home/nary/servegg/src/base/jsoncpp/json_reader.cpp.o
 
 home/nary/servegg/src/base/jsoncpp/json_reader.i: home/nary/servegg/src/base/jsoncpp/json_reader.cpp.i
@@ -652,7 +652,7 @@ home/nary/servegg/src/base/jsoncpp/json_reader.i: home/nary/servegg/src/base/jso
 
 # target to preprocess a source file
 home/nary/servegg/src/base/jsoncpp/json_reader.cpp.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/jsoncpp/json_reader.cpp.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/jsoncpp/json_reader.cpp.i
 .PHONY : home/nary/servegg/src/base/jsoncpp/json_reader.cpp.i
 
 home/nary/servegg/src/base/jsoncpp/json_reader.s: home/nary/servegg/src/base/jsoncpp/json_reader.cpp.s
@@ -660,7 +660,7 @@ home/nary/servegg/src/base/jsoncpp/json_reader.s: home/nary/servegg/src/base/jso
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/jsoncpp/json_reader.cpp.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/jsoncpp/json_reader.cpp.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/jsoncpp/json_reader.cpp.s
 .PHONY : home/nary/servegg/src/base/jsoncpp/json_reader.cpp.s
 
 home/nary/servegg/src/base/jsoncpp/json_value.o: home/nary/servegg/src/base/jsoncpp/json_value.cpp.o
@@ -668,7 +668,7 @@ home/nary/servegg/src/base/jsoncpp/json_value.o: home/nary/servegg/src/base/json
 
 # target to build an object file
 home/nary/servegg/src/base/jsoncpp/json_value.cpp.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/jsoncpp/json_value.cpp.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/jsoncpp/json_value.cpp.o
 .PHONY : home/nary/servegg/src/base/jsoncpp/json_value.cpp.o
 
 home/nary/servegg/src/base/jsoncpp/json_value.i: home/nary/servegg/src/base/jsoncpp/json_value.cpp.i
@@ -676,7 +676,7 @@ home/nary/servegg/src/base/jsoncpp/json_value.i: home/nary/servegg/src/base/json
 
 # target to preprocess a source file
 home/nary/servegg/src/base/jsoncpp/json_value.cpp.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/jsoncpp/json_value.cpp.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/jsoncpp/json_value.cpp.i
 .PHONY : home/nary/servegg/src/base/jsoncpp/json_value.cpp.i
 
 home/nary/servegg/src/base/jsoncpp/json_value.s: home/nary/servegg/src/base/jsoncpp/json_value.cpp.s
@@ -684,7 +684,7 @@ home/nary/servegg/src/base/jsoncpp/json_value.s: home/nary/servegg/src/base/json
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/jsoncpp/json_value.cpp.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/jsoncpp/json_value.cpp.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/jsoncpp/json_value.cpp.s
 .PHONY : home/nary/servegg/src/base/jsoncpp/json_value.cpp.s
 
 home/nary/servegg/src/base/jsoncpp/json_writer.o: home/nary/servegg/src/base/jsoncpp/json_writer.cpp.o
@@ -692,7 +692,7 @@ home/nary/servegg/src/base/jsoncpp/json_writer.o: home/nary/servegg/src/base/jso
 
 # target to build an object file
 home/nary/servegg/src/base/jsoncpp/json_writer.cpp.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/jsoncpp/json_writer.cpp.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/jsoncpp/json_writer.cpp.o
 .PHONY : home/nary/servegg/src/base/jsoncpp/json_writer.cpp.o
 
 home/nary/servegg/src/base/jsoncpp/json_writer.i: home/nary/servegg/src/base/jsoncpp/json_writer.cpp.i
@@ -700,7 +700,7 @@ home/nary/servegg/src/base/jsoncpp/json_writer.i: home/nary/servegg/src/base/jso
 
 # target to preprocess a source file
 home/nary/servegg/src/base/jsoncpp/json_writer.cpp.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/jsoncpp/json_writer.cpp.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/jsoncpp/json_writer.cpp.i
 .PHONY : home/nary/servegg/src/base/jsoncpp/json_writer.cpp.i
 
 home/nary/servegg/src/base/jsoncpp/json_writer.s: home/nary/servegg/src/base/jsoncpp/json_writer.cpp.s
@@ -708,7 +708,7 @@ home/nary/servegg/src/base/jsoncpp/json_writer.s: home/nary/servegg/src/base/jso
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/jsoncpp/json_writer.cpp.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/jsoncpp/json_writer.cpp.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/jsoncpp/json_writer.cpp.s
 .PHONY : home/nary/servegg/src/base/jsoncpp/json_writer.cpp.s
 
 home/nary/servegg/src/base/log4z.o: home/nary/servegg/src/base/log4z.cpp.o
@@ -716,7 +716,7 @@ home/nary/servegg/src/base/log4z.o: home/nary/servegg/src/base/log4z.cpp.o
 
 # target to build an object file
 home/nary/servegg/src/base/log4z.cpp.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/log4z.cpp.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/log4z.cpp.o
 .PHONY : home/nary/servegg/src/base/log4z.cpp.o
 
 home/nary/servegg/src/base/log4z.i: home/nary/servegg/src/base/log4z.cpp.i
@@ -724,7 +724,7 @@ home/nary/servegg/src/base/log4z.i: home/nary/servegg/src/base/log4z.cpp.i
 
 # target to preprocess a source file
 home/nary/servegg/src/base/log4z.cpp.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/log4z.cpp.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/log4z.cpp.i
 .PHONY : home/nary/servegg/src/base/log4z.cpp.i
 
 home/nary/servegg/src/base/log4z.s: home/nary/servegg/src/base/log4z.cpp.s
@@ -732,7 +732,7 @@ home/nary/servegg/src/base/log4z.s: home/nary/servegg/src/base/log4z.cpp.s
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/log4z.cpp.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/log4z.cpp.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/log4z.cpp.s
 .PHONY : home/nary/servegg/src/base/log4z.cpp.s
 
 home/nary/servegg/src/base/netlib.o: home/nary/servegg/src/base/netlib.cpp.o
@@ -740,7 +740,7 @@ home/nary/servegg/src/base/netlib.o: home/nary/servegg/src/base/netlib.cpp.o
 
 # target to build an object file
 home/nary/servegg/src/base/netlib.cpp.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/netlib.cpp.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/netlib.cpp.o
 .PHONY : home/nary/servegg/src/base/netlib.cpp.o
 
 home/nary/servegg/src/base/netlib.i: home/nary/servegg/src/base/netlib.cpp.i
@@ -748,7 +748,7 @@ home/nary/servegg/src/base/netlib.i: home/nary/servegg/src/base/netlib.cpp.i
 
 # target to preprocess a source file
 home/nary/servegg/src/base/netlib.cpp.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/netlib.cpp.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/netlib.cpp.i
 .PHONY : home/nary/servegg/src/base/netlib.cpp.i
 
 home/nary/servegg/src/base/netlib.s: home/nary/servegg/src/base/netlib.cpp.s
@@ -756,7 +756,7 @@ home/nary/servegg/src/base/netlib.s: home/nary/servegg/src/base/netlib.cpp.s
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/netlib.cpp.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/netlib.cpp.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/netlib.cpp.s
 .PHONY : home/nary/servegg/src/base/netlib.cpp.s
 
 home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.o: home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.o
@@ -764,7 +764,7 @@ home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.o: home/nary/servegg/src
 
 # target to build an object file
 home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.o
 .PHONY : home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.o
 
 home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.i: home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.i
@@ -772,7 +772,7 @@ home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.i: home/nary/servegg/src
 
 # target to preprocess a source file
 home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.i
 .PHONY : home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.i
 
 home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.s: home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.s
@@ -780,7 +780,7 @@ home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.s: home/nary/servegg/src
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.s
 .PHONY : home/nary/servegg/src/base/pb/protocol/IM.BaseDefine.pb.cc.s
 
 home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.o: home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.o
@@ -788,7 +788,7 @@ home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.o: home/nary/servegg/src/base
 
 # target to build an object file
 home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.o
 .PHONY : home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.o
 
 home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.i: home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.i
@@ -796,7 +796,7 @@ home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.i: home/nary/servegg/src/base
 
 # target to preprocess a source file
 home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.i
 .PHONY : home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.i
 
 home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.s: home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.s
@@ -804,7 +804,7 @@ home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.s: home/nary/servegg/src/base
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.s
 .PHONY : home/nary/servegg/src/base/pb/protocol/IM.Buddy.pb.cc.s
 
 home/nary/servegg/src/base/pb/protocol/IM.File.pb.o: home/nary/servegg/src/base/pb/protocol/IM.File.pb.cc.o
@@ -812,7 +812,7 @@ home/nary/servegg/src/base/pb/protocol/IM.File.pb.o: home/nary/servegg/src/base/
 
 # target to build an object file
 home/nary/servegg/src/base/pb/protocol/IM.File.pb.cc.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/pb/protocol/IM.File.pb.cc.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/pb/protocol/IM.File.pb.cc.o
 .PHONY : home/nary/servegg/src/base/pb/protocol/IM.File.pb.cc.o
 
 home/nary/servegg/src/base/pb/protocol/IM.File.pb.i: home/nary/servegg/src/base/pb/protocol/IM.File.pb.cc.i
@@ -820,7 +820,7 @@ home/nary/servegg/src/base/pb/protocol/IM.File.pb.i: home/nary/servegg/src/base/
 
 # target to preprocess a source file
 home/nary/servegg/src/base/pb/protocol/IM.File.pb.cc.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/pb/protocol/IM.File.pb.cc.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/pb/protocol/IM.File.pb.cc.i
 .PHONY : home/nary/servegg/src/base/pb/protocol/IM.File.pb.cc.i
 
 home/nary/servegg/src/base/pb/protocol/IM.File.pb.s: home/nary/servegg/src/base/pb/protocol/IM.File.pb.cc.s
@@ -828,7 +828,7 @@ home/nary/servegg/src/base/pb/protocol/IM.File.pb.s: home/nary/servegg/src/base/
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/pb/protocol/IM.File.pb.cc.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/pb/protocol/IM.File.pb.cc.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/pb/protocol/IM.File.pb.cc.s
 .PHONY : home/nary/servegg/src/base/pb/protocol/IM.File.pb.cc.s
 
 home/nary/servegg/src/base/pb/protocol/IM.Group.pb.o: home/nary/servegg/src/base/pb/protocol/IM.Group.pb.cc.o
@@ -836,7 +836,7 @@ home/nary/servegg/src/base/pb/protocol/IM.Group.pb.o: home/nary/servegg/src/base
 
 # target to build an object file
 home/nary/servegg/src/base/pb/protocol/IM.Group.pb.cc.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/pb/protocol/IM.Group.pb.cc.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Group.pb.cc.o
 .PHONY : home/nary/servegg/src/base/pb/protocol/IM.Group.pb.cc.o
 
 home/nary/servegg/src/base/pb/protocol/IM.Group.pb.i: home/nary/servegg/src/base/pb/protocol/IM.Group.pb.cc.i
@@ -844,7 +844,7 @@ home/nary/servegg/src/base/pb/protocol/IM.Group.pb.i: home/nary/servegg/src/base
 
 # target to preprocess a source file
 home/nary/servegg/src/base/pb/protocol/IM.Group.pb.cc.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/pb/protocol/IM.Group.pb.cc.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Group.pb.cc.i
 .PHONY : home/nary/servegg/src/base/pb/protocol/IM.Group.pb.cc.i
 
 home/nary/servegg/src/base/pb/protocol/IM.Group.pb.s: home/nary/servegg/src/base/pb/protocol/IM.Group.pb.cc.s
@@ -852,7 +852,7 @@ home/nary/servegg/src/base/pb/protocol/IM.Group.pb.s: home/nary/servegg/src/base
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/pb/protocol/IM.Group.pb.cc.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/pb/protocol/IM.Group.pb.cc.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Group.pb.cc.s
 .PHONY : home/nary/servegg/src/base/pb/protocol/IM.Group.pb.cc.s
 
 home/nary/servegg/src/base/pb/protocol/IM.Login.pb.o: home/nary/servegg/src/base/pb/protocol/IM.Login.pb.cc.o
@@ -860,7 +860,7 @@ home/nary/servegg/src/base/pb/protocol/IM.Login.pb.o: home/nary/servegg/src/base
 
 # target to build an object file
 home/nary/servegg/src/base/pb/protocol/IM.Login.pb.cc.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/pb/protocol/IM.Login.pb.cc.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Login.pb.cc.o
 .PHONY : home/nary/servegg/src/base/pb/protocol/IM.Login.pb.cc.o
 
 home/nary/servegg/src/base/pb/protocol/IM.Login.pb.i: home/nary/servegg/src/base/pb/protocol/IM.Login.pb.cc.i
@@ -868,7 +868,7 @@ home/nary/servegg/src/base/pb/protocol/IM.Login.pb.i: home/nary/servegg/src/base
 
 # target to preprocess a source file
 home/nary/servegg/src/base/pb/protocol/IM.Login.pb.cc.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/pb/protocol/IM.Login.pb.cc.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Login.pb.cc.i
 .PHONY : home/nary/servegg/src/base/pb/protocol/IM.Login.pb.cc.i
 
 home/nary/servegg/src/base/pb/protocol/IM.Login.pb.s: home/nary/servegg/src/base/pb/protocol/IM.Login.pb.cc.s
@@ -876,7 +876,7 @@ home/nary/servegg/src/base/pb/protocol/IM.Login.pb.s: home/nary/servegg/src/base
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/pb/protocol/IM.Login.pb.cc.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/pb/protocol/IM.Login.pb.cc.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Login.pb.cc.s
 .PHONY : home/nary/servegg/src/base/pb/protocol/IM.Login.pb.cc.s
 
 home/nary/servegg/src/base/pb/protocol/IM.Message.pb.o: home/nary/servegg/src/base/pb/protocol/IM.Message.pb.cc.o
@@ -884,7 +884,7 @@ home/nary/servegg/src/base/pb/protocol/IM.Message.pb.o: home/nary/servegg/src/ba
 
 # target to build an object file
 home/nary/servegg/src/base/pb/protocol/IM.Message.pb.cc.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/pb/protocol/IM.Message.pb.cc.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Message.pb.cc.o
 .PHONY : home/nary/servegg/src/base/pb/protocol/IM.Message.pb.cc.o
 
 home/nary/servegg/src/base/pb/protocol/IM.Message.pb.i: home/nary/servegg/src/base/pb/protocol/IM.Message.pb.cc.i
@@ -892,7 +892,7 @@ home/nary/servegg/src/base/pb/protocol/IM.Message.pb.i: home/nary/servegg/src/ba
 
 # target to preprocess a source file
 home/nary/servegg/src/base/pb/protocol/IM.Message.pb.cc.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/pb/protocol/IM.Message.pb.cc.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Message.pb.cc.i
 .PHONY : home/nary/servegg/src/base/pb/protocol/IM.Message.pb.cc.i
 
 home/nary/servegg/src/base/pb/protocol/IM.Message.pb.s: home/nary/servegg/src/base/pb/protocol/IM.Message.pb.cc.s
@@ -900,7 +900,7 @@ home/nary/servegg/src/base/pb/protocol/IM.Message.pb.s: home/nary/servegg/src/ba
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/pb/protocol/IM.Message.pb.cc.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/pb/protocol/IM.Message.pb.cc.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Message.pb.cc.s
 .PHONY : home/nary/servegg/src/base/pb/protocol/IM.Message.pb.cc.s
 
 home/nary/servegg/src/base/pb/protocol/IM.Other.pb.o: home/nary/servegg/src/base/pb/protocol/IM.Other.pb.cc.o
@@ -908,7 +908,7 @@ home/nary/servegg/src/base/pb/protocol/IM.Other.pb.o: home/nary/servegg/src/base
 
 # target to build an object file
 home/nary/servegg/src/base/pb/protocol/IM.Other.pb.cc.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/pb/protocol/IM.Other.pb.cc.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Other.pb.cc.o
 .PHONY : home/nary/servegg/src/base/pb/protocol/IM.Other.pb.cc.o
 
 home/nary/servegg/src/base/pb/protocol/IM.Other.pb.i: home/nary/servegg/src/base/pb/protocol/IM.Other.pb.cc.i
@@ -916,7 +916,7 @@ home/nary/servegg/src/base/pb/protocol/IM.Other.pb.i: home/nary/servegg/src/base
 
 # target to preprocess a source file
 home/nary/servegg/src/base/pb/protocol/IM.Other.pb.cc.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/pb/protocol/IM.Other.pb.cc.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Other.pb.cc.i
 .PHONY : home/nary/servegg/src/base/pb/protocol/IM.Other.pb.cc.i
 
 home/nary/servegg/src/base/pb/protocol/IM.Other.pb.s: home/nary/servegg/src/base/pb/protocol/IM.Other.pb.cc.s
@@ -924,7 +924,7 @@ home/nary/servegg/src/base/pb/protocol/IM.Other.pb.s: home/nary/servegg/src/base
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/pb/protocol/IM.Other.pb.cc.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/pb/protocol/IM.Other.pb.cc.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Other.pb.cc.s
 .PHONY : home/nary/servegg/src/base/pb/protocol/IM.Other.pb.cc.s
 
 home/nary/servegg/src/base/pb/protocol/IM.Server.pb.o: home/nary/servegg/src/base/pb/protocol/IM.Server.pb.cc.o
@@ -932,7 +932,7 @@ home/nary/servegg/src/base/pb/protocol/IM.Server.pb.o: home/nary/servegg/src/bas
 
 # target to build an object file
 home/nary/servegg/src/base/pb/protocol/IM.Server.pb.cc.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/pb/protocol/IM.Server.pb.cc.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Server.pb.cc.o
 .PHONY : home/nary/servegg/src/base/pb/protocol/IM.Server.pb.cc.o
 
 home/nary/servegg/src/base/pb/protocol/IM.Server.pb.i: home/nary/servegg/src/base/pb/protocol/IM.Server.pb.cc.i
@@ -940,7 +940,7 @@ home/nary/servegg/src/base/pb/protocol/IM.Server.pb.i: home/nary/servegg/src/bas
 
 # target to preprocess a source file
 home/nary/servegg/src/base/pb/protocol/IM.Server.pb.cc.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/pb/protocol/IM.Server.pb.cc.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Server.pb.cc.i
 .PHONY : home/nary/servegg/src/base/pb/protocol/IM.Server.pb.cc.i
 
 home/nary/servegg/src/base/pb/protocol/IM.Server.pb.s: home/nary/servegg/src/base/pb/protocol/IM.Server.pb.cc.s
@@ -948,7 +948,7 @@ home/nary/servegg/src/base/pb/protocol/IM.Server.pb.s: home/nary/servegg/src/bas
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/pb/protocol/IM.Server.pb.cc.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/pb/protocol/IM.Server.pb.cc.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/pb/protocol/IM.Server.pb.cc.s
 .PHONY : home/nary/servegg/src/base/pb/protocol/IM.Server.pb.cc.s
 
 home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.o: home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.o
@@ -956,7 +956,7 @@ home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.o: home/nary/servegg/
 
 # target to build an object file
 home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.o
 .PHONY : home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.o
 
 home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.i: home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.i
@@ -964,7 +964,7 @@ home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.i: home/nary/servegg/
 
 # target to preprocess a source file
 home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.i
 .PHONY : home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.i
 
 home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.s: home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.s
@@ -972,7 +972,7 @@ home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.s: home/nary/servegg/
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.s
 .PHONY : home/nary/servegg/src/base/pb/protocol/IM.SwitchService.pb.cc.s
 
 home/nary/servegg/src/base/util.o: home/nary/servegg/src/base/util.cpp.o
@@ -980,7 +980,7 @@ home/nary/servegg/src/base/util.o: home/nary/servegg/src/base/util.cpp.o
 
 # target to build an object file
 home/nary/servegg/src/base/util.cpp.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/util.cpp.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/util.cpp.o
 .PHONY : home/nary/servegg/src/base/util.cpp.o
 
 home/nary/servegg/src/base/util.i: home/nary/servegg/src/base/util.cpp.i
@@ -988,7 +988,7 @@ home/nary/servegg/src/base/util.i: home/nary/servegg/src/base/util.cpp.i
 
 # target to preprocess a source file
 home/nary/servegg/src/base/util.cpp.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/util.cpp.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/util.cpp.i
 .PHONY : home/nary/servegg/src/base/util.cpp.i
 
 home/nary/servegg/src/base/util.s: home/nary/servegg/src/base/util.cpp.s
@@ -996,7 +996,7 @@ home/nary/servegg/src/base/util.s: home/nary/servegg/src/base/util.cpp.s
 
 # target to generate assembly for a file
 home/nary/servegg/src/base/util.cpp.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/home/nary/servegg/src/base/util.cpp.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/home/nary/servegg/src/base/util.cpp.s
 .PHONY : home/nary/servegg/src/base/util.cpp.s
 
 main.o: main.cpp.o
@@ -1004,7 +1004,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/main.cpp.o
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -1012,7 +1012,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/main.cpp.i
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -1020,7 +1020,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) -f CMakeFiles/msfs.dir/build.make CMakeFiles/msfs.dir/main.cpp.s
+	$(MAKE) -f CMakeFiles/msfs_server.dir/build.make CMakeFiles/msfs_server.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 # Help Target
@@ -1030,7 +1030,7 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... msfs"
+	@echo "... msfs_server"
 	@echo "... rebuild_cache"
 	@echo "... FileLin.o"
 	@echo "... FileLin.i"

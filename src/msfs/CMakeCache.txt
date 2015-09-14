@@ -116,7 +116,7 @@ CMAKE_OBJCOPY:FILEPATH=/usr/bin/objcopy
 CMAKE_OBJDUMP:FILEPATH=/usr/bin/objdump
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=msfs
+CMAKE_PROJECT_NAME:STATIC=msfs_server
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -175,6 +175,12 @@ msfs_BINARY_DIR:STATIC=/home/nary/servegg/src/msfs
 
 //Value Computed by CMake
 msfs_SOURCE_DIR:STATIC=/home/nary/servegg/src/msfs
+
+//Value Computed by CMake
+msfs_server_BINARY_DIR:STATIC=/home/nary/servegg/src/msfs
+
+//Value Computed by CMake
+msfs_server_SOURCE_DIR:STATIC=/home/nary/servegg/src/msfs
 
 
 ########################

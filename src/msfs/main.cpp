@@ -28,50 +28,6 @@ CConfigFileReader config_file("msfs.conf");
 CThreadPool g_PostThreadPool;
 CThreadPool g_GetThreadPool;
 
-void closeall(int fd)
-{
-    int fdlimit = sysconf(_SC_OPEN_MAX);
-
-    while (fd < fdlimit)
-        close(fd++);
-}
-
-int daemon(int nochdir, int noclose, int asroot)
-{
-    switch (fork())
-    {
-        case 0:  break;
-        case -1: return -1;
-        default: _exit(0);          /* exit the original process */
-    }
-
-    if (setsid() < 0)               /* shoudn't fail */
-        return -1;
-
-    if ( !asroot && (setuid(1) < 0) )              /* shoudn't fail */
-        return -1;
-
-    /* dyke out this switch if you want to acquire a control tty in */
-    /* the future -- not normally advisable for daemons */
-
-    switch (fork())
-    {
-        case 0:  break;
-        case -1: return -1;
-        default: _exit(0);
-    }
-
-    if (!nochdir)
-        chdir("/");
-
-    if (!noclose)
-    {
-        closeall(0);
-        dup(0); dup(0);
-    }
-
-    return 0;
-}
 
 // for client connect in
 void http_callback(void* callback_data, uint8_t msg, uint32_t handle,
@@ -115,28 +71,13 @@ void Stop(int signo)
     }
 }
 
-void cxx_handler(int sig)
-{
-  print_stacktrace();
-  exit(1);
-}
 
 int main(int argc, char* argv[])
 {
     backup_core_file();
-    // signal(SIGSEGV, cxx_handler);
-    for(int i=0; i < argc; ++i)
-       {
-           if(strncmp(argv[i], "-d", 2) == 0)
-           {
-               if(daemon(1, 0, 1) < 0)
-               {
-                   cout<<"daemon error"<<endl;
-                   return -1;
-               }
-               break;
-           }
-       }
+    will_have_stacktrace();
+    will_be_daemon(argc, argv);
+    
     log("MsgServer max files can open: %d", getdtablesize());
 
     char* listen_ip = config_file.GetConfigName("ListenIP");

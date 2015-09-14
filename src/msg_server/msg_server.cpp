@@ -36,6 +36,7 @@ void msg_serv_callback(void* callback_data, uint8_t msg, uint32_t handle, void* 
 int main(int argc, char* argv[])
 {
 	backup_core_file();
+	will_be_daemon(argc, argv);
 	
 	if ((argc == 2) && (strcmp(argv[1], "-v") == 0)) {
 //		printf("Server Version: MsgServer/%s\n", VERSION);
